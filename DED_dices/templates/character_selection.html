@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Seleção de Personagens
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/character_selection.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="header">
+		<h1>Seleção de Personagens</h1>
+		<a class="new-char" href="/player_token_creation/">Novo Personagem</a>
+	</div>
+	<form class="search-container" method="GET">
+		<input type="text" placeholder="Pesquisar..." name="search_input">
+		<input type="submit" class="search-btn" value="Pesquisar" name="search">
+	</form>
+	<div class="display-container">
+		{% for character in all_characters %}
+		<div class="character">
+
+			<a href="/play/{{character.id}}/">
+				{% if character.portrait %}
+				<img src="{{character.portrait.url}}" alt="Imagem do personagem">
+				{% else %}
+				<img src="{% static 'imgs/default_portrait.webp' %}" alt="Imagem do personagem">
+				{% endif %}
+			</a>
+
+			<h2>{{character.name}} - {{character.job}}</h2>
+			<div class="buttons">
+				<a class="edit-btn" href="/edit_character/{{character.id}}/">Editar</a>
+				<a class="delete-btn" href='/delete_character/{{character.id}}/'>Excluir</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

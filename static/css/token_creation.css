@@ -1,0 +1,590 @@
+body {
+    margin: 1rem;
+}
+
+textarea {
+    resize: none;
+    border: solid;
+    border-radius: 10px
+}
+
+.header {
+    display: flex;
+}
+
+.character-name {
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.character-name[type="text"] {
+    font-size: large;
+}
+
+.character-upperFeatures {
+    border: solid;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.character-upperFeatures div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upperFeatures {
+    margin: 0.1rem 0.2rem;
+}
+
+.first-page {
+    display: flex;
+    margin-top: 1rem;
+    border: solid;
+    padding: 0.5rem;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.col-1 {
+    border: solid;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modifier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0;
+}
+
+.modifier .modifier-input {
+    width: 4rem;
+    height: 3rem;
+    display: flex;
+}
+
+.modifier .atribute-input {
+    width: 2rem;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+}
+
+.modifier input[type="number"] {
+    text-align: center;
+    font-size: large;
+}
+
+.bonus {
+    margin: 1rem;
+}
+
+.inspiration,
+.proeficiency {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    border: solid;
+}
+
+.inspiration input,
+.proeficiency input {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.saveguard {
+    margin: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.saveguard p {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.skills {
+    margin: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.skills p {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.col-3 {
+    margin: 1rem 1rem 1rem 0;
+}
+
+.body_statistics {
+    display: flex;
+    flex-wrap: wrap;
+    border: solid;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.body_statistic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.body_statistic input {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.body_statistic input[type="text"] {
+    text-align: center;
+}
+
+.language_and_other_skills-field {
+    margin-top: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.language_and_other_skills-field textarea {
+    resize: none;
+    width: 100%;
+    height: 200px;
+    border: solid;
+    border-radius: 10px;
+    margin-bottom: 1rem
+}
+
+.language_and_other_skills-field p {
+    text-align: center;
+}
+
+.equipment-field {
+    margin-top: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.equipment-field p {
+    text-align: center;
+}
+
+.equipment-field textarea {
+    resize: none;
+}
+
+.equipment-content {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.money {
+    display: flex;
+    flex-direction: column;
+}
+
+.money_category {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.money_category input {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+.first-page {
+    display: flex;
+    justify-content: space-around;
+}
+
+.col-4 {
+    margin-top: 1rem
+}
+
+.character-characteristics {
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.characteristics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.characteristics textarea {
+    width: 100%;
+    height: 6rem;
+    resize: none;
+    border: solid;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.characteristics p {
+    margin-bottom: 0.5rem;
+}
+
+.characteristics_and_skills {
+    margin-top: 1rem;
+    border: solid;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.characteristics_and_skills textarea {
+    width: 15rem;
+    resize: none;
+    height: 10rem;
+}
+
+.characteristics_and_skills p {
+    margin-top: 1rem
+}
+
+.second-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appaerance,
+.other_characteristics,
+.allies_and_organizations,
+.inventory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.second-page textarea {
+    width: 20rem;
+    height: 40rem;
+    margin-bottom: 1rem;
+}
+
+.second-page p {
+    margin-bottom: 1rem
+}
+
+.second-page .inventory textarea {
+    width: 60rem
+}
+
+.third-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.history textarea {
+    width: 95%;
+    height: 40rem;
+    margin: 1rem;
+}
+
+.history p {
+    margin-bottom: 1rem;
+}
+
+.four-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.magics_attacks,
+.physical_attacks {
+    width: 40vw;
+    height: 60vh;
+    margin-top: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col-7 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.attack-header {
+    padding-bottom: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.attack-header h2 {
+    font-size: xx-large;
+}
+
+.attack-header button {
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s
+}
+
+.attack-header button:hover {
+    background-color: #bbbbbb
+}
+
+.physical_attacks-field,
+.magic_attacks-field {
+    width: 90%;
+    height: 90%;
+    border: solid;
+    border-radius: 10px;
+    overflow-y: scroll;
+    margin-top: 0.5rem;
+}
+
+.submit_form {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button {
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #2b2d42;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.submit-button:hover {
+    background-color: #1d1f2f;
+}
+
+/*popup*/
+
+/* Estilos para o container do pop-up */
+#popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Estilos para o conteúdo do pop-up */
+#popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    max-width: 90%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+/* Estilos para o cabeçalho do pop-up */
+#popup h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* Estilos para as etiquetas do pop-up */
+#popup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Estilos para os campos de entrada do pop-up */
+#popup input,
+#popup select {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o botão de envio do pop-up */
+#popup button[type="button"] {
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Estilos para o botão de fechar o pop-up */
+#popup button:last-of-type {
+    background-color: #081560;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o fundo do botão de fechar o pop-up */
+#popup button:last-of-type::before,
+#popup button:last-of-type::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    transform: rotate(45deg);
+    top: 50%;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -10px;
+}
+
+/* Estilos para a segunda linha do fundo do botão de fechar o pop-up */
+#popup button:last-of-type::after {
+    transform: rotate(-45deg);
+}
+
+.popup-form {
+    display: flex;
+    justify-content: space-around;
+}
+
+#attack_description {
+    height: 100%;
+    width: 25vw;
+    resize: none;
+}
+
+.popup_primary-form,
+.magic-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.attack {
+    margin: 0.5rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.magic_lvl {
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-top: solid;
+    border-bottom: solid;
+    margin-bottom: 1rem;
+}
+
+.lvl_0,
+.lvl_1,
+.lvl_2,
+.lvl_3,
+.lvl_4,
+.lvl_5,
+.lvl_6,
+.lvl_7,
+.lvl_8,
+.lvl_9,
+.lvl_10 {
+    display: none;
+}
+
+#edit_attack-section {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    transition: all 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #e0e0e0;
+}
+
+.custom-file-upload i {
+    margin-right: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}

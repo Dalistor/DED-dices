@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Escolha sua sessão
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/selection.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="btn-container">
+  	<div>
+  		<h1>Escolha sua sessão</h1>
+    	<a href="/player_selection/">Jogador</a>
+    	<a href="/master_selection/">Mestre</a>
+  	</div>
+  </div>
+{% endblock %}

@@ -1,0 +1,954 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Seleção de Personagens
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/token_creation.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form method="POST" enctype="multipart/form-data">
+		<div class="header">
+			<input type="text" name="name" maxlength="30" placeholder="Nome do personagem" class="character-name" required>
+
+			<div class="character-upperFeatures">
+				<input type="text" name="job" maxlength="50" placeholder="Classe" class="upperFeatures" required>
+				<input type="number" name="lvl" min="1" max="100" placeholder="Nível" class="upperFeatures" required>
+				<input type="text" name="background" maxlength="20" placeholder="Antecedente" class="upperFeatures" required>
+				<input type="text" name="race" maxlength="20" placeholder="Raça" class="upperFeatures" required>
+				<input type="number" name="experience" max="1000000000" placeholder="Experiência" class="upperFeatures">
+
+				<div>
+					<label for="image" class="custom-file-upload">
+						<i class="fa fa-cloud-upload"></i> Escolha um arquivo
+					</label>
+					<input type="file" name="portrait" id="image" accept="image/*">
+				</div>
+			</div>
+		</div>
+
+		<div class="first-page">
+			<div class="col-1">
+				<div class="modifier">
+					<p>Força</p>
+					<input type="number" name="strength_modifier" value="0" class="modifier-input">
+					<input type="number" name="strength_atribute" value="10" class="atribute-input">
+				</div>
+
+				<div class="modifier">
+					<p>Destreza</p>
+					<input type="number" name="dexterity_modifier" value="0" class="modifier-input">
+					<input type="number" name="dexterity_atribute" value="10" class="atribute-input">
+				</div>
+
+				<div class="modifier">
+					<p>Constituição</p>
+					<input type="number" name="constituition_modifier" value="0" class="modifier-input">
+					<input type="number" name="constituition_atribute" value="10" class="atribute-input">
+				</div>
+
+				<div class="modifier">
+					<p>Inteligência</p>
+					<input type="number" name="intelligence_modifier" value="0" class="modifier-input">
+					<input type="number" name="intelligence_atribute" value="10" class="atribute-input">
+				</div>
+
+				<div class="modifier">
+					<p>Sabedoria</p>
+					<input type="number" name="wisdom_modifier" value="0" class="modifier-input">
+					<input type="number" name="wisdom_atribute" value="10" class="atribute-input">
+				</div>
+
+				<div class="modifier">
+					<p>Carisma</p>
+					<input type="number" name="charisma_modifier" value="0" class="modifier-input">
+					<input type="number" name="charisma_atribute" value="10" class="atribute-input">
+				</div>
+			</div>
+
+			<div class="col-2">
+				<div class="bonus">
+					<div class="inspiration">
+						<input type="number" name="inspiration" value="0">
+						<p>Inspiração</p>
+					</div>
+					<div class="proeficiency">
+						<input type="number" name="proeficiency" value="2">
+						<p>Proeficiência</p>
+					</div>
+				</div>
+
+				<div class="saveguard">
+					<p>Testes de resistência</p>
+
+					<div class="saveguard-attribute">
+						<input type="radio" name="strength_proeficiency" id="strength">
+						<label for="strength">Força</label>
+					</div>
+					<div class="saveguard-attribute">
+						<input type="radio" name="dexterity_proeficiency" id="dexterity">
+						<label for="dexterity">Destreza</label>
+					</div>
+					<div class="saveguard-attribute">
+						<input type="radio" name="constituition_proeficiency" id="constituition">
+						<label for="constituition">Constituição</label>
+					</div>
+					<div class="saveguard-attribute">
+						<input type="radio" name="intelligence_proeficiency" id="intelligence">
+						<label for="intelligence">Inteligência</label>
+					</div>
+					<div class="saveguard-attribute">
+						<input type="radio" name="wisdom_proeficiency" id="wisdom">
+						<label for="wisdom">Sabedoria</label>
+					</div>
+					<div class="saveguard-attribute">
+						<input type="radio" name="charisma_proeficiency" id="charisma">
+						<label for="charisma">Carisma</label>
+					</div>
+				</div>
+
+				<div class="skills">
+					<p>Perícias</p>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="athletics_proeficiency" id="athletics">
+						<label for="athletics">Atletismo - (For)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="stunt_proeficiency" id="stunt">
+						<label for="stunt">Acrobacia - (Des)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="stealth_proeficiency" id="stealth">
+						<label for="stealth">Furtividade - (Des)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="sleight_proeficiency" id="sleight">
+						<label for="sleight">Prestidigitação - (Des)</label>
+					</div>
+
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="arcana_proeficiency" id="arcana">
+						<label for="arcana">Arcanismo - (Int)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="history_proeficiency" id="history">
+						<label for="history">História - (Int)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="investigation_proeficiency" id="investigation">
+						<label for="investigation">Investigação - (Int)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="medicine_proeficiency" id="medicine">
+						<label for="medicine">Medicina - (Int)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="nature_proeficiency" id="nature">
+						<label for="nature">Natureza - (Int)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="religion_proeficiency" id="religion">
+						<label for="religion">Religião - (Int)</label>
+					</div>
+
+					
+					<div class="skills-proeficiency">
+						<input type="radio" name="acting_proeficiency" id="acting">
+						<label for="acting">Atuação - (Car)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="bluff_proeficiency" id="bluff">
+						<label for="bluff">Blefar - (Car)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="intimidation_proeficiency" id="intimidation">
+						<label for="intimidation">Intimidação - (Car)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="intuition_proeficiency" id="intuition">
+						<label for="intuition">Intuição - (Car)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="persuasion_proeficiency" id="persuasion">
+						<label for="persuasion">Persuasão - (Car)</label>
+					</div>
+
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="animal_proeficiency" id="animal">
+						<label for="animal">Adestrar - (Sab)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="perception_proeficiency" id="perception">
+						<label for="perception">Percepção - (Sab)</label>
+					</div>
+
+					<div class="skills-proeficiency">
+						<input type="radio" name="survive_proeficiency" id="survive">
+						<label for="survive">Sobrevivência - (Sab)</label>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-3">
+				<div class="body_statistics">
+					<div class="body_statistic">
+						<input type="number" name="class_armor" id="ca" placeholder="CA" required>
+					</div>
+					<div class="body_statistic">
+						<input type="number" name="iniciative" id="iniciative" placeholder="Iniciativa" required>
+					</div>
+					<div class="body_statistic">
+						<input type="number" name="displacement" id="displacement" placeholder="Deslocamento" required>
+					</div>
+					<div class="body_statistic">
+						<input type="number" name="hp" id="hp" placeholder="HP" required>
+					</div>
+				</div>
+
+				<div class="language_and_other_skills-field">
+					<textarea name="language_and_other_skills"></textarea>
+					<p>Idiomas e outras proeficiências</p>
+				</div>
+
+				<div class="equipment-field">
+					<div class="equipment-content">
+						<div class="money">
+							<label class="money_category" for="pc">
+								PC <input type="number" name="pc" id="pc" placeholder="PC">
+							</label>
+							<label class="money_category" for="pp">
+								PP <input type="number" name="pp" id="pp" placeholder="PP">
+							</label>
+							<label class="money_category" for="po">
+								PO <input type="number" name="po" id="po" placeholder="PO">
+							</label>
+							<label class="money_category" for="pl">
+								PL <input type="number" name="pl" id="pl" placeholder="PL">
+							</label>
+							<label class="money_category" for="da">
+								DA <input type="number" name="da" id="da" placeholder="DA">
+							</label>
+						</div>
+
+						<textarea></textarea>
+					</div>
+
+					<p>Equipamentos</p>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class="character-characteristics">
+					<div class="characteristics">
+						<textarea name="ideals"></textarea>
+						<p>Ideais</p>
+					</div>
+					<div class="characteristics">
+						<textarea name="ligations"></textarea>
+						<p>Ligações</p>
+					</div>
+					<div class="characteristics">
+						<textarea name="defects"></textarea>
+						<p>Defeitos</p>
+					</div>
+				</div>
+
+				<div class="characteristics_and_skills">
+					<textarea name="characteristics_and_skills"></textarea>
+					<p>Características e habilidades</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="second-page">
+			<div class="appaerance">
+				<textarea name="appaerance"></textarea>
+				<p>Aparência</p>
+			</div>
+			<div class="other_characteristics">
+				<textarea name="other_characteristics"></textarea>
+				<p>Outras características e habilidades</p>
+			</div>
+
+			<div class="allies_and_organizations">
+				<textarea name="allies_and_organizations"></textarea>
+				<p>Aliados e organizações</p>
+			</div>
+			<div class="inventory">
+				<textarea name="inventory"></textarea>
+				<p>Inventário</p>
+			</div>
+		</div>
+
+		<div class="third-page">
+			<div class="col-6">
+				<div class="history">
+					<textarea name="history"></textarea>
+					<p>História</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="four-page">
+			<div class="col-7">
+				<div class="physical_attacks">
+					<div class="attack-header">
+						<h2>Ataques físicos</h2>
+						<button type="button" class="new_attack-button" id="new_attack_physical">Novo ataque</button>
+					</div>
+					<div class="physical_attacks-field"></div>
+					<input type="hidden" name="physical_attacks" value="">
+				</div>
+
+				<div class="magics_attacks">
+					<div class="attack-header">
+						<h2>Ataques mágicos</h2>
+						<button type="button" class="new_attack-button" id="new_attack_magic">Novo ataque</button>
+					</div>
+					<div class="magic_attacks-field">
+						<div class="magic_lvl lvl_0">
+							<h2>Truques</h2>
+							<div class="lvl-content" id="lvl_0"></div>
+						</div>
+						<div class="magic_lvl lvl_1">
+							<h2>LVL 1</h2>
+							<div class="lvl-content" id="lvl_1"></div>
+						</div>
+						<div class="magic_lvl lvl_2">
+							<h2>LVL 2</h2>
+							<div class="lvl-content" id="lvl_2"></div>
+						</div>
+						<div class="magic_lvl lvl_3">
+							<h2>LVL 3</h2>
+							<div class="lvl-content" id="lvl_3"></div>
+						</div>
+						<div class="magic_lvl lvl_4">
+							<h2>LVL 4</h2>
+							<div class="lvl-content" id="lvl_4"></div>
+						</div>
+						<div class="magic_lvl lvl_5">
+							<h2>LVL 5</h2>
+							<div class="lvl-content" id="lvl_5"></div>
+						</div>
+						<div class="magic_lvl lvl_6">
+							<h2>LVL 6</h2>
+							<div class="lvl-content" id="lvl_6"></div>
+						</div>
+						<div class="magic_lvl lvl_7">
+							<h2>LVL 7</h2>
+							<div class="lvl-content" id="lvl_7"></div>
+						</div>
+						<div class="magic_lvl lvl_8">
+							<h2>LVL 8</h2>
+							<div class="lvl-content" id="lvl_8"></div>
+						</div>
+						<div class="magic_lvl lvl_9">
+							<h2>LVL 9</h2>
+							<div class="lvl-content" id="lvl_9"></div>
+						</div>
+						<div class="magic_lvl lvl_10">
+							<h2>Especial</h2>
+							<div class="lvl-content" id="lvl_10"></div>
+						</div>
+					</div>
+					<input type="hidden" name="magic_attacks" value="">
+				</div>
+			</div>
+
+			<div class="popup-container" id="popup-container">
+				<div class="popup" id="popup">
+					<h2>Novo Ataque</h2>
+					<div class="popup-form">
+						<div class="popup_primary-form">
+							<label for="attack-name">Nome do Ataque</label>
+							<input type="text" id="attack-name" name="attack-name">
+
+							<label for="magic-lvl">Nivel</label>
+							<select id="magic-lvl" name="magic-lvl" disabled="">
+								<option value="lvl_0">Truque</option>
+								<option value="lvl_1">lvl 1</option>
+								<option value="lvl_2">lvl 2</option>
+								<option value="lvl_3">lvl 3</option>
+								<option value="lvl_4">lvl 4</option>
+								<option value="lvl_5">lvl 5</option>
+								<option value="lvl_6">lvl 6</option>
+								<option value="lvl_7">lvl 7</option>
+								<option value="lvl_8">lvl 8</option>
+								<option value="lvl_9">lvl 9</option>
+								<option value="lvl_10">Especial</option>
+							</select>
+
+							<label for="dice-type">Tipo de Dado 1</label>
+							<select id="dice_1" name="dice-type">
+								<option value="Nenhum">Nenhum</option>
+								<option value="D4">D4</option>
+								<option value="D6">D6</option>
+								<option value="D8">D8</option>
+								<option value="D10">D10</option>
+								<option value="D12">D12</option>
+								<option value="D20">D20</option>
+								<option value="D100">D100</option>
+							</select>
+
+							<label for="dice-type">Tipo de Dado 2</label>
+							<select id="dice_2" name="dice-type">
+								<option value="Nenhum">Nenhum</option>
+								<option value="D4">D4</option>
+								<option value="D6">D6</option>
+								<option value="D8">D8</option>
+								<option value="D10">D10</option>
+								<option value="D12">D12</option>
+								<option value="D20">D20</option>
+								<option value="D100">D100</option>
+							</select>
+
+							<label for="dice-type">Tipo de Dado 3</label>
+							<select id="dice_3" name="dice-type">
+								<option value="Nenhum">Nenhum</option>
+								<option value="D4">D4</option>
+								<option value="D6">D6</option>
+								<option value="D8">D8</option>
+								<option value="D10">D10</option>
+								<option value="D12">D12</option>
+								<option value="D20">D20</option>
+								<option value="D100">D100</option>
+							</select>
+
+							<label for="rolls_1">Número de Rolagens 1</label>
+							<input type="number" id="roll_1" name="rolls_1" min="0" max="100" disabled>
+							<label for="rolls_2">Número de Rolagens 2</label>
+							<input type="number" id="roll_2" name="rolls_2" min="0" max="100" disabled>
+							<label for="rolls_3">Número de Rolagens 3</label>
+							<input type="number" id="roll_3" name="rolls_3" min="0" max="100" disabled>
+
+							<label for="damage-mod">Modificador de Dano</label>
+							<input type="number" id="damage-mod" name="damage-mod" min="0" max="100">
+
+							<label for="attribute-mod">Modificador de Atributo</label>
+							<select id="attribute-mod" name="attribute-mod" required>
+								<option value="Nenhum">Nenhum</option>
+								<option value="Força">Força</option>
+								<option value="Destreza">Destreza</option>
+								<option value="Constituição">Constituição</option>
+								<option value="Inteligência">Inteligência</option>
+								<option value="Sabedoria">Sabedoria</option>
+								<option value="Carisma">Carisma</option>
+							</select>
+
+							<label for="proeficiency-box">Proeficiência</label>
+							<input id="proeficiency-box" type="radio">
+						</div>
+
+						<div class="popup_secoundary-form">
+							<textarea name="attack_description" id="attack_description"></textarea>
+						</div>
+					</div>
+
+					<div class="popup-buttons" id="new_attack-section">
+						<button type="button" id="new_attack-button">Criar ataque</button>
+					</div>
+					<div class="popup-buttons" id="edit_attack-section">
+						<button type="button" id="edit_attack-button">Editar ataque</button>
+						<button type="button" id="delete_attack-button">Deletar ataque</button>
+					</div>
+					<button type="button" id="close_popup-button">Fechar</button>
+				</div>
+			</div>
+
+			<input value="" type="hidden" id="attacks_objects" name="attacks">		
+		</div>
+
+		<div class="submit_form">
+			{% csrf_token %}
+			<input type="submit" name="create_character" value="Criar personagem" class="submit-button">
+		</div>
+	</form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+	//script para o popup
+
+	const popupContainer = $('#popup-container')
+	const popup = $('#popup')
+	const closePopup_button = $('#close_popup-button')
+
+	function openPopup(edit = false, type) {
+		popupContainer.css('display', 'block')
+
+		switch (edit) {
+			case false:
+				$('#edit_attack-section').css('display', 'none')
+				$('#new_attack-section').css('display', 'block')
+
+				break
+
+			case true:
+				$('#edit_attack-section').css('display', 'block')
+				$('#new_attack-section').css('display', 'none')
+
+				break
+		}
+
+		switch (type) {
+			case "physical":
+				$('#magic-lvl').prop('disabled', true)
+				break
+			case "magic":
+				$('#magic-lvl').prop('disabled', false)
+				break
+		}
+	}
+
+	function closePopup() {
+		//limpeza do form
+		$('#attack-name').val(null)
+		$('#magic-lvl').val('lvl_0')
+		$('#dice_1').val('Nenhum')
+		$('#dice_2').val('Nenhum')
+		$('#dice_3').val('Nenhum')
+		$('#roll_1').val(null)
+		$('#roll_2').val(null)
+		$('#roll_3').val(null)
+		$('#roll_1').prop('disabled', true)
+		$('#roll_2').prop('disabled', true)
+		$('#roll_3').prop('disabled', true)
+		$('#damage-mod').val(null)
+		$('#attribute-mod').val('Nenhum')
+		$('#proeficiency-box').prop('checked', false)
+		$('#attack_description').val(null)
+
+		popupContainer.css('display', 'none')
+	}
+
+	closePopup_button.on('click', closePopup)
+
+	popupContainer.on('click', (event) => {
+		if (event.target === popupContainer) {
+			closePopup()
+		}
+	})
+</script>
+
+<script>
+	//script para corrigir a sessão de atributos e modificadores
+
+	$('.atribute-input').on('change', function () {
+		var atributo = $(this).val()
+
+		if (atributo === '') {
+			atributo = 10
+			$(this).val(atributo)
+		}
+
+		var modificador = Math.floor((atributo - 10) / 2)
+		var modificadorInput = $(this).prev('.modifier-input')
+
+		if (modificadorInput.val() === '') {
+			modificadorInput.val(modificador)
+		}
+
+		modificadorInput.val(modificador)
+	})
+
+	$('.modifier-input').on('change', function () {
+		var modificador = $(this).val()
+
+		if (modificador === '') {
+			modificador = 0
+			$(this).val(modificador)
+		}
+
+		var atributo = modificador * 2 + 10
+		var atributoInput = $(this).next('.atribute-input')
+
+		if (atributoInput.val() === '') {
+			atributoInput.val(atributo)
+		}
+
+		atributoInput.val(atributo)
+	})
+</script>
+
+<script>
+	//script para inpedir que a sessão de dinheiro fique nula
+
+	function adjustMoneyValue(field) {
+		if (field.val() == '') {
+			field.val(0)
+		}
+	}
+
+	$('.money_category input[type="number"]').on('blur', function() {
+		adjustMoneyValue($(this))
+	})
+
+	$('.money_category input[type="number"]').each(function() {
+		adjustMoneyValue($(this))
+	})
+</script>
+
+<script>
+	//script do formulario
+
+	const openPopupButton_physical = $('#new_attack_physical')
+	const openPopupButton_magic = $('#new_attack_magic')
+
+	const dice1Select = $('#dice_1')
+	const dice2Select = $('#dice_2')
+	const dice3Select = $('#dice_3')
+
+	const rolls1Input = $('#roll_1')
+	const rolls2Input = $('#roll_2')
+	const rolls3Input = $('#roll_3')
+
+	var attack_type
+
+	openPopupButton_physical.on('click', () => {
+		attack_type = 'physical'
+		openPopup(false, attack_type)
+	})
+
+	openPopupButton_magic.on('click', () => {
+		attack_type = 'magic'
+		openPopup(false, attack_type)
+	})
+
+	dice1Select.on('change', () => {
+		if (dice1Select.val() == 'Nenhum') {
+			rolls1Input.prop('disabled', true)
+			rolls1Input.val(null)
+		} else {
+			rolls1Input.prop('disabled', false)
+		}
+	})
+
+	dice2Select.on('change', () => {
+		if (dice2Select.val() == 'Nenhum') {
+			rolls2Input.prop('disabled', true)
+			rolls2Input.val(null)
+		} else {
+			rolls2Input.prop('disabled', false)
+		}
+	})
+
+	dice3Select.on('change', () => {
+		if (dice3Select.val() == 'Nenhum') {
+			rolls3Input.prop('disabled', true)
+			rolls3Input.val(null)
+		} else {
+			rolls3Input.prop('disabled', false)
+		}
+	})
+</script>
+
+<script>
+	//script para criar um novo ataque
+
+	const new_attack = $('#new_attack-button')
+	let attacks_num = 0
+
+	new_attack.on('click', () => {
+		let name = $('#attack-name').val()
+
+		let magic_lvl = $('#magic-lvl').val()
+
+		let dice_1 = $('#dice_1').val()
+		let dice_2 = $('#dice_2').val()
+		let dice_3 = $('#dice_3').val()
+
+		let roll_1 = $('#roll_1').val()
+		let roll_2 = $('#roll_2').val()
+		let roll_3 = $('#roll_3').val()
+
+		let damage_modifier = $('#damage-mod').val()
+		let atribute_modifier = $('#attribute-mod').val()
+
+		let proeficiency = $('#proeficiency-box').prop('checked')
+
+		let description = $('#attack_description').val().replace(/\n/g, '{$br$}')
+
+		const validate = validate_form()
+		if (!validate.is_valid) {
+			return alert(validate.error_message)
+		}
+
+		let value = {
+			name: name,
+			magic_lvl: magic_lvl,
+			dice_1: dice_1,
+			dice_2: dice_2,
+			dice_3: dice_3,
+			roll_1: roll_1,
+			roll_2: roll_2,
+			roll_3: roll_3,
+			damage_modifier: damage_modifier,
+			attribute_modifier: atribute_modifier,
+			proficiency: proeficiency,
+			description: description,
+			type: attack_type
+		}
+		  
+		let valueString = JSON.stringify(value)
+
+		$("#attacks_objects").val(concatenate(valueString))
+
+		makeAttack(name, attacks_num, magic_lvl)
+		attacks_num++
+
+		closePopup()
+
+		//validação do formulário de ataque
+		function validate_form() {
+			let is_valid = true
+			let error_message
+	
+			if (name.trim() == '') {
+				is_valid = false
+				error_message = 'Campo nome não preenchido'
+			}
+	
+			roll_1 = validate_dice(dice_1, roll_1)
+			roll_2 = validate_dice(dice_2, roll_2)
+			roll_3 = validate_dice(dice_3, roll_3)
+	
+			function validate_dice(dice, roll) {
+				if (dice != 'Nenhum' && (roll == 0 || roll == null)) {
+					roll = 1
+				}
+	
+				if (dice == 'Nenhum') {
+					dice = null
+				}
+	
+				return roll
+			}
+	
+			return {
+				is_valid,
+				error_message
+			}
+		}
+	})
+
+	//concatenar novo ataque no input
+	function concatenate(new_value) {
+		var concatenated_value
+
+		if ($('#attacks_objects').val() == '' || $('#attacks_objects').val() == '[]') {
+			$('#attacks_objects').val(null)
+			concatenated_value = '[' + $('#attacks_objects').val() + new_value + ']'
+		} else {
+			const str = $('#attacks_objects').val()
+			const newStr = str.slice(0, str.length - 1)
+
+			concatenated_value = newStr + ',' + new_value + ']'
+		}
+
+		return concatenated_value
+	}
+</script>
+
+<script>
+	//script para manejar o formulario
+
+	//colocar eventos em novos elementos
+	let attack_num
+	function add_event(id) {
+		$('#' + id).on('click', (element) => {
+			attack_type = element.currentTarget.id.split('_')[1]
+			attack_num = element.currentTarget.id.split('-')[1]
+
+			attack = $('#attacks_objects').val()
+			fill_popup(attack, attack_num)
+
+			openPopup(true, attack_type)
+		})
+	}
+
+	//preencher popup com informações do ataque selecionado
+	function fill_popup(object, num) {
+		object = JSON.parse(object)[num]
+
+		$('#attack-name').val(object.name)
+		$('#magic_lvl').val(object.magic_lvl)
+  		$('#dice_1').val(object.dice_1)
+  		$('#dice_2').val(object.dice_2)
+  		$('#dice_3').val(object.dice_3)
+  		$('#roll_1').val(object.roll_1)
+  		$('#roll_2').val(object.roll_2)
+  		$('#roll_3').val(object.roll_3)
+  		$('#damage-mod').val(object.damage_modifier)
+  		$('#attribute-mod').val(object.attribute_modifier)
+
+		if (object.proficiency) {
+			$('#proeficiency-box').prop('checked', true)
+		} else {
+			$('#proeficiency-box').prop('checked', false)
+		}
+
+		$('#attack_description').val(object.description.replace(/\{\$br\$\}/g, '\n'))
+	}
+	
+	
+</script>
+
+<script>
+	//script para edição de ataque
+
+	//edição de ataque
+	$('#edit_attack-button').on('click', ()=> {
+		let edited_name = $('#attack-name').val()
+
+		let edited_magic_lvl = $('#magic-lvl').val()
+
+		let edited_dice_1 = $('#dice_1').val()
+		let edited_dice_2 = $('#dice_2').val()
+		let edited_dice_3 = $('#dice_3').val()
+
+		let edited_roll_1 = $('#roll_1').val()
+		let edited_roll_2 = $('#roll_2').val()
+		let edited_roll_3 = $('#roll_3').val()
+
+		let edited_damage_modifier = $('#damage-mod').val()
+		let edited_atribute_modifier = $('#attribute-mod').val()
+
+		let edited_proeficiency = $('#proeficiency-box').prop('checked')
+		let edited_description = $('#attack_description').val().replace(/\n/g, '{$br$}')
+
+		let edit_attack = {
+			name: edited_name,
+			magic_lvl: edited_magic_lvl,
+			dice_1: edited_dice_1,
+			dice_2: edited_dice_2,
+			dice_3: edited_dice_3,
+			roll_1: edited_roll_1,
+			roll_2: edited_roll_2,
+			roll_3: edited_roll_3,
+			damage_modifier: edited_damage_modifier,
+			attribute_modifier: edited_atribute_modifier,
+			proficiency: edited_proeficiency,
+			description: edited_description,
+			type: attack_type
+		}
+
+		let object = JSON.parse($('#attacks_objects').val())
+		object[attack_num] = edit_attack
+
+		$("#attacks_objects").val(JSON.stringify(object))
+
+		removeAttack()
+		makeAttack(edited_name, attack_num, edited_magic_lvl)
+		closePopup()
+	})
+</script>
+
+<script>
+	//script para deletar ataques
+
+	//remoção do ataque
+	$('#delete_attack-button').on('click', ()=> {
+		let object = JSON.parse($('#attacks_objects').val())
+		object.splice(attack_num, 1)
+		
+		$("#attacks_objects").val(JSON.stringify(object))
+
+		remakeId()
+		removeAttack()
+		closePopup()
+	})
+
+	//remover ataque do front end
+	function removeAttack() {
+		if (attack_type == 'magic') {
+			$('#attack_magic_config-' + attack_num).remove()
+		} else {
+			$('#attack_physical_config-' + attack_num).remove()
+		}
+
+		$('.lvl-content').map((index, element)=> {
+			const id = element.id
+
+			if ($('#' + id).is(':empty')) {
+				$('.' + id).css('display', 'none')
+			}
+		})
+	}
+
+	//refazer ids após remover um elemento
+	function remakeId() {
+		$('.attack').map((index, element)=> {
+			if (index > attack_num) {
+				const id = element.id
+				const this_attack_type = id.split('_')[1]
+
+				let this_attack_num = parseInt(id.split('-')[1])
+
+				this_attack_num--
+
+				switch (this_attack_type) {
+					case 'physical':
+						$('#' + id).attr('id', 'attack_physical_config-' + this_attack_num)
+						break
+					
+					case 'magic':
+						$('#' + id).attr('id', 'attack_magic_config-' + this_attack_num)
+						break
+				}
+
+			} 
+		})
+
+		attacks_num--
+	}
+</script>
+
+<script>
+	//funções globais
+
+	//função para criar um novo elemento no front end
+	function makeAttack(fName, fAttack_num, fMagic_lvl) {
+		if (attack_type == 'physical') {
+			const temp = '<div class="attack" id="attack_physical_config-' + fAttack_num + '"> \n' +
+				'<h2>' + fName + '</h2> \n' +
+				'</div>'
+
+			$('.physical_attacks-field').append(temp)
+			add_event('attack_physical_config-' + fAttack_num)
+		}
+
+		if (attack_type == 'magic') {
+			const temp = '<div class="attack" id="attack_magic_config-' + fAttack_num + '"> \n' +
+				'<h2>' + fName + '</h2> \n' +
+				'</div>'
+
+			$('#' + fMagic_lvl).append(temp)
+			$('.' + fMagic_lvl).css('display', 'block')
+			add_event('attack_magic_config-' + fAttack_num)
+		}
+	}
+</script>
+{% endblock %}
