@@ -131,7 +131,10 @@ class Characteristics(models.Model):
     other_characteristics = models.TextField(max_length=5000, null=True, blank=True)
     allies_and_organizations = models.TextField(max_length=5000, null=True, blank=True)
 
+    equipments = models.TextField(max_length=2000, null=True, blank=True)
+
     inventory = models.TextField(max_length=5000, null=True, blank=True)
+
 
     history = models.TextField(max_length=50000, null=True, blank=True)
 

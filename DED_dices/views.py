@@ -150,7 +150,6 @@ def player_token_creation_view(request):
         attacks = request.POST.get('attacks')
 
         if attacks:
-            attacks.replace('\r\n', '{$br$}').replace('\n', '{$br$}')
             attacks = json.loads(attacks.strip())
 
         for attack_dict in attacks:
@@ -197,6 +196,7 @@ def character_play_view(request, hash):
     characteristics = Characteristics.objects.get(owner=character.id)
 
     attacks = Attack.objects.filter(owner=character.id)
+    print(attacks)
 
     return render(request, 'character_play.html', {
         'character': character,
