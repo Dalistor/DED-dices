@@ -316,7 +316,6 @@ Seleção de Personagens
 				<div class="physical_attacks">
 					<div class="attack-header">
 						<h2>Ataques físicos</h2>
-						<button type="button" class="new_attack-button" id="new_attack_physical">Novo ataque</button>
 					</div>
 					<div class="physical_attacks-field"></div>
 					<input type="hidden" name="physical_attacks" value="">
@@ -325,7 +324,7 @@ Seleção de Personagens
 				<div class="magics_attacks">
 					<div class="attack-header">
 						<h2>Ataques mágicos</h2>
-						<button type="button" class="new_attack-button" id="new_attack_magic">Novo ataque</button>
+
 					</div>
 					<div class="magic_attacks-field">
 						<div class="magic_lvl lvl_0">
@@ -385,8 +384,8 @@ Seleção de Personagens
 							<label for="attack-name">Nome do Ataque</label>
 							<input type="text" id="attack-name" name="attack-name">
 
-							<label for="magic-lvl">Nivel</label>
-							<select id="magic-lvl" name="magic-lvl" disabled="">
+							<label for="magic-lvl" id="magic-lvl-title">Nivel</label>
+							<select id="magic-lvl" name="magic-lvl">
 								<option value="lvl_0">Truque</option>
 								<option value="lvl_1">lvl 1</option>
 								<option value="lvl_2">lvl 2</option>
@@ -515,10 +514,12 @@ Seleção de Personagens
 
 		switch (type) {
 			case "physical":
-				$('#magic-lvl').prop('disabled', true)
+				$('#magic-lvl').css('display', 'none')
+                $('#magic-lvl-title').css('display', 'none')
 				break
 			case "magic":
-				$('#magic-lvl').prop('disabled', false)
+				$('#magic-lvl').css('display', 'block')
+                $('#magic-lvl-title').css('display', 'block')
 				break
 		}
 	}

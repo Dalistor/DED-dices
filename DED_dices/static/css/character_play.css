@@ -40,6 +40,9 @@ textarea {
     flex-direction: column;
     justify-content: center;
 }
+.body_statistic input {
+    margin-bottom: 5px;
+}
 
 .upperFeatures {
     margin: 0.1rem 0.2rem;
@@ -186,7 +189,7 @@ input[type=number] {
     height: 200px;
     border: solid;
     border-radius: 10px;
-    margin-bottom: 1rem
+    margin-bottom: 0.5rem
 }
 
 .language_and_other_skills-field p {
@@ -194,10 +197,10 @@ input[type=number] {
 }
 
 .equipment-field {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     border: solid;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .equipment-field p {
@@ -239,10 +242,6 @@ input[type=number] {
     justify-content: space-around;
 }
 
-.col-4 {
-    margin-top: 1rem
-}
-
 .character-characteristics {
     border: solid;
     border-radius: 10px;
@@ -269,7 +268,7 @@ input[type=number] {
 }
 
 .characteristics_and_skills {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     border: solid;
     padding: 1rem;
     border-radius: 10px;
