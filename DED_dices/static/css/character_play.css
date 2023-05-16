@@ -71,7 +71,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0.5rem 0;
+    margin: 0.95rem 0;
 }
 
 .modifier .modifier-input {
@@ -139,6 +139,10 @@ input[type=number] {
     padding: 1rem;
 }
 
+.skills-proeficiency, .saveguard-attribute {
+    margin: 0.2rem 0 0.2rem 0;
+}
+
 .skills p {
     text-align: center;
     margin-bottom: 0.5rem;
@@ -150,10 +154,13 @@ input[type=number] {
 
 .body_statistics {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     border: solid;
     border-radius: 10px;
-    justify-content: center;
+}
+
+.body_statistics-defined {
+    display: flex;
 }
 
 .body_statistic {
@@ -209,11 +216,13 @@ input[type=number] {
 
 .equipment-field textarea {
     resize: none;
+    width: 12rem;
 }
 
 .equipment-content {
     margin-bottom: 1rem;
     display: flex;
+    justify-content: space-around;
 }
 
 .money {
@@ -252,6 +261,7 @@ input[type=number] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 1.32rem 0;
 }
 
 .characteristics textarea {

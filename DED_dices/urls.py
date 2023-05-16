@@ -15,5 +15,7 @@ urlpatterns = [
     path('delete_character/<str:hash>/', views.delete_character, name='delete character'),
     path('play/<str:hash>/', views.character_play_view, name='character play'),
 
-    path('player_token_creation/', views.player_token_creation_view, name='player token'),
+    path('character_autosave/<str:hash>/<str:field>/', views.character_autosave, name='character autosave'),
+
+    path('player_token_creation/', views.player_token_creation_view, name='player token')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

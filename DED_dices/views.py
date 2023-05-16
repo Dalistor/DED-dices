@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseNotFound
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
 from .forms import *
@@ -105,13 +106,58 @@ def delete_character(request, hash):
 
     return redirect('/player_selection/')
 
+#autosave do personagem
+@csrf_exempt
+def character_autosave(request, hash, field):
+    if not check_hash(hash):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    id = hash.split('-')[0]
+    print(id)
+    table = Characteristics.objects.get(id=int(id))
 
+    if request.method == 'POST':
+        if field == 'ca_temp':
+            table.class_armor_temp = request.POST['value']
+
+        elif field == 'displacement_temp':
+            table.displacement_temp = request.POST['value']
+
+        elif field == 'hp_temp':        
+           table.hp_temp = request.POST['value']
+
+        elif field == 'pc':
+           table.pc = request.POST['value']
+
+        elif field == 'pp':
+           table.pp = request.POST['value']
+
+        elif field == 'po':
+           table.po = request.POST['value']
+
+        elif field == 'pl':
+           table.pl = request.POST['value']
+
+        elif field == 'da':
+           table.da = request.POST['value']
+
+        elif field == 'equipments':
+           table.equipments = request.POST['value'] 
+
+        elif field == 'inventory':
+           table.inventory = request.POST['value']
+
+        elif field == 'history':
+           table.history = request.POST['value']
+
+        table.save()
+        
 # ficha do personagem
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
 
-    if request.method == "POST":
+    if request.method == 'POST':
 
         # criação do personagem
         character_form = CharacterForm(request.POST)
@@ -196,7 +242,8 @@ def character_play_view(request, hash):
     characteristics = Characteristics.objects.get(owner=character.id)
 
     attacks = Attack.objects.filter(owner=character.id)
-    print(attacks)
+
+    character.id = hash_id(character.id)
 
     return render(request, 'character_play.html', {
         'character': character,
