@@ -340,6 +340,7 @@ Seleção de Personagens
                     {% if attack.type == 'physical' %}
                     <div class="attack" id="attack_physical_config-{{attack.id}}">
                         <h2>{{attack.name}}</h2>
+                        <input type="hidden" id="attack_physical_data-{{attack.id}}" value="{'name': '{{attack.name}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -681,16 +682,29 @@ Seleção de Personagens
     //dom
     let initialValue = {{characteristics.hp_max}}
 
-    $('#hp').on('change', function() {
+    $('#hp').on('change', changeHPColor)
+    changeHPColor()
+
+    function changeHPColor() {
         let currentValue = parseInt($(this).val())
-    
+
         if (currentValue < initialValue) {
-          $(this).css('color', 'red')
+            $(this).css('color', 'red')
         } else if (currentValue == initialValue) {
-          $(this).css('color', 'black')
+            $(this).css('color', 'black')
         } else {
-          $(this).val(initialValue)
+            $(this).val(initialValue)
         }
-      })
+    }
+</script>
+
+<script>
+    //script para ataques
+
+    $('.attack').map((index, element) => {
+        $('#' + element.id).on('click', ()=> {
+            //continue daqui
+        })
+    })
 </script>
 {% endblock %}
