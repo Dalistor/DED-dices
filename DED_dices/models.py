@@ -111,11 +111,13 @@ class Characteristics(models.Model):
     class_armor = models.IntegerField()
     iniciative = models.IntegerField()
     displacement = models.IntegerField()
-    hp = models.IntegerField()
+    hp_max = models.IntegerField()
+    hp = models.IntegerField(null=True, blank=True)
 
     class_armor_temp = models.IntegerField(null=True, blank=True)
     displacement_temp = models.IntegerField(null=True, blank=True)
     hp_temp = models.IntegerField(null=True, blank=True)
+
 
     language_and_other_skills = models.TextField(max_length=5000, null=True, blank=True)
 

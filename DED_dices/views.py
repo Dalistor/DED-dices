@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
@@ -113,11 +113,14 @@ def character_autosave(request, hash, field):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     id = hash.split('-')[0]
-    print(id)
-    table = Characteristics.objects.get(id=int(id))
+    
+    character = Character.objects.get(id=id)
+    table = Characteristics.objects.get(owner=character.id)
+    print(table)
+    print(field)
 
     if request.method == 'POST':
-        if field == 'ca_temp':
+        if field == 'class_armor_temp':
             table.class_armor_temp = request.POST['value']
 
         elif field == 'displacement_temp':
@@ -150,7 +153,14 @@ def character_autosave(request, hash, field):
         elif field == 'history':
            table.history = request.POST['value']
 
+        elif field == 'hp':
+           table.hp = request.POST['value']
+
         table.save()
+
+        return HttpResponse('sucess')
+    
+    return HttpResponse('fail')
         
 # ficha do personagem
 def player_token_creation_view(request):
@@ -190,6 +200,7 @@ def player_token_creation_view(request):
         if characteristics_form.is_valid:
             characteristics = characteristics_form.save(commit=False)
             characteristics.owner = Character.objects.get(id=character_id)
+            characteristics.hp = characteristics.hp_max
             characteristics.save()
 
         # ataques

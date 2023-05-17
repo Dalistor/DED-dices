@@ -225,13 +225,13 @@ Seleção de Personagens
                         <p>Deslocamento</p>
                     </div>
                     <div class="body_statistic">
-                        <input type="number" name="hp" id="hp" value="{{characteristics.hp}}" required readonly>
+                        <input type="number" name="hp" class="autosave" id="hp" value="{{characteristics.hp}}" required>
                         <p>HP</p>
                     </div>
                 </div>
                 <div class="body_statistics-defined">
                     <div class="body_statistic">
-                        <input type="number" name="ca_temp" class="autosave" id="ca-temp" value="{{characteristics.class_armor_temp}}" required>
+                        <input type="number" name="class_armor_temp" class="autosave" id="ca-temp" value="{{characteristics.class_armor_temp}}" required>
                         <p>CA - temp</p>
                     </div>
                     <div class="body_statistic">
@@ -665,30 +665,32 @@ Seleção de Personagens
 <script>
     //salvamento automático dos campos
     $('.autosave').map((index, element) => {
-        console.log(element.id)
         $('#' + element.id).on('change', () => {
             $.ajax({
                 type: 'POST',
-                url: '/character_autosave/{{character.id}}/' + element.name +'/',
+                url: '/character_autosave/{{character.id}}/' + element.name + '/',
                 data: {
                     'value': element.value,
                 }
             })
         })
     })
+</script>
 
-    function getCookie(c_name) {
-        if(document.cookie.length > 0) {
-            c_start = document.cookie.indexOf(c_name + "=");
-            if(c_start != -1) {
-                c_start = c_start + c_name.length + 1;
-                c_end = document.cookie.indexOf(";", c_start);
-                if(c_end == -1) c_end = document.cookie.length;
-                return unescape(document.cookie.substring(c_start,c_end));
-            }
+<script>
+    //dom
+    let initialValue = {{characteristics.hp_max}}
+
+    $('#hp').on('change', function() {
+        let currentValue = parseInt($(this).val())
+    
+        if (currentValue < initialValue) {
+          $(this).css('color', 'red')
+        } else if (currentValue == initialValue) {
+          $(this).css('color', 'black')
+        } else {
+          $(this).val(initialValue)
         }
-        return "";
-    }
-
+      })
 </script>
 {% endblock %}
