@@ -116,11 +116,13 @@ def character_autosave(request, hash, field):
     
     character = Character.objects.get(id=id)
     table = Characteristics.objects.get(owner=character.id)
-    print(table)
-    print(field)
+    skill = Skills.objects.get(owner=character.id)
 
     if request.method == 'POST':
-        if field == 'class_armor_temp':
+        if field == 'inspiration':
+            skill.inspiration = request.POST['value']
+
+        elif field == 'class_armor_temp':
             table.class_armor_temp = request.POST['value']
 
         elif field == 'displacement_temp':
@@ -157,6 +159,7 @@ def character_autosave(request, hash, field):
            table.hp = request.POST['value']
 
         table.save()
+        skill.save()
 
         return HttpResponse('sucess')
     

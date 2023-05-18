@@ -67,7 +67,7 @@ Seleção de Personagens
         <div class="col-2">
             <div class="bonus">
                 <div class="inspiration">
-                    <input type="number" name="inspiration" value="{{skills.inspiration}}" id="inspiration">
+                    <input type="number" name="inspiration" class="autosave" value="{{skills.inspiration}}" id="inspiration">
                     <p>Inspiração</p>
                 </div>
                 <div class="proeficiency">
@@ -360,6 +360,7 @@ Seleção de Personagens
                             {% if attack.type == 'magic' and attack.magic_lvl == 'lvl_0' %}
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
+                                <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             </div>
                             {% endif %}
                             {% endfor %}
@@ -373,6 +374,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -385,6 +387,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -397,6 +400,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -409,6 +413,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -421,6 +426,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -433,6 +439,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -445,6 +452,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -457,6 +465,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -469,6 +478,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -481,6 +491,7 @@ Seleção de Personagens
                             <div class="attack" id="attack_magic_config-{{attack.id}}">
                                 <h2>{{attack.name}}</h2>
                             </div>
+                            <input type="hidden" id="attack_magic_data-{{attack.id}}" value="{'name': '{{attack.name}}' 'magic_lvl': '{{attack.magic_lvl}}','dice_1': '{{attack.dice_1}}','dice_2': '{{attack.dice_2}}','dice_3': '{{attack.dice_3}}','roll_1': {{attack.roll_1}},'roll_2': {{attack.roll_2}},'roll_3': {{attack.roll_3}},'damage_modifier': {{attack.damage_modifier}},'attribute_modifier': '{{attribute_modifier}}','proficiency': {{attack.proficiency}},'description': '{{attack.description}}'}">
                             {% endif %}
                             {% endfor %}
                         </div>
@@ -686,14 +697,14 @@ Seleção de Personagens
     changeHPColor()
 
     function changeHPColor() {
-        let currentValue = parseInt($(this).val())
-
+        let currentValue = parseInt($('#hp').val())
         if (currentValue < initialValue) {
-            $(this).css('color', 'red')
+            $('#hp').css('color', 'red')
         } else if (currentValue == initialValue) {
-            $(this).css('color', 'black')
+            $('#hp').css('color', 'black')
         } else {
-            $(this).val(initialValue)
+            $('#hp').val(initialValue)
+            $('#hp').css('color', 'black')
         }
     }
 </script>
@@ -702,8 +713,9 @@ Seleção de Personagens
     //script para ataques
 
     $('.attack').map((index, element) => {
-        $('#' + element.id).on('click', ()=> {
-            //continue daqui
+        let id = element.id
+        $('#' + element.id).on('click', (e)=> {
+            console.log(id)
         })
     })
 </script>
