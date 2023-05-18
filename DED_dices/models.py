@@ -156,16 +156,16 @@ class Attack(models.Model):
 
     magic_lvl = models.CharField(max_length=30, blank=True, null=True)
 
-    dice_1 = models.CharField(max_length=500, null=True, blank=True)
-    dice_2 = models.CharField(max_length=500, null=True, blank=True)
-    dice_3 = models.CharField(max_length=500, null=True, blank=True)
+    dice_1 = models.CharField(max_length=500, default="Nenhum", blank=True)
+    dice_2 = models.CharField(max_length=500, default="Nenhum", blank=True)
+    dice_3 = models.CharField(max_length=500, default="Nenhum", blank=True)
 
     roll_1 = models.IntegerField(null=True, blank=True)
     roll_2 = models.IntegerField(null=True, blank=True)
     roll_3 = models.IntegerField(null=True, blank=True)
 
     damage_modifier = models.IntegerField(null=True, blank=True)
-    attribute_modifier = models.TextField(max_length=12, null=True, blank=True)
+    attribute_modifier = models.TextField(max_length=12, default="Nenhum", blank=True)
 
     proficiency = models.BooleanField()
     description = models.TextField(max_length=5000, null=True, blank=True)
