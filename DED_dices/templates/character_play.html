@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Seleção de Personagens
+{{character.name}}
 {% endblock %}
 
 {% block head %}
@@ -673,7 +673,6 @@ Seleção de Personagens
             if (value[0] > 0) {
                 for(let i = 0; i < value[1]; i++) {
                     sum += (Math.floor(Math.random() * value[0]) + 1)
-                    console.log(sum)
                 }
             }
         })
@@ -761,7 +760,14 @@ Seleção de Personagens
                     break
             }
 
-            const attackDice = rollDice([[20, 1]], modifier)
+            let proeficiency
+            if (attack.proficiency) {
+                proeficiency = parseInt($('#proeficiency').val())
+            } else {
+                proeficiency = 0
+            }
+
+            const attackDice = rollDice([[20, 1]], modifier + proeficiency)
             let damageDic
             if (type == 'physical') {
                 damageDice = rollDice([

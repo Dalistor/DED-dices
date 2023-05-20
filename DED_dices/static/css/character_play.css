@@ -447,7 +447,7 @@ input[type=number] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw;
+    width: 20vw;
     max-width: 90%;
     background-color: white;
     padding: 20px;
@@ -502,7 +502,7 @@ input[type=number] {
     border-radius: 5px;
     cursor: pointer;
     padding: 10px;
-    margin-bottom: 10px;
+    margin: 20px 0px 0px 0px;
 }
 
 /* Estilos para o fundo do botão de fechar o pop-up */
