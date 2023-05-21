@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-Criação de personagem
-{% endblock %}
-
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/token_creation.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -14,10 +10,10 @@ Criação de personagem
 <div class="container">
 	<form method="POST" enctype="multipart/form-data">
 		<div class="header">
-			<input type="text" name="name" maxlength="30" placeholder="Nome do personagem" class="character-name" required>
+			<input type="text" name="name" maxlength="50" placeholder="Nome do personagem" class="character-name" required>
 
 			<div class="character-upperFeatures">
-				<input type="text" name="job" maxlength="50" placeholder="Classe" class="upperFeatures" required>
+				<input type="text" name="job" maxlength="20" placeholder="Classe" class="upperFeatures" required>
 				<input type="number" name="lvl" min="1" max="100" placeholder="Nível" class="upperFeatures" required>
 				<input type="text" name="background" maxlength="20" placeholder="Antecedente" class="upperFeatures" required>
 				<input type="text" name="race" maxlength="20" placeholder="Raça" class="upperFeatures" required>
@@ -36,49 +32,49 @@ Criação de personagem
 			<div class="col-1">
 				<div class="modifier">
 					<p>Força</p>
-					<input type="number" name="strength_modifier" value="0" class="modifier-input">
-					<input type="number" name="strength_atribute" value="10" class="atribute-input">
+					<input type="number" name="strength_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="strength_atribute" max="50" value="10" class="atribute-input">
 				</div>
 
 				<div class="modifier">
 					<p>Destreza</p>
-					<input type="number" name="dexterity_modifier" value="0" class="modifier-input">
-					<input type="number" name="dexterity_atribute" value="10" class="atribute-input">
+					<input type="number" name="dexterity_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="dexterity_atribute" max="50" value="10" class="atribute-input">
 				</div>
 
 				<div class="modifier">
 					<p>Constituição</p>
-					<input type="number" name="constituition_modifier" value="0" class="modifier-input">
-					<input type="number" name="constituition_atribute" value="10" class="atribute-input">
+					<input type="number" name="constituition_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="constituition_atribute" max="50" value="10" class="atribute-input">
 				</div>
 
 				<div class="modifier">
 					<p>Inteligência</p>
-					<input type="number" name="intelligence_modifier" value="0" class="modifier-input">
-					<input type="number" name="intelligence_atribute" value="10" class="atribute-input">
+					<input type="number" name="intelligence_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="intelligence_atribute" max="50" value="10" class="atribute-input">
 				</div>
 
 				<div class="modifier">
 					<p>Sabedoria</p>
-					<input type="number" name="wisdom_modifier" value="0" class="modifier-input">
-					<input type="number" name="wisdom_atribute" value="10" class="atribute-input">
+					<input type="number" name="wisdom_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="wisdom_atribute" max="50" value="10" class="atribute-input">
 				</div>
 
 				<div class="modifier">
 					<p>Carisma</p>
-					<input type="number" name="charisma_modifier" value="0" class="modifier-input">
-					<input type="number" name="charisma_atribute" value="10" class="atribute-input">
+					<input type="number" name="charisma_modifier" max="20" value="0" class="modifier-input">
+					<input type="number" name="charisma_atribute" max="50" value="10" class="atribute-input">
 				</div>
 			</div>
 
 			<div class="col-2">
 				<div class="bonus">
 					<div class="inspiration">
-						<input type="number" name="inspiration" value="0">
+						<input type="number" name="inspiration" value="0" max="100">
 						<p>Inspiração</p>
 					</div>
 					<div class="proeficiency">
-						<input type="number" name="proeficiency" value="2">
+						<input type="number" name="proeficiency" value="2" max="20">
 						<p>Proeficiência</p>
 					</div>
 				</div>
@@ -214,21 +210,21 @@ Criação de personagem
 			<div class="col-3">
 				<div class="body_statistics">
 					<div class="body_statistic">
-						<input type="number" name="class_armor" id="ca" placeholder="CA" required>
+						<input type="number" name="class_armor" max="100" id="ca" placeholder="CA" required>
 					</div>
 					<div class="body_statistic">
-						<input type="number" name="iniciative" id="iniciative" placeholder="Iniciativa" required>
+						<input type="number" name="iniciative" max="20" id="iniciative" placeholder="Iniciativa" required>
 					</div>
 					<div class="body_statistic">
-						<input type="number" name="displacement" id="displacement" placeholder="Deslocamento" required>
+						<input type="number" name="displacement" max="1000" id="displacement" placeholder="Deslocamento" required>
 					</div>
 					<div class="body_statistic">
-						<input type="number" name="hp_max" id="hp_max" placeholder="HP" required>
+						<input type="number" name="hp_max" max="10000" id="hp_max" placeholder="HP" required>
 					</div>
 				</div>
 
 				<div class="language_and_other_skills-field">
-					<textarea name="language_and_other_skills"></textarea>
+					<textarea name="language_and_other_skills" maxlength="5000"></textarea>
 					<p>Idiomas e outras proeficiências</p>
 				</div>
 
@@ -236,23 +232,23 @@ Criação de personagem
 					<div class="equipment-content">
 						<div class="money">
 							<label class="money_category" for="pc">
-								PC <input type="number" name="pc" id="pc" placeholder="PC">
+								PC <input type="number" name="pc" id="pc" placeholder="PC" max="1000">
 							</label>
 							<label class="money_category" for="pp">
-								PP <input type="number" name="pp" id="pp" placeholder="PP">
+								PP <input type="number" name="pp" id="pp" placeholder="PP" max="1000">
 							</label>
 							<label class="money_category" for="po">
-								PO <input type="number" name="po" id="po" placeholder="PO">
+								PO <input type="number" name="po" id="po" placeholder="PO" max="1000">
 							</label>
 							<label class="money_category" for="pl">
-								PL <input type="number" name="pl" id="pl" placeholder="PL">
+								PL <input type="number" name="pl" id="pl" placeholder="PL" max="1000">
 							</label>
 							<label class="money_category" for="da">
-								DA <input type="number" name="da" id="da" placeholder="DA">
+								DA <input type="number" name="da" id="da" placeholder="DA" max="1000">
 							</label>
 						</div>
 
-						<textarea name="equipments"></textarea>
+						<textarea name="equipments" maxlength="2000"></textarea>
 					</div>
 
 					<p>Equipamentos</p>
@@ -262,21 +258,21 @@ Criação de personagem
 			<div class="col-4">
 				<div class="character-characteristics">
 					<div class="characteristics">
-						<textarea name="ideals"></textarea>
+						<textarea name="ideals" maxlength="5000"></textarea>
 						<p>Ideais</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="ligations"></textarea>
+						<textarea name="ligations" maxlength="5000"></textarea>
 						<p>Ligações</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="defects"></textarea>
+						<textarea name="defects" maxlength="5000"></textarea>
 						<p>Defeitos</p>
 					</div>
 				</div>
 
 				<div class="characteristics_and_skills">
-					<textarea name="characteristics_and_skills"></textarea>
+					<textarea name="characteristics_and_skills" maxlength="5000"></textarea>
 					<p>Características e habilidades</p>
 				</div>
 			</div>
@@ -284,20 +280,20 @@ Criação de personagem
 
 		<div class="second-page">
 			<div class="appaerance">
-				<textarea name="appaerance"></textarea>
+				<textarea name="appaerance" maxlength="5000"></textarea>
 				<p>Aparência</p>
 			</div>
 			<div class="other_characteristics">
-				<textarea name="other_characteristics"></textarea>
+				<textarea name="other_characteristics" maxlength="5000"></textarea>
 				<p>Outras características e habilidades</p>
 			</div>
 
 			<div class="allies_and_organizations">
-				<textarea name="allies_and_organizations"></textarea>
+				<textarea name="allies_and_organizations" maxlength="5000"></textarea>
 				<p>Aliados e organizações</p>
 			</div>
 			<div class="inventory">
-				<textarea name="inventory"></textarea>
+				<textarea name="inventory" maxlength="5000"></textarea>
 				<p>Inventário</p>
 			</div>
 		</div>
@@ -305,7 +301,7 @@ Criação de personagem
 		<div class="third-page">
 			<div class="col-6">
 				<div class="history">
-					<textarea name="history"></textarea>
+					<textarea name="history" maxlength="50000"></textarea>
 					<p>História</p>
 				</div>
 			</div>
@@ -383,7 +379,7 @@ Criação de personagem
 					<div class="popup-form">
 						<div class="popup_primary-form">
 							<label for="attack-name">Nome do Ataque</label>
-							<input type="text" id="attack-name" name="attack-name">
+							<input type="text" id="attack-name" name="attack-name" maxlength="30">
 
 							<label for="magic-lvl" id="magic-lvl-title">Nivel</label>
 							<select id="magic-lvl" name="magic-lvl">
@@ -444,7 +440,7 @@ Criação de personagem
 							<input type="number" id="roll_3" name="rolls_3" min="0" max="100" disabled>
 
 							<label for="damage-mod">Modificador de Dano</label>
-							<input type="number" id="damage-mod" name="damage-mod" min="0" max="100">
+							<input type="number" id="damage-mod" name="damage-mod" max="100">
 
 							<label for="attribute-mod">Modificador de Atributo</label>
 							<select id="attribute-mod" name="attribute-modifier" required>
@@ -462,7 +458,7 @@ Criação de personagem
 						</div>
 
 						<div class="popup_secoundary-form">
-							<textarea name="attack_description" id="attack_description"></textarea>
+							<textarea name="attack_description" id="attack_description" maxlength="5000"></textarea>
 						</div>
 					</div>
 
@@ -693,11 +689,6 @@ Criação de personagem
 
 		let description = $('#attack_description').val().replace(/\n/g, '{$br$}')
 
-		const validate = validate_form()
-		if (!validate.is_valid) {
-			return alert(validate.error_message)
-		}
-
 		let value = {
 			name: name,
 			magic_lvl: magic_lvl,
@@ -713,8 +704,13 @@ Criação de personagem
 			description: description,
 			type: attack_type
 		}
+
+		const validate = validate_form(value)
+		if (!validate.is_valid) {
+			return alert(validate.error_message)
+		}
 		  
-		let valueString = JSON.stringify(value)
+		let valueString = JSON.stringify(validate.attack)
 
 		$("#attacks_objects").val(concatenate(valueString))
 
@@ -722,34 +718,6 @@ Criação de personagem
 		attacks_num++
 
 		closePopup()
-
-		//validação do formulário de ataque
-		function validate_form() {
-			let is_valid = true
-			let error_message
-	
-			if (name.trim() == '') {
-				is_valid = false
-				error_message = 'Campo nome não preenchido'
-			}
-	
-			roll_1 = validate_dice(dice_1, roll_1)
-			roll_2 = validate_dice(dice_2, roll_2)
-			roll_3 = validate_dice(dice_3, roll_3)
-	
-			function validate_dice(dice, roll) {
-				if (dice != 'Nenhum' && (roll == 0 || roll == null)) {
-					roll = 1
-				}
-	
-				return roll
-			}
-	
-			return {
-				is_valid,
-				error_message
-			}
-		}
 	})
 
 	//concatenar novo ataque no input
@@ -837,7 +805,7 @@ Criação de personagem
 		let edited_proeficiency = $('#proeficiency-box').prop('checked')
 		let edited_description = $('#attack_description').val().replace(/\n/g, '{$br$}')
 
-		let edit_attack = {
+		let value = {
 			name: edited_name,
 			magic_lvl: edited_magic_lvl,
 			dice_1: edited_dice_1,
@@ -853,8 +821,13 @@ Criação de personagem
 			type: attack_type
 		}
 
+		const validate = validate_form(value)
+		if (!validate.is_valid) {
+			return alert(validate.error_message)
+		}
+
 		let object = JSON.parse($('#attacks_objects').val())
-		object[attack_num] = edit_attack
+		object[attack_num] = validate.attack
 
 		$("#attacks_objects").val(JSON.stringify(object))
 
@@ -946,6 +919,50 @@ Criação de personagem
 			$('#' + fMagic_lvl).append(temp)
 			$('.' + fMagic_lvl).css('display', 'block')
 			add_event('attack_magic_config-' + fAttack_num)
+		}
+	}
+
+	//validação do formulário de ataque
+	function validate_form(attack) {
+		let is_valid = true
+		let error_message
+
+		if (attack.name.trim() == '') {
+			is_valid = false
+			error_message = 'Campo nome não preenchido'
+		}
+
+		if (attack.name.length > 30) {
+			is_valid = false
+			error_message = 'Nome não pode ser maior que 30 caracteres'
+		}
+
+		if (attack.damage_modifier > 100) {
+			is_valid = false
+			error_message = 'Modificador de dano não pode ser maior que 100'
+		}
+
+		if (attack.description.length > 5000) {
+			is_valid = false
+			error_message = 'Descrição muito longa'
+		}
+
+		attack.roll_1 = validate_dice(attack.dice_1, attack.roll_1)
+		attack.roll_2 = validate_dice(attack.dice_2, attack.roll_2)
+		attack.roll_3 = validate_dice(attack.dice_3, attack.roll_3)
+
+		function validate_dice(dice, roll) {
+			if (dice != 'Nenhum' && (roll == 0 || roll == null)) {
+				roll = 1
+			}
+
+			return roll
+		}
+
+		return {
+			is_valid,
+			error_message,
+			attack
 		}
 	}
 </script>

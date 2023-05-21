@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
+
 from PIL import Image
 
 import json
@@ -15,7 +17,7 @@ class Character(models.Model):
     lvl = models.IntegerField()
     job = models.CharField(max_length=20)
     race = models.CharField(max_length=20)
-    experience = models.IntegerField(blank=True, null=True)
+    experience = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(1000000000)])
     portrait = models.ImageField(upload_to='portraits/', null=True, blank=True)
 
     def __str__(self):
@@ -45,23 +47,23 @@ class Campaign(models.Model):
 class Atributes(models.Model):
     owner = models.ForeignKey("Character", on_delete=models.CASCADE)
 
-    strength_modifier = models.IntegerField()
-    strength_atribute = models.IntegerField()
+    strength_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    strength_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
-    dexterity_modifier = models.IntegerField()
-    dexterity_atribute = models.IntegerField()
+    dexterity_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    dexterity_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
-    constituition_modifier = models.IntegerField()
-    constituition_atribute = models.IntegerField()
+    constituition_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    constituition_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
-    intelligence_modifier = models.IntegerField()
-    intelligence_atribute = models.IntegerField()
+    intelligence_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    intelligence_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
-    wisdom_modifier = models.IntegerField()
-    wisdom_atribute = models.IntegerField()
+    wisdom_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    wisdom_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
-    charisma_modifier = models.IntegerField()
-    charisma_atribute = models.IntegerField()
+    charisma_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
+    charisma_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
 
     def __str__(self):
         return self.owner.name
@@ -71,8 +73,8 @@ class Atributes(models.Model):
 class Skills(models.Model):
     owner = models.ForeignKey('Character', on_delete=models.CASCADE)
 
-    inspiration = models.IntegerField(blank=True, null=True)
-    proeficiency = models.IntegerField(blank=True, null=True)
+    inspiration = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(100)])
+    proeficiency = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(20)])
 
     strength_proeficiency = models.BooleanField(null=True, blank=True)
     dexterity_proeficiency = models.BooleanField(null=True, blank=True)
@@ -108,11 +110,11 @@ class Skills(models.Model):
 class Characteristics(models.Model):
     owner = models.ForeignKey('Character', on_delete=models.CASCADE)
 
-    class_armor = models.IntegerField()
-    iniciative = models.IntegerField()
-    displacement = models.IntegerField()
-    hp_max = models.IntegerField()
-    hp = models.IntegerField(null=True, blank=True)
+    class_armor = models.IntegerField(validators=[MaxValueValidator(100)])
+    iniciative = models.IntegerField(validators=[MaxValueValidator(20)])
+    displacement = models.IntegerField(validators=[MaxValueValidator(1000)])
+    hp_max = models.IntegerField(validators=[MaxValueValidator(10000)])
+    hp = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(10000)])
 
     class_armor_temp = models.IntegerField(null=True, blank=True)
     displacement_temp = models.IntegerField(null=True, blank=True)
@@ -121,11 +123,11 @@ class Characteristics(models.Model):
 
     language_and_other_skills = models.TextField(max_length=5000, null=True, blank=True)
 
-    pc = models.IntegerField(null=True, blank=True)
-    pp = models.IntegerField(null=True, blank=True)
-    po = models.IntegerField(null=True, blank=True)
-    pl = models.IntegerField(null=True, blank=True)
-    da = models.IntegerField(null=True, blank=True)
+    pc = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(1000)])
+    pp = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(1000)])
+    po = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(1000)])
+    pl = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(1000)])
+    da = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(1000)])
 
     ideals = models.TextField(max_length=5000, null=True, blank=True)
     ligations = models.TextField(max_length=5000, null=True, blank=True)
@@ -141,7 +143,6 @@ class Characteristics(models.Model):
 
     inventory = models.TextField(max_length=5000, null=True, blank=True)
 
-
     history = models.TextField(max_length=50000, null=True, blank=True)
 
     def __str__(self):
@@ -152,19 +153,19 @@ class Characteristics(models.Model):
 class Attack(models.Model):
     owner = models.ForeignKey("Character", on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=30)
 
     magic_lvl = models.CharField(max_length=30, blank=True, null=True)
 
-    dice_1 = models.CharField(max_length=500, default="Nenhum", blank=True)
-    dice_2 = models.CharField(max_length=500, default="Nenhum", blank=True)
-    dice_3 = models.CharField(max_length=500, default="Nenhum", blank=True)
+    dice_1 = models.CharField(max_length=10, default="Nenhum", blank=True)
+    dice_2 = models.CharField(max_length=10, default="Nenhum", blank=True)
+    dice_3 = models.CharField(max_length=10, default="Nenhum", blank=True)
 
-    roll_1 = models.IntegerField(null=True, blank=True)
-    roll_2 = models.IntegerField(null=True, blank=True)
-    roll_3 = models.IntegerField(null=True, blank=True)
+    roll_1 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
+    roll_2 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
+    roll_3 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
 
-    damage_modifier = models.IntegerField(null=True, blank=True)
+    damage_modifier = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
     attribute_modifier = models.TextField(max_length=12, default="Nenhum", blank=True)
 
     proficiency = models.BooleanField()

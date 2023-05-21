@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-{{character.name}}
-{% endblock %}
-
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/character_play.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -700,7 +696,7 @@
 
 <script>
     //dom
-    let initialValue = {{characteristics.hp_max}}
+    const initialValue = {{characteristics.hp_max}}
 
     $('#hp').on('change', changeHPColor)
     changeHPColor()
