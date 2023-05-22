@@ -466,9 +466,10 @@ input[type=number] {
 
 /* Estilos para as etiquetas do pop-up */
 #popup label {
-    display: block;
+    display: inline-flex;
+    align-items: baseline;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-top: 1rem;
 }
 
 /* Estilos para os campos de entrada do pop-up */
@@ -503,6 +504,18 @@ input[type=number] {
     cursor: pointer;
     padding: 10px;
     margin: 20px 0px 0px 0px;
+}
+
+.popup-attackSection {
+    margin-top: 1rem;
+}
+
+.popup-attackSection textarea {
+    resize: none;
+    border: solid;
+    border-radius: 10px;
+    width: 99%;
+    height: 20rem;
 }
 
 /* Estilos para o fundo do botão de fechar o pop-up */

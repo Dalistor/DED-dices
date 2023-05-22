@@ -504,9 +504,20 @@
                 <div class="popup-test">
                     <p id="popup-p" class='popup-temp'></p>
                     <p id="popup-p2" class='popup-temp'></p>
+
+                    <div class="popup-attackSection">
+                        <textarea id="popup-textarea" class="popup-temp"></textarea>
+
+                        <label>
+                            Rolagens: <input type="number" id="times" min="1" max="100" value="1">
+                        </label>
+                    </div>
                 </div>
 
                 <button type="button" id="close_popup-button">Fechar</button>
+                <div class="popup-buttons" id="edit_attack-section">
+                    <button type="button" id="attack-button">Atacar</button>
+                </div>
             </div>
         </div>
 
@@ -522,7 +533,7 @@
 	const popup = $('#popup')
 	const closePopup_button = $('#close_popup-button')
 
-	function openPopup(obj) {
+	function openPopup(obj, attack=false) {
         $('#popup-title').text(obj.title)
 
         for (i in obj.query) {
@@ -530,6 +541,14 @@
         }
 
 		popupContainer.css('display', 'block')
+
+        if (attack) {
+            $('.popup-attackSection').add('#edit_attack-section').css('display', 'block')
+            $('#popup').css('width', '50vw')
+        } else {
+            $('.popup-attackSection').add('#edit_attack-section').css('display', 'none')
+            $('#popup').css('width', '20vw')
+        }
 	}
 
 	function closePopup() {
@@ -650,6 +669,123 @@
 </script>
 
 <script>
+    //script para ataques
+
+    $('.attack').map((index, element) => {
+        let id = element.id
+        $('#' + element.id).on('click', (e)=> {
+            const type = id.split('_')[1]
+            const idNumber = id.split('-')[1]
+
+            let attack = JSON.parse($('#attack_' + type + '_data-' + idNumber).val())
+
+            let modifier
+            switch (attack.attribute_modifier) {
+                case 'Nenhum':
+                    modifier = 0
+                    break
+                
+                case 'Força':
+                    modifier = parseInt($('[name="strength_modifier"]').val())
+                    break
+
+                case 'Destreza':
+                    modifier = parseInt($('[name="dexterity_modifier"]').val())
+                    break
+
+                case 'Constituição':
+                    modifier = parseInt($('[name="constituition_modifier"]').val())
+                    break
+
+                case 'Inteligência':
+                    modifier = parseInt($('[name="intelligence_modifier"]').val())
+                    break
+
+                case 'Sabedoria':
+                    modifier = parseInt($('[name="wisdom_modifier"]').val())
+                    break
+
+                case 'Carisma':
+                    modifier = parseInt($('[name="charisma_modifier"]').val())
+                    break
+            }
+
+            let proeficiency
+            if (attack.proficiency) {
+                proeficiency = parseInt($('#proeficiency').val())
+            } else {
+                proeficiency = 0
+            }
+
+            let formula = '';
+            function appendToFormula(dice, roll) {
+                if (dice != 'Nenhum') {
+                    formula += (formula ? ' + ' : '') + roll + dice
+                }
+            }
+
+            appendToFormula(attack.dice_1, attack.roll_1)
+            appendToFormula(attack.dice_2, attack.roll_2)
+            appendToFormula(attack.dice_3, attack.roll_3)
+
+            let obj = {
+                p: 'Nome: ' + attack.name,
+                textarea: attack.description.replace(/\{\$br\$\}/g, "\n")
+            }
+
+            if (formula) {
+                obj.p2 = 'Fórmula: ' + formula
+            }
+
+            openPopup({
+                title: 'Opções de ataque',
+                query: obj
+            }, true)
+
+        })
+
+        //const attackDice = rollDice([[20, 1]], modifier + proeficiency)
+        //let damageDic
+        //if (type == 'physical') {
+        //    damageDice = rollDice([
+        //    [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
+        //    [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
+        //    [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
+        //    ], attack.damage_modifier + modifier)
+        //}
+//
+        //if (type == 'magic') {
+        //    damageDice = rollDice([
+        //        [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
+        //        [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
+        //        [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
+        //    ], attack.damage_modifier)
+        //}
+//
+        //openPopup({
+        //    title: 'Ataque',
+        //    query: {
+        //        p: 'Nome: ' + attack.name,
+        //        p2: 'Dano: ' + damageDice
+        //    }
+        //})
+    })
+</script>
+
+<script>
+    $('#iniciative').on('click', ()=> {
+        const result = rollDice([[20, 1]], parseInt($('#iniciative').val()))
+        
+        openPopup({
+            title: 'Iniciativa',
+            query: {
+                p: 'Resultado: ' + result
+            }
+        })
+    })
+</script>
+
+<script>
     //funções globais
 
     //inspiração
@@ -712,85 +848,5 @@
             $('#hp').css('color', 'black')
         }
     }
-</script>
-
-<script>
-    //script para ataques
-
-    $('.attack').map((index, element) => {
-        let id = element.id
-        $('#' + element.id).on('click', (e)=> {
-            const type = id.split('_')[1]
-            const idNumber = id.split('-')[1]
-
-            let attack = JSON.parse($('#attack_' + type + '_data-' + idNumber).val())
-
-            let modifier
-            switch (attack.attribute_modifier) {
-                case 'Nenhum':
-                    modifier = 0
-                    break
-                
-                case 'Força':
-                    modifier = parseInt($('[name="strength_modifier"]').val())
-                    break
-
-                case 'Destreza':
-                    modifier = parseInt($('[name="dexterity_modifier"]').val())
-                    break
-
-                case 'Constituição':
-                    modifier = parseInt($('[name="constituition_modifier"]').val())
-                    break
-
-                case 'Inteligência':
-                    modifier = parseInt($('[name="intelligence_modifier"]').val())
-                    break
-
-                case 'Sabedoria':
-                    modifier = parseInt($('[name="wisdom_modifier"]').val())
-                    break
-
-                case 'Carisma':
-                    modifier = parseInt($('[name="charisma_modifier"]').val())
-                    break
-            }
-
-            let proeficiency
-            if (attack.proficiency) {
-                proeficiency = parseInt($('#proeficiency').val())
-            } else {
-                proeficiency = 0
-            }
-
-            const attackDice = rollDice([[20, 1]], modifier + proeficiency)
-            let damageDic
-            if (type == 'physical') {
-                damageDice = rollDice([
-                [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
-                [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
-                [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
-                ], attack.damage_modifier + modifier)
-            }
-
-            if (type == 'magic') {
-                damageDice = rollDice([
-                    [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
-                    [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
-                    [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
-                ], attack.damage_modifier)
-            }
-
-            openPopup({
-                title: 'Resultado',
-                query: {
-                    p: 'Ataque: ' + attackDice,
-                    p2: 'Dano: ' + damageDice
-                }
-            })
-
-            //caso quera adicionar o modificador de dano por rolagem altere o banco de dados
-        })
-    })
 </script>
 {% endblock %}
