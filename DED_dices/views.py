@@ -266,3 +266,25 @@ def character_play_view(request, hash):
         'characteristics': characteristics,
         'attacks': attacks
     })
+
+def view_edit_token(request, hash):
+    if not check_hash(hash):
+        return HttpResponseNotFound('Personagem não encontrado.')
+
+    id = hash.split('-')[0]
+    
+    character = Character.objects.get(id=id)
+
+    atributes = Atributes.objects.get(owner=character.id)
+    skills = Skills.objects.get(owner=character.id)
+    characteristics = Characteristics.objects.get(owner=character.id)
+
+    attacks = Attack.objects.filter(owner=character.id)
+
+    return render(request, 'edit_character.html', {
+        'character': character,
+        'atributes': atributes,
+        'skills': skills,
+        'characteristics': characteristics,
+        'attacks': attacks
+    })
