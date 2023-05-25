@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/token_creation.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/character_edit.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
@@ -70,137 +70,142 @@
 			<div class="col-2">
 				<div class="bonus">
 					<div class="inspiration">
-						<input type="number" name="inspiration" value="0" max="100">
+						<input type="number" name="inspiration" value="{{skills.inspiration}}" max="100">
 						<p>Inspiração</p>
 					</div>
 					<div class="proeficiency">
-						<input type="number" name="proeficiency" value="2" max="20">
+						<input type="number" name="proeficiency" value="{{skills.proeficiency}}" max="20">
 						<p>Proeficiência</p>
 					</div>
 				</div>
 
 				<div class="saveguard">
 					<p>Testes de resistência</p>
-
+	
 					<div class="saveguard-attribute">
-						<input type="checkbox" name="strength_proeficiency" id="strength">
+						<input type="checkbox" name="strength_proeficiency" class="saveguard-input" id="strength" {% if skills.strength_proeficiency %}checked{% endif %}>
 						<label for="strength">Força</label>
 					</div>
+					
 					<div class="saveguard-attribute">
-						<input type="checkbox" name="dexterity_proeficiency" id="dexterity">
+						<input type="checkbox" name="dexterity_proeficiency" class="saveguard-input" id="dexterity" {% if skills.dexterity_proeficiency %}checked{% endif %}>
 						<label for="dexterity">Destreza</label>
-					</div>
-					<div class="saveguard-attribute">
-						<input type="checkbox" name="constituition_proeficiency" id="constituition">
+					  </div>
+					  
+					  <div class="saveguard-attribute">
+						<input type="checkbox" name="constituition_proeficiency" class="saveguard-input" id="constituition" {% if skills.constituition_proeficiency %}checked{% endif %}>
 						<label for="constituition">Constituição</label>
-					</div>
-					<div class="saveguard-attribute">
-						<input type="checkbox" name="intelligence_proeficiency" id="intelligence">
+					  </div>
+					  
+					  <div class="saveguard-attribute">
+						<input type="checkbox" name="intelligence_proeficiency" class="saveguard-input" id="intelligence" {% if skills.intelligence_proeficiency %}checked{% endif %}>
 						<label for="intelligence">Inteligência</label>
-					</div>
-					<div class="saveguard-attribute">
-						<input type="checkbox" name="wisdom_proeficiency" id="wisdom">
+					  </div>
+					  
+					  <div class="saveguard-attribute">
+						<input type="checkbox" name="wisdom_proeficiency" class="saveguard-input" id="wisdom" {% if skills.wisdom_proeficiency %}checked{% endif %}>
 						<label for="wisdom">Sabedoria</label>
-					</div>
-					<div class="saveguard-attribute">
-						<input type="checkbox" name="charisma_proeficiency" id="charisma">
+					  </div>
+					  
+					  <div class="saveguard-attribute">
+						<input type="checkbox" name="charisma_proeficiency" class="saveguard-input" id="charisma" {% if skills.charisma_proeficiency %}checked{% endif %}>
 						<label for="charisma">Carisma</label>
-					</div>
+					  </div>
+					
 				</div>
 
 				<div class="skills">
 					<p>Perícias</p>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="athletics_proeficiency" id="athletics">
+						<input type="checkbox" name="athletics_proeficiency" class="skill-input" id="athletics-strength" {% if skills.athletics_proeficiency %}checked{% endif %}>
 						<label for="athletics">Atletismo - (For)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="stunt_proeficiency" id="stunt">
+						<input type="checkbox" name="stunt_proeficiency" class="skill-input" id="stunt-dexterity" {% if  skills.stunt_proeficiency %}checked{% endif %}>
 						<label for="stunt">Acrobacia - (Des)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="stealth_proeficiency" id="stealth">
+						<input type="checkbox" name="stealth_proeficiency" class="skill-input" id="stealth-dexterity" {% if  skills.stealth_proeficiency %}checked{% endif %}>
 						<label for="stealth">Furtividade - (Des)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="sleight_proeficiency" id="sleight">
+						<input type="checkbox" name="sleight_proeficiency" class="skill-input" id="sleight-dexterity" {% if  skills.sleight_proeficiency %}checked{% endif %}>
 						<label for="sleight">Prestidigitação - (Des)</label>
 					</div>
-
-
+	
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="arcana_proeficiency" id="arcana">
+						<input type="checkbox" name="arcana_proeficiency" class="skill-input" id="arcana-intelligence" {% if  skills.arcana_proeficiency %}checked{% endif %}>
 						<label for="arcana">Arcanismo - (Int)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="history_proeficiency" id="history">
+						<input type="checkbox" name="history_proeficiency" class="skill-input" id="history-intelligence" {% if  skills.history_proeficiency %}checked{% endif %}>
 						<label for="history">História - (Int)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="investigation_proeficiency" id="investigation">
+						<input type="checkbox" name="investigation_proeficiency" class="skill-input" id="investigation-intelligence" {% if  skills.investigation_proeficiency %}checked{% endif %}>
 						<label for="investigation">Investigação - (Int)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="medicine_proeficiency" id="medicine">
+						<input type="checkbox" name="medicine_proeficiency" class="skill-input" id="medicine-intelligence" {% if  skills.medicine_proeficiency %}checked{% endif %}>
 						<label for="medicine">Medicina - (Int)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="nature_proeficiency" id="nature">
+						<input type="checkbox" name="nature_proeficiency" class="skill-input" id="nature-intelligence" {% if  skills.nature_proeficiency %}checked{% endif %}>
 						<label for="nature">Natureza - (Int)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="religion_proeficiency" id="religion">
+						<input type="checkbox" name="religion_proeficiency" class="skill-input" id="religion-intelligence" {% if  skills.religion_proeficiency %}checked{% endif %}>
 						<label for="religion">Religião - (Int)</label>
 					</div>
-
+	
 					
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="acting_proeficiency" id="acting">
+						<input type="checkbox" name="acting_proeficiency" class="skill-input" id="acting-charisma" {% if  skills.acting_proeficiency %}checked{% endif %}>
 						<label for="acting">Atuação - (Car)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="bluff_proeficiency" id="bluff">
+						<input type="checkbox" name="bluff_proeficiency" class="skill-input" id="bluff-charisma" {% if  skills.bluff_proeficiency %}checked{% endif %}>
 						<label for="bluff">Blefar - (Car)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="intimidation_proeficiency" id="intimidation">
+						<input type="checkbox" name="intimidation_proeficiency" class="skill-input" id="intimidation-charisma" {% if  skills.intimidation_proeficiency %}checked{% endif %}>
 						<label for="intimidation">Intimidação - (Car)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="intuition_proeficiency" id="intuition">
+						<input type="checkbox" name="intuition_proeficiency" class="skill-input" id="intuition-charisma" {% if  skills.intuition_proeficiency %}checked{% endif %}>
 						<label for="intuition">Intuição - (Car)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="persuasion_proeficiency" id="persuasion">
+						<input type="checkbox" name="persuasion_proeficiency" class="skill-input" id="persuasion-charisma" {% if  skills.persuasion_proeficiency %}checked{% endif %}>
 						<label for="persuasion">Persuasão - (Car)</label>
 					</div>
-
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="animal_proeficiency" id="animal">
+						<input type="checkbox" name="animal_proeficiency" class="skill-input" id="animal-wisdom" {% if  skills.animal_proeficiency %}checked{% endif %}>
 						<label for="animal">Adestrar - (Sab)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="perception_proeficiency" id="perception">
+						<input type="checkbox" name="perception_proeficiency" class="skill-input" id="perception-wisdom" {% if  skills.perception_proeficiency %}checked{% endif %}>
 						<label for="perception">Percepção - (Sab)</label>
 					</div>
-
+	
 					<div class="skills-proeficiency">
-						<input type="checkbox" name="survive_proeficiency" id="survive">
+						<input type="checkbox" name="survive_proeficiency" class="skill-input" id="survive-wisdom" {% if  skills.survive_proeficiency %}checked{% endif %}>
 						<label for="survive">Sobrevivência - (Sab)</label>
 					</div>
 				</div>
@@ -208,23 +213,27 @@
 
 
 			<div class="col-3">
-				<div class="body_statistics">
-					<div class="body_statistic">
-						<input type="number" name="class_armor" max="100" id="ca" placeholder="CA" required>
-					</div>
-					<div class="body_statistic">
-						<input type="number" name="iniciative" max="20" id="iniciative" placeholder="Iniciativa" required>
-					</div>
-					<div class="body_statistic">
-						<input type="number" name="displacement" max="1000" id="displacement" placeholder="Deslocamento" required>
-					</div>
-					<div class="body_statistic">
-						<input type="number" name="hp_max" max="10000" id="hp_max" placeholder="HP" required>
-					</div>
-				</div>
+				<div class="body_statistics-defined">
+                    <div class="body_statistic">
+                        <input type="number" name="ca" id="ca" value="{{characteristics.class_armor}}" required>
+                        <p>CA</p>
+                    </div>
+                    <div class="body_statistic">
+                        <input type="number" name="iniciative" id="iniciative" value="{{characteristics.iniciative}}" required>
+                        <p>iniciativa</p>
+                    </div>
+                    <div class="body_statistic">
+                        <input type="number" name="displacement" id="displacement" value="{{characteristics.displacement}}" required>
+                        <p>Deslocamento</p>
+                    </div>
+                    <div class="body_statistic">
+                        <input type="number" name="hp" id="hp" value="{{characteristics.hp}}" required>
+                        <p>HP</p>
+                    </div>
+                </div>
 
 				<div class="language_and_other_skills-field">
-					<textarea name="language_and_other_skills" maxlength="5000"></textarea>
+					<textarea name="language_and_other_skills" value="{{characteristics.language_and_other_skills}}" maxlength="5000"></textarea>
 					<p>Idiomas e outras proeficiências</p>
 				</div>
 
@@ -232,23 +241,23 @@
 					<div class="equipment-content">
 						<div class="money">
 							<label class="money_category" for="pc">
-								PC <input type="number" name="pc" id="pc" placeholder="PC" max="1000">
+								PC <input type="number" name="pc" value="{{characteristics.pc}}" id="pc" placeholder="PC" max="1000">
 							</label>
 							<label class="money_category" for="pp">
-								PP <input type="number" name="pp" id="pp" placeholder="PP" max="1000">
+								PP <input type="number" name="pp" value="{{characteristics.pp}}" id="pp" placeholder="PP" max="1000">
 							</label>
 							<label class="money_category" for="po">
-								PO <input type="number" name="po" id="po" placeholder="PO" max="1000">
+								PO <input type="number" name="po" value="{{characteristics.po}}" id="po" placeholder="PO" max="1000">
 							</label>
 							<label class="money_category" for="pl">
-								PL <input type="number" name="pl" id="pl" placeholder="PL" max="1000">
+								PL <input type="number" name="pl" value="{{characteristics.pl}}" id="pl" placeholder="PL" max="1000">
 							</label>
 							<label class="money_category" for="da">
-								DA <input type="number" name="da" id="da" placeholder="DA" max="1000">
+								DA <input type="number" name="da" value="{{characteristics.da}}" id="da" placeholder="DA" max="1000">
 							</label>
 						</div>
 
-						<textarea name="equipments" maxlength="2000"></textarea>
+						<textarea name="equipments" value="{{characteristics.equipments}}" maxlength="2000"></textarea>
 					</div>
 
 					<p>Equipamentos</p>
@@ -258,21 +267,21 @@
 			<div class="col-4">
 				<div class="character-characteristics">
 					<div class="characteristics">
-						<textarea name="ideals" maxlength="5000"></textarea>
+						<textarea name="ideals" value="{{characteristics.equipments}}" maxlength="5000"></textarea>
 						<p>Ideais</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="ligations" maxlength="5000"></textarea>
+						<textarea name="ligations" value="{{characteristics.ligations}}" maxlength="5000"></textarea>
 						<p>Ligações</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="defects" maxlength="5000"></textarea>
+						<textarea name="defects" value="{{characteristics.defects}}" maxlength="5000"></textarea>
 						<p>Defeitos</p>
 					</div>
 				</div>
 
 				<div class="characteristics_and_skills">
-					<textarea name="characteristics_and_skills" maxlength="5000"></textarea>
+					<textarea name="characteristics_and_skills" value="{{characteristics.characteristics_and_skills}}" maxlength="5000"></textarea>
 					<p>Características e habilidades</p>
 				</div>
 			</div>
@@ -280,20 +289,20 @@
 
 		<div class="second-page">
 			<div class="appaerance">
-				<textarea name="appaerance" maxlength="5000"></textarea>
+				<textarea name="appaerance" value="{{characteristics.appaerance}}" maxlength="5000"></textarea>
 				<p>Aparência</p>
 			</div>
 			<div class="other_characteristics">
-				<textarea name="other_characteristics" maxlength="5000"></textarea>
+				<textarea name="other_characteristics" value="{{characteristics.other_characteristics}}" maxlength="5000"></textarea>
 				<p>Outras características e habilidades</p>
 			</div>
 
 			<div class="allies_and_organizations">
-				<textarea name="allies_and_organizations" maxlength="5000"></textarea>
+				<textarea name="allies_and_organizations" value="{{characteristics.allies_and_organizations}}" maxlength="5000"></textarea>
 				<p>Aliados e organizações</p>
 			</div>
 			<div class="inventory">
-				<textarea name="inventory" maxlength="5000"></textarea>
+				<textarea name="inventory" value="{{characteristics.inventory}}" maxlength="5000"></textarea>
 				<p>Inventário</p>
 			</div>
 		</div>
@@ -301,7 +310,7 @@
 		<div class="third-page">
 			<div class="col-6">
 				<div class="history">
-					<textarea name="history" maxlength="50000"></textarea>
+					<textarea name="history" value="{{characteristics.history}}" maxlength="50000"></textarea>
 					<p>História</p>
 				</div>
 			</div>
@@ -314,8 +323,16 @@
 						<h2>Ataques físicos</h2>
 						<button id="new_attack_physical" type="button">Novo ataque</button>
 					</div>
-					<div class="physical_attacks-field"></div>
-					<input type="hidden" name="physical_attacks" value="">
+					<div class="physical_attacks-field">
+						{% for attack in attacks %}
+						{% if attack.type == 'physical' %}
+						<div class="attack" class="created" id="attack_physical_config-{{attack.id}}-created">
+							<h2>{{attack.name}}</h2>
+							<input type="hidden" id='attack_physical_data-{{attack.id}}' value='{"name": "{{attack.name}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
 				</div>
 
 				<div class="magics_attacks">
@@ -326,50 +343,148 @@
 					<div class="magic_attacks-field">
 						<div class="magic_lvl lvl_0">
 							<h2>Truques</h2>
-							<div class="lvl-content" id="lvl_0"></div>
+							<div class="lvl-content" id="lvl_0">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_0' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+									<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+								</div>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_1">
 							<h2>LVL 1</h2>
-							<div class="lvl-content" id="lvl_1"></div>
+							<div class="lvl-content" id="lvl_1">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_1' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_2">
 							<h2>LVL 2</h2>
-							<div class="lvl-content" id="lvl_2"></div>
+							<div class="lvl-content" id="lvl_2">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_2' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_3">
 							<h2>LVL 3</h2>
-							<div class="lvl-content" id="lvl_3"></div>
+							<div class="lvl-content" id="lvl_3">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_3' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_4">
 							<h2>LVL 4</h2>
-							<div class="lvl-content" id="lvl_4"></div>
+							<div class="lvl-content" id="lvl_4">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_4' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_5">
 							<h2>LVL 5</h2>
-							<div class="lvl-content" id="lvl_5"></div>
+							<div class="lvl-content" id="lvl_5">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_5' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_6">
 							<h2>LVL 6</h2>
-							<div class="lvl-content" id="lvl_6"></div>
+							<div class="lvl-content" id="lvl_6">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_6' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_7">
 							<h2>LVL 7</h2>
-							<div class="lvl-content" id="lvl_7"></div>
+							<div class="lvl-content" id="lvl_7">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_7' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_8">
 							<h2>LVL 8</h2>
-							<div class="lvl-content" id="lvl_8"></div>
+							<div class="lvl-content" id="lvl_8">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_8' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_9">
 							<h2>LVL 9</h2>
-							<div class="lvl-content" id="lvl_9"></div>
+							<div class="lvl-content" id="lvl_9">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_9' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="magic_lvl lvl_10">
 							<h2>Especial</h2>
-							<div class="lvl-content" id="lvl_10"></div>
+							<div class="lvl-content" id="lvl_10">
+								{% for attack in attacks %}
+								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_10' %}
+								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+									<h2>{{attack.name}}</h2>
+								</div>
+								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 					</div>
-					<input type="hidden" name="magic_attacks" value="">
 				</div>
 			</div>
 
@@ -485,6 +600,32 @@
 {% endblock %}
 
 {% block script %}
+<script>
+	var attacks_num = 0
+
+	//mostrar/esconder campos de magias
+    $('.lvl-content').map((index, element)=> {
+        const id = element.id
+
+        if ($.trim($('#' + id).html()) === '') {
+            $('.' + id).hide()
+        } else {
+            $('.' + id).show()
+        }
+    })
+
+	//colocar valor pra ser atualizado
+	$('.created').map((index, element) => {
+		const pastId = element.id
+		const id = pastId + '-' + attacks_num
+
+		console.log(id)
+
+		$(element).attr('id', id)
+		attacks_num++
+	})
+</script>
+
 <script>
 	//script para o popup
 
@@ -667,7 +808,6 @@
 	//script para criar um novo ataque
 
 	const new_attack = $('#new_attack-button')
-	let attacks_num = 0
 
 	new_attack.on('click', () => {
 		let name = $('#attack-name').val()
