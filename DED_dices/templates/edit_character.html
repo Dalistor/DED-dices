@@ -326,7 +326,7 @@
 					<div class="physical_attacks-field">
 						{% for attack in attacks %}
 						{% if attack.type == 'physical' %}
-						<div class="attack" class="created" id="attack_physical_config-{{attack.id}}-created">
+						<div class="attack created" id="attack_physical_config-{{attack.id}}-created">
 							<h2>{{attack.name}}</h2>
 							<input type="hidden" id='attack_physical_data-{{attack.id}}' value='{"name": "{{attack.name}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
 						</div>
@@ -346,9 +346,9 @@
 							<div class="lvl-content" id="lvl_0">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_0' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack" class="created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
-									<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+									<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
 								</div>
 								{% endif %}
 								{% endfor %}
@@ -359,10 +359,10 @@
 							<div class="lvl-content" id="lvl_1">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_1' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -372,10 +372,10 @@
 							<div class="lvl-content" id="lvl_2">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_2' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -385,10 +385,10 @@
 							<div class="lvl-content" id="lvl_3">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_3' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -398,10 +398,10 @@
 							<div class="lvl-content" id="lvl_4">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_4' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -411,10 +411,10 @@
 							<div class="lvl-content" id="lvl_5">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_5' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -424,10 +424,10 @@
 							<div class="lvl-content" id="lvl_6">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_6' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -437,10 +437,10 @@
 							<div class="lvl-content" id="lvl_7">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_7' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -450,10 +450,10 @@
 							<div class="lvl-content" id="lvl_8">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_8' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -463,10 +463,10 @@
 							<div class="lvl-content" id="lvl_9">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_9' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -476,10 +476,10 @@
 							<div class="lvl-content" id="lvl_10">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_10' %}
-								<div class="attack" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 								</div>
-								<input type="hidden" class="created" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
+								<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl0}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}, "type": "{{attack.type}}""}'>
 								{% endif %}
 								{% endfor %}
 							</div>
@@ -619,8 +619,6 @@
 		const pastId = element.id
 		const id = pastId + '-' + attacks_num
 
-		console.log(id)
-
 		$(element).attr('id', id)
 		attacks_num++
 	})
@@ -716,7 +714,7 @@
 	$('.modifier-input').on('change', function () {
 		var modificador = $(this).val()
 
-		if (modificador === '') {
+		if (modificador == '') {
 			modificador = 0
 			$(this).val(modificador)
 		}
@@ -883,22 +881,36 @@
 
 	//colocar eventos em novos elementos
 	let attack_num
-	function add_event(id) {
+	function add_event(id, created=false) {
 		$('#' + id).on('click', (element) => {
 			attack_type = element.currentTarget.id.split('_')[1]
-			attack_num = element.currentTarget.id.split('-')[1]
 
-			attack = $('#attacks_objects').val()
-			fill_popup(attack, attack_num)
+			if (created) {
+				attack_num = element.currentTarget.id.split('-')[1]
+				attack = $('#attack_' + attack_type + '_data-' + attack_num).val()
+				fill_popup(attack, null, true)
+			} else {
+				attack_num = element.currentTarget.id.split('-')[1]
+				attack = $('#attacks_objects').val()
+				fill_popup(attack, attack_num)
+			}
 
 			openPopup(true, attack_type)
 		})
 	}
 
-	//preencher popup com informações do ataque selecionado
-	function fill_popup(object, num) {
-		object = JSON.parse(object)[num]
+	$('.created').map((index, element) => {
+		add_event(element.id, true)
+	})
 
+	//preencher popup com informações do ataque selecionado
+	function fill_popup(object, num=null, created=false) {
+		if (created) {
+			object = JSON.parse(object)
+		} else {
+			object = JSON.parse(object)[num]
+		}
+		
 		$('#attack-name').val(object.name)
 		$('#magic_lvl').val(object.magic_lvl)
   		$('#dice_1').val(object.dice_1)
