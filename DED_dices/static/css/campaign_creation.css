@@ -1,0 +1,103 @@
+  .header{
+      float: center;
+      justify-content: center;
+      align-items: center;
+      background-color: aliceblue;
+      height: 10vh;
+      display: flex;
+  }
+
+  .center-frase{
+      float: center;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      background-color: aliceblue;
+  }
+
+  .campain{
+    height: 5vh;
+    width: 50vh;
+    background-color: aliceblue;
+    justify-content: center;
+    align-items: center;
+    float: center;
+  }
+
+  .campain label{
+    margin-top: 5px;
+    text-align: center;
+    float: center;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    
+  }
+
+  .campain input{
+    width: 100%;
+  }
+
+  .container{
+    height: 80vh;
+    background-color: aliceblue;
+    float: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .tables{
+    width:550;
+    height: 580px;
+    float:center ;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+   .choosed{
+    background-color: aliceblue;
+    align-items: center;
+    width: 370px;
+    height: 390px;
+    border-radius: 5px;
+	  margin: 5rem;
+  }
+
+  .allplayers {
+    background-color: aliceblue;  
+    align-items: center;
+    width: 370px;
+    height: 390px;
+    border-radius: 5px;
+	  margin: 7rem;
+  }
+
+  .allplayers-table , .choosed-table{
+    background-color: aliceblue;
+    align-items: center;
+    width: 340px;
+    height: 360px;
+    border-radius: 5px;
+    padding: auto;
+    box-shadow: 0px 0px 5px #888;
+  }
+
+  .confirm{
+    float: center;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    height: 7vh;
+    display: flex;
+  }
+
+  .submit-button {
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #2b2d42;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.5s;
+  }
