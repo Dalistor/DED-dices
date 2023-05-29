@@ -288,3 +288,6 @@ def view_edit_token(request, hash):
         'characteristics': characteristics,
         'attacks': attacks
     })
+
+def campaign_creation_view(request):
+    return render(request, 'campaign_creation.html')

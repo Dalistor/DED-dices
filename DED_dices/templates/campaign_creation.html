@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+jogadores da campanha
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/campaign_creation.css' %}">
+{% endblock %}
+
+{% block content %}
+<header class ="header">
+		<div class="campain">
+			<label for="campain"> nome da campanha</label>
+			<input id="campain" type="text" name="campain" placeholder="nome campanha"/>
+		</div>
+</header>
+  <div class="container">
+	<h1 class="h1"> escolha os jogadores</h1>
+
+	<div class="players_manager">
+		<div class="tables">
+			<div class="table">
+				<h2>jogadores</h2>
+				<div class="table-search">
+					<input id="campain" type="text" name="search" placeholder="Pesquisar"/>
+				</div>
+				<div class="table-results">
+					<h3>Nome do jogador</h3>
+				</div>
+			</div>
+
+			<div class="table">
+				<h2>campanha</p>
+
+				<div class="table-results">
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+  
+	<div class="confirm">
+		<input type="submit" value="confirmar os jogadores" class="submit-button"  >
+	</div>
+	
+
+{% endblock %}

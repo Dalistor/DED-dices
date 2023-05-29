@@ -18,4 +18,6 @@ urlpatterns = [
     path('edit_token/<str:hash>/', views.view_edit_token, name='token edit'),
 
     path('character_autosave/<str:hash>/<str:field>/', views.character_autosave, name='character autosave'),
+
+    path('campaign_creation/', views.campaign_creation_view, name='create campaign')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

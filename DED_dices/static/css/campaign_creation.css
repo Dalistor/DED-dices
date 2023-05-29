@@ -1,0 +1,134 @@
+body {
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin: 0;
+}
+
+.header {
+  float: center;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  display: flex;
+}
+
+.center-frase {
+  float: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.campain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.campain label {
+  text-transform: uppercase;
+}
+
+.campain input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.container {
+  margin-top: 2rem;
+  border-top: solid;
+}
+
+.players_manager {
+  display: flex;
+  justify-content: space-around;
+}
+
+.h1 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.tables {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  border: solid;
+  border-radius: 10px;
+}
+
+.choosed {
+  align-items: center;
+  width: 370px;
+  height: 390px;
+  border-radius: 5px;
+  margin: 5rem;
+}
+
+.allplayers {
+  align-items: center;
+  width: 370px;
+  height: 390px;
+  border-radius: 5px;
+  margin: 7rem;
+}
+
+.table {
+  border-radius: 10px;
+  height: 25rem;
+  width: 25rem;
+  border: solid;
+  box-shadow: 0px 0px 5px #aba9a9;
+  margin: 5rem;
+}
+
+.table h2 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.table-search {
+  margin-top: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: solid;
+  display: flex;
+  justify-content: center;
+}
+
+.table-search input {
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.confirm {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 2rem;
+}
+
+.submit-button {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #2b2d42;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.submit-button:hover {
+  background-color: #1d1f2f;
+}
+
+.table-results {
+  width: 100%;
+  height: 100%;
+}
