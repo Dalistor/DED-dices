@@ -836,40 +836,30 @@
 			attribute_modifier: atribute_modifier,
 			proficiency: proeficiency,
 			description: description,
-			type: attack_type
+			type: attack_type,
+			created: JSON.parse($('#is_created').val())
 		}
 
 		const validate = validate_form(value)
 		if (!validate.is_valid) {
 			return alert(validate.error_message)
 		}
-		  
-		let valueString = JSON.stringify(validate.attack)
-
-		$("#attacks_objects").val(concatenate(valueString))
+		
+		let object = []
+		if (!!$('#attacks_objects').val()) {
+			object = JSON.parse($('#attacks_objects').val())
+			object[attacks_num] = validate.attack
+		} else {
+			object.push(validate.attack)
+		}
+		
+		$("#attacks_objects").val(JSON.stringify(object))
 
 		makeAttack(name, attacks_num, magic_lvl)
 		attacks_num++
 
 		closePopup()
 	})
-
-	//concatenar novo ataque no input
-	function concatenate(new_value) {
-		var concatenated_value
-
-		if ($('#attacks_objects').val() == '' || $('#attacks_objects').val() == '[]') {
-			$('#attacks_objects').val(null)
-			concatenated_value = '[' + $('#attacks_objects').val() + new_value + ']'
-		} else {
-			const str = $('#attacks_objects').val()
-			const newStr = str.slice(0, str.length - 1)
-
-			concatenated_value = newStr + ',' + new_value + ']'
-		}
-
-		return concatenated_value
-	}
 </script>
 
 <script>
@@ -901,21 +891,18 @@
 
 	//preencher popup com informações do ataque selecionado
 	function fill_popup(object, num=null, created=false) {
-		console.log(object)
 		if (created) {
 			object = JSON.parse(object)
 			$('#is_created').val('true')
 		} else {
 			object = JSON.parse(object)[num]
-
 		}
-
-		console.log(num)
-
-		console.log(object)
 		
+		console.log(object)
+		console.log(object.magic_lvl)
+
 		$('#attack-name').val(object.name)
-		$('#magic_lvl').val(object.magic_lvl)
+		$('#magic-lvl').val(object.magic_lvl)
   		$('#dice_1').val(object.dice_1)
   		$('#dice_2').val(object.dice_2)
   		$('#dice_3').val(object.dice_3)
@@ -942,7 +929,7 @@
 
 	//edição de ataque
 	$('#edit_attack-button').on('click', ()=> {
-		const created = !!$('#is_created').val()
+		const created = JSON.parse($('#is_created').val())
 
 		let edited_name = $('#attack-name').val()
 
@@ -986,16 +973,25 @@
 
 		let object = []
 		if (created) {	
+			const validate = validate_form(value)
+			if (!validate.is_valid) {
+				return alert(validate.error_message)
+			}
+			
+			let object = []
 			if (!!$('#attacks_objects').val()) {
 				object = JSON.parse($('#attacks_objects').val())
-				object[attack_num] = validate.attack
+				object[attacks_num] = validate.attack
 			} else {
 				object.push(validate.attack)
-			}			
-
+			}
+			
 			$("#attacks_objects").val(JSON.stringify(object))
+
 			removeAttack(true)
 			makeAttack(edited_name, attacks_num, edited_magic_lvl)
+			attacks_num++
+			closePopup()
 		} else {
 			object = JSON.parse($('#attacks_objects').val())
 			object[attack_num] = validate.attack
@@ -1025,6 +1021,7 @@
 	//remover ataque do front end
 	function removeAttack(created) {
 		if (created) {
+			console.log(attack_num)
 			if (attack_type == 'magic') {
 				$('#attack_magic_config-' + attack_num + '-created').remove()
 				$('#attack_magic_data-' + attack_num).remove()
