@@ -13,7 +13,7 @@
 			<input type="text" name="name" maxlength="50" placeholder="Nome do personagem" class="character-name" value="{{character.name}}" required>
 
 			<div class="character-upperFeatures">
-				<input type="text" name="job" maxlength="20" placeholder="Classe" class="upperFeatures" value="{{character.name}}" required>
+				<input type="text" name="job" maxlength="20" placeholder="Classe" class="upperFeatures" value="{{character.job}}" required>
 				<input type="number" name="lvl" min="1" max="100" placeholder="Nível" class="upperFeatures" value="{{character.lvl}}" required>
 				<input type="text" name="background" maxlength="20" placeholder="Antecedente" class="upperFeatures" value="{{character.background}}" required>
 				<input type="text" name="race" maxlength="20" placeholder="Raça" class="upperFeatures" value="{{character.race}}" required>
@@ -215,7 +215,7 @@
 			<div class="col-3">
 				<div class="body_statistics-defined">
                     <div class="body_statistic">
-                        <input type="number" name="ca" id="ca" value="{{characteristics.class_armor}}" required>
+                        <input type="number" name="class_armor" id="ca" value="{{characteristics.class_armor}}" required>
                         <p>CA</p>
                     </div>
                     <div class="body_statistic">
@@ -227,13 +227,13 @@
                         <p>Deslocamento</p>
                     </div>
                     <div class="body_statistic">
-                        <input type="number" name="hp" id="hp" value="{{characteristics.hp}}" required>
+                        <input type="number" name="hp_max" id="hp_max" value="{{characteristics.hp_max}}" required>
                         <p>HP</p>
                     </div>
                 </div>
 
 				<div class="language_and_other_skills-field">
-					<textarea name="language_and_other_skills" value="{{characteristics.language_and_other_skills}}" maxlength="5000"></textarea>
+					<textarea name="language_and_other_skills" maxlength="5000">{{characteristics.language_and_other_skills}}</textarea>
 					<p>Idiomas e outras proeficiências</p>
 				</div>
 
@@ -257,7 +257,7 @@
 							</label>
 						</div>
 
-						<textarea name="equipments" value="{{characteristics.equipments}}" maxlength="2000"></textarea>
+						<textarea name="equipments" maxlength="2000">{{characteristics.equipments}}</textarea>
 					</div>
 
 					<p>Equipamentos</p>
@@ -267,21 +267,21 @@
 			<div class="col-4">
 				<div class="character-characteristics">
 					<div class="characteristics">
-						<textarea name="ideals" value="{{characteristics.equipments}}" maxlength="5000"></textarea>
+						<textarea name="ideals" maxlength="5000">{{characteristics.ideals}}</textarea>
 						<p>Ideais</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="ligations" value="{{characteristics.ligations}}" maxlength="5000"></textarea>
+						<textarea name="ligations" maxlength="5000">{{characteristics.ligations}}</textarea>
 						<p>Ligações</p>
 					</div>
 					<div class="characteristics">
-						<textarea name="defects" value="{{characteristics.defects}}" maxlength="5000"></textarea>
+						<textarea name="defects" maxlength="5000">{{characteristics.defects}}</textarea>
 						<p>Defeitos</p>
 					</div>
 				</div>
 
 				<div class="characteristics_and_skills">
-					<textarea name="characteristics_and_skills" value="{{characteristics.characteristics_and_skills}}" maxlength="5000"></textarea>
+					<textarea name="characteristics_and_skills" maxlength="5000">{{characteristics.characteristics_and_skills}}</textarea>
 					<p>Características e habilidades</p>
 				</div>
 			</div>
@@ -289,20 +289,20 @@
 
 		<div class="second-page">
 			<div class="appaerance">
-				<textarea name="appaerance" value="{{characteristics.appaerance}}" maxlength="5000"></textarea>
+				<textarea name="appaerance" maxlength="5000">{{characteristics.appaerance}}</textarea>
 				<p>Aparência</p>
 			</div>
 			<div class="other_characteristics">
-				<textarea name="other_characteristics" value="{{characteristics.other_characteristics}}" maxlength="5000"></textarea>
+				<textarea name="other_characteristics" maxlength="5000">{{characteristics.other_characteristics}}</textarea>
 				<p>Outras características e habilidades</p>
 			</div>
 
 			<div class="allies_and_organizations">
-				<textarea name="allies_and_organizations" value="{{characteristics.allies_and_organizations}}" maxlength="5000"></textarea>
+				<textarea name="allies_and_organizations" maxlength="5000">{{characteristics.allies_and_organizations}}</textarea>
 				<p>Aliados e organizações</p>
 			</div>
 			<div class="inventory">
-				<textarea name="inventory" value="{{characteristics.inventory}}" maxlength="5000"></textarea>
+				<textarea name="inventory" maxlength="5000">{{characteristics.inventory}}</textarea>
 				<p>Inventário</p>
 			</div>
 		</div>
@@ -310,7 +310,7 @@
 		<div class="third-page">
 			<div class="col-6">
 				<div class="history">
-					<textarea name="history" value="{{characteristics.history}}" maxlength="50000"></textarea>
+					<textarea name="history" maxlength="50000">{{characteristics.history}}</textarea>
 					<p>História</p>
 				</div>
 			</div>
@@ -966,6 +966,10 @@
 			created: created
 		}
 
+		if (created) {
+			value.id = parseInt(attack_num)
+		}
+
 		const validate = validate_form(value)
 		if (!validate.is_valid) {
 			return alert(validate.error_message)
@@ -1007,16 +1011,22 @@
 	//script para deletar ataques
 
 	//remoção do ataque
-	$('#delete_attack-button').on('click', ()=> {
-		let object = JSON.parse($('#attacks_objects').val())
-		object.splice(attack_num, 1)
-		
-		$("#attacks_objects").val(JSON.stringify(object))
-
-		remakeId()
-		removeAttack()
-		closePopup()
-	})
+	$('#delete_attack-button').on('click', () => {
+		try {
+			let object = JSON.parse($('#attacks_objects').val());
+			object.splice(attack_num, 1);
+	
+			$("#attacks_objects").val(JSON.stringify(object));
+	
+			remakeId();
+			removeAttack();
+			closePopup();
+		} catch (Exception e) {
+			let object = JSON.parse($('#attack_phyical-data-' + attack_num).val());
+			console.log(object);
+		}
+	});
+	
 
 	//remover ataque do front end
 	function removeAttack(created) {

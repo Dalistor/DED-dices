@@ -281,13 +281,61 @@ def view_edit_token(request, hash):
 
     attacks = Attack.objects.filter(owner=character.id)
 
-    return render(request, 'edit_character.html', {
-        'character': character,
-        'atributes': atributes,
-        'skills': skills,
-        'characteristics': characteristics,
-        'attacks': attacks
-    })
+    if request.method == 'POST':
+        character_form = CharacterForm(request.POST, instance=character)
+        if character_form.is_valid():
+            character_form.save()
+        else:
+            print('error - character')
+
+        atributes_form = AtributesForm(request.POST, instance=atributes)
+        if atributes_form.is_valid():
+            atributes_form.save()
+        else:
+            print('error - atribute')
+
+        skills_form = SkillsForm(request.POST, instance=skills)
+        if skills_form.is_valid():
+            skills_form.save()
+        else:
+            print('error - skill')
+
+        characteristics_form = CharacteristicsForm(request.POST, instance=characteristics)
+        if characteristics_form.is_valid():
+            characteristics_form.save()
+        else:
+            print(f'error - characteristics: {characteristics_form.errors}')
+
+        all_attacks = request.POST.get('attacks')
+        if all_attacks:
+            all_attacks = json.loads(all_attacks)
+
+            for attack_dict in all_attacks:
+                if attack_dict['created']:
+                    attack = Attack.objects.get(id=attack_dict['id'])
+                    attack_form = AttackForm(attack_dict, instance=attack)
+
+                    if attack_form.is_valid():
+                        attack_form.save()
+                
+                else:
+                    attack_form = AttackForm(attack_dict)
+                    
+                    if attack_form.is_valid():
+                        attack = attack_form.save(commit=False)
+                        attack.owner = Character.objects.get(id=character.id)
+                        attack.save()
+
+        return redirect('/player_selection/')
+                
+    else:
+        return render(request, 'edit_character.html', {
+            'character': character,
+            'atributes': atributes,
+            'skills': skills,
+            'characteristics': characteristics,
+            'attacks': attacks
+        })
 
 def campaign_creation_view(request):
     return render(request, 'campaign_creation.html')
