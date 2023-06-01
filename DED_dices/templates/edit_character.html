@@ -346,7 +346,7 @@
 							<div class="lvl-content" id="lvl_0">
 								{% for attack in attacks %}
 								{% if attack.type == 'magic' and attack.magic_lvl == 'lvl_0' %}
-								<div class="attack" class="created" id="attack_magic_config-{{attack.id}}-created">
+								<div class="attack created" class="created" id="attack_magic_config-{{attack.id}}-created">
 									<h2>{{attack.name}}</h2>
 									<input type="hidden" id='attack_magic_data-{{attack.id}}' value='{"name": "{{attack.name}}", "magic_lvl": "{{attack.magic_lvl}}", "dice_1": "{{attack.dice_1}}","dice_2": "{{attack.dice_2}}","dice_3": "{{attack.dice_3}}","roll_1": {%if attack.roll_1 %}{{attack.roll_1}}{% else %}null{% endif %},"roll_2": {%if attack.roll_2 %}{{attack.roll_2}}{% else %}null{% endif %},"roll_3": {%if attack.roll_3 %}{{attack.roll_3}}{% else %}null{% endif %},"damage_modifier": {%if attack.damage_modifier %}{{attack.damage_modifier}}{% else %}null{% endif %},"attribute_modifier": "{{attack.attribute_modifier}}","proficiency": {%if attack.proficiency %}true{% else %}false{% endif %},"description": "{{attack.description}}", "type": "{{attack.type}}"}'>
 								</div>
@@ -592,6 +592,7 @@
 			</div>
 
 			<input value="" type="hidden" id="attacks_objects" name="attacks">		
+			<input value="" type="hidden" id="remove_attacks_objects" name="remove_attacks">		
 		</div>
 
 		<div class="submit_form">
@@ -963,7 +964,8 @@
 			proficiency: edited_proeficiency,
 			description: edited_description,
 			type: attack_type,
-			created: created
+			created: created,
+			delete: false
 		}
 
 		if (created) {
@@ -1012,26 +1014,25 @@
 
 	//remoção do ataque
 	$('#delete_attack-button').on('click', () => {
-		try {
-			let object = JSON.parse($('#attacks_objects').val());
-			object.splice(attack_num, 1);
-	
-			$("#attacks_objects").val(JSON.stringify(object));
-	
-			remakeId();
-			removeAttack();
-			closePopup();
-		} catch (Exception e) {
-			let object = JSON.parse($('#attack_phyical-data-' + attack_num).val());
-			console.log(object);
+		const created = JSON.parse($('#is_created').val())
+		let object
+		if (created) {
+			removeAttack(true)
+		} else {
+			object = JSON.parse($('#attacks_objects').val())
+			object.splice(attack_num, 1)
+
+			$("#attacks_objects").val(JSON.stringify(object))
+
+			removeAttack()
 		}
-	});
-	
+		
+		closePopup()
+	})
 
 	//remover ataque do front end
 	function removeAttack(created) {
 		if (created) {
-			console.log(attack_num)
 			if (attack_type == 'magic') {
 				$('#attack_magic_config-' + attack_num + '-created').remove()
 				$('#attack_magic_data-' + attack_num).remove()
@@ -1040,6 +1041,10 @@
 				$('#attack_physical_data-' + attack_num).remove()
 			}
 
+			object = JSON.parse($('#remove_attacks_objects').val())
+			object.push(attack_num)
+			$('#remove_attacks_objects').val(object)
+			
 		} else {
 			if (attack_type == 'magic') {
 				$('#attack_magic_config-' + attack_num).remove()
@@ -1051,7 +1056,7 @@
 
 		$('.lvl-content').map((index, element)=> {
 			const id = element.id
-			console.log(id)
+
 			if ($.trim($('#' + id).html()) === '') {
 				$('.' + id).css('display', 'none')
 			}
