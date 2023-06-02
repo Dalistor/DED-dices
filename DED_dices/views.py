@@ -12,8 +12,6 @@ from .hash import *
 import json
 
 # redirecionar para uma view
-
-
 def redirect_view(request):
     if request.user.is_authenticated:
         return redirect('/selection/')
@@ -21,8 +19,6 @@ def redirect_view(request):
         return redirect('/login/')
 
 # login
-
-
 def login_view(request):
     error_message = None
     if request.method == "POST":
@@ -43,8 +39,6 @@ def login_view(request):
     })
 
 # registro
-
-
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -69,8 +63,6 @@ def register_view(request):
         return render(request, 'register.html')
 
 # seleção de conta
-
-
 def selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -78,8 +70,6 @@ def selection_view(request):
         return render(request, 'selection.html')
 
 # seleção de personagens
-
-
 def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -118,8 +108,6 @@ def delete_character(request, hash):
     return redirect('/player_selection/')
 
 # autosave do personagem
-
-
 @csrf_exempt
 def character_autosave(request, hash, field):
     if not check_hash(hash):
@@ -179,8 +167,6 @@ def character_autosave(request, hash, field):
     return HttpResponse('fail')
 
 # ficha do personagem
-
-
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -344,8 +330,6 @@ def view_edit_token(request, hash):
                 attack = Attack.objects.get(id=attack_dict)
                 if attack.owner == character:
                     attack.delete()
-                else:
-                    print('error')
 
         return redirect('/player_selection/')
 
