@@ -12,6 +12,8 @@ from .hash import *
 import json
 
 # redirecionar para uma view
+
+
 def redirect_view(request):
     if request.user.is_authenticated:
         return redirect('/selection/')
@@ -19,6 +21,8 @@ def redirect_view(request):
         return redirect('/login/')
 
 # login
+
+
 def login_view(request):
     error_message = None
     if request.method == "POST":
@@ -39,6 +43,8 @@ def login_view(request):
     })
 
 # registro
+
+
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -63,6 +69,8 @@ def register_view(request):
         return render(request, 'register.html')
 
 # seleção de conta
+
+
 def selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -70,6 +78,8 @@ def selection_view(request):
         return render(request, 'selection.html')
 
 # seleção de personagens
+
+
 def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -95,10 +105,11 @@ def player_selection_view(request):
         'all_characters': all_characters
     })
 
+
 def delete_character(request, hash):
     if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
-    
+
     id = hash.split('-')[0]
 
     character = Character.objects.get(id=id)
@@ -106,14 +117,16 @@ def delete_character(request, hash):
 
     return redirect('/player_selection/')
 
-#autosave do personagem
+# autosave do personagem
+
+
 @csrf_exempt
 def character_autosave(request, hash, field):
     if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
-    
+
     id = hash.split('-')[0]
-    
+
     character = Character.objects.get(id=id)
     table = Characteristics.objects.get(owner=character.id)
     skill = Skills.objects.get(owner=character.id)
@@ -128,44 +141,46 @@ def character_autosave(request, hash, field):
         elif field == 'displacement_temp':
             table.displacement_temp = request.POST['value']
 
-        elif field == 'hp_temp':        
-           table.hp_temp = request.POST['value']
+        elif field == 'hp_temp':
+            table.hp_temp = request.POST['value']
 
         elif field == 'pc':
-           table.pc = request.POST['value']
+            table.pc = request.POST['value']
 
         elif field == 'pp':
-           table.pp = request.POST['value']
+            table.pp = request.POST['value']
 
         elif field == 'po':
-           table.po = request.POST['value']
+            table.po = request.POST['value']
 
         elif field == 'pl':
-           table.pl = request.POST['value']
+            table.pl = request.POST['value']
 
         elif field == 'da':
-           table.da = request.POST['value']
+            table.da = request.POST['value']
 
         elif field == 'equipments':
-           table.equipments = request.POST['value'] 
+            table.equipments = request.POST['value']
 
         elif field == 'inventory':
-           table.inventory = request.POST['value']
+            table.inventory = request.POST['value']
 
         elif field == 'history':
-           table.history = request.POST['value']
+            table.history = request.POST['value']
 
         elif field == 'hp':
-           table.hp = request.POST['value']
+            table.hp = request.POST['value']
 
         table.save()
         skill.save()
 
         return HttpResponse('sucess')
-    
+
     return HttpResponse('fail')
-        
+
 # ficha do personagem
+
+
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -232,7 +247,7 @@ def player_token_creation_view(request):
             attack.attribute_modifier = attack_dict['attribute_modifier']
 
             attack.proficiency = attack_dict['proficiency']
-            
+
             attack.description = attack_dict['description']
 
             attack.type = attack_dict['type']
@@ -242,6 +257,7 @@ def player_token_creation_view(request):
         return redirect('/player_selection/')
 
     return render(request, 'new_character.html')
+
 
 def character_play_view(request, hash):
     if not check_hash(hash):
@@ -267,14 +283,14 @@ def character_play_view(request, hash):
         'attacks': attacks
     })
 
+
 def view_edit_token(request, hash):
     if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     id = hash.split('-')[0]
-    
-    character = Character.objects.get(id=id)
 
+    character = Character.objects.get(id=id)
     atributes = Atributes.objects.get(owner=character.id)
     skills = Skills.objects.get(owner=character.id)
     characteristics = Characteristics.objects.get(owner=character.id)
@@ -284,27 +300,21 @@ def view_edit_token(request, hash):
     if request.method == 'POST':
         character_form = CharacterForm(request.POST, instance=character)
         if character_form.is_valid():
-            character_form.save()
-        else:
-            print('error - character')
+            character_commit = character_form.save(commit=False)
+            character_commit.portrait =  request.FILES.get('portrait')
+            character_commit.save()
 
         atributes_form = AtributesForm(request.POST, instance=atributes)
         if atributes_form.is_valid():
             atributes_form.save()
-        else:
-            print('error - atribute')
 
         skills_form = SkillsForm(request.POST, instance=skills)
         if skills_form.is_valid():
             skills_form.save()
-        else:
-            print('error - skill')
 
         characteristics_form = CharacteristicsForm(request.POST, instance=characteristics)
         if characteristics_form.is_valid():
             characteristics_form.save()
-        else:
-            print(f'error - characteristics: {characteristics_form.errors}')
 
         all_attacks = request.POST.get('attacks')
         if all_attacks:
@@ -317,17 +327,28 @@ def view_edit_token(request, hash):
 
                     if attack_form.is_valid():
                         attack_form.save()
-                
+
                 else:
                     attack_form = AttackForm(attack_dict)
-                    
+
                     if attack_form.is_valid():
                         attack = attack_form.save(commit=False)
                         attack.owner = Character.objects.get(id=character.id)
                         attack.save()
 
+        all_attacks_remove = request.POST.get('remove_attacks')
+        if all_attacks_remove:
+            all_attacks_remove = json.loads(all_attacks_remove)
+
+            for attack_dict in all_attacks_remove:
+                attack = Attack.objects.get(id=attack_dict)
+                if attack.owner == character:
+                    attack.delete()
+                else:
+                    print('error')
+
         return redirect('/player_selection/')
-                
+
     else:
         return render(request, 'edit_character.html', {
             'character': character,
@@ -336,6 +357,7 @@ def view_edit_token(request, hash):
             'characteristics': characteristics,
             'attacks': attacks
         })
+
 
 def campaign_creation_view(request):
     return render(request, 'campaign_creation.html')
