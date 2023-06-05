@@ -586,6 +586,7 @@
 					</div>
 
 					<input type="hidden" id="is_created" value="false">
+					<input type="hidden" id="attack_id" value="">
 
 					<button type="button" id="close_popup-button">Fechar</button>
 				</div>
@@ -674,6 +675,7 @@
 		$('#attack_description').val(null)
 
 		$('#is_created').val('false')
+		$('#attack_num').val('null')
 
 		popupContainer.css('display', 'none')
 	}
@@ -868,18 +870,37 @@
 
 	//colocar eventos em novos elementos
 	let attack_num
-	function add_event(id, created=false) {
+	let is_init
+	function add_event(id, created=false, init=false, created_element_id=-1) {
 		$('#' + id).on('click', (element) => {
+			is_init = init
 			attack_type = element.currentTarget.id.split('_')[1]
+			attack_num = element.currentTarget.id.split('-')[1]
 
-			if (created) {
-				attack_num = element.currentTarget.id.split('-')[1]
+			if (init) {
 				attack = $('#attack_' + attack_type + '_data-' + attack_num).val()
-				fill_popup(attack, null, true)
+
+				if (created_element_id == -1) {
+					$('#attack_id').val(attack_num)
+				} else {
+					$('#attack_id').val(created_element_id)
+				}
+				
+				fill_popup(attack, null, false)
 			} else {
-				attack_num = element.currentTarget.id.split('-')[1]
 				attack = $('#attacks_objects').val()
-				fill_popup(attack, attack_num)
+
+				if (created) {
+					if (created_element_id == -1) {
+						$('#attack_id').val(attack_num)
+					} else {
+						$('#attack_id').val(created_element_id)
+					}
+					
+					fill_popup(attack, attack_num, true)
+				} else {
+					fill_popup(attack, attack_num)
+				}
 			}
 
 			openPopup(true, attack_type)
@@ -887,13 +908,16 @@
 	}
 
 	$('.created').map((index, element) => {
-		add_event(element.id, true)
+		add_event(element.id, false, true)
 	})
 
 	//preencher popup com informações do ataque selecionado
 	function fill_popup(object, num=null, created=false) {
-		if (created) {
+		if (is_init) {
 			object = JSON.parse(object)
+			$('#is_created').val('true')
+		} else if (created) {
+			object = JSON.parse(object)[num]
 			$('#is_created').val('true')
 		} else {
 			object = JSON.parse(object)[num]
@@ -927,7 +951,7 @@
 	var edit = false
 	//edição de ataque
 	$('#edit_attack-button').on('click', ()=> {
-		const created = JSON.parse($('#is_created').val())
+		let created = JSON.parse($('#is_created').val())
 
 		let edited_name = $('#attack-name').val()
 
@@ -966,7 +990,7 @@
 		}
 
 		if (created) {
-			value.id = parseInt(attack_num)
+			value.id = parseInt($('#attack_id').val())
 		}
 
 		const validate = validate_form(value)
@@ -977,33 +1001,37 @@
 		edit = true
 
 		let object = []
-		if (created) {	
-			const validate = validate_form(value)
+		if (is_init) {
 			if (!validate.is_valid) {
 				return alert(validate.error_message)
 			}
 			
-			let object = []
 			if (!!$('#attacks_objects').val()) {
 				object = JSON.parse($('#attacks_objects').val())
 				object[attacks_num] = validate.attack
 			} else {
 				object.push(validate.attack)
 			}
-			
-			$("#attacks_objects").val(JSON.stringify(object))
 
 			removeAttack(true)
-			makeAttack(edited_name, attacks_num, edited_magic_lvl)
-			attacks_num++
+			makeAttack(edited_name, attacks_num, edited_magic_lvl, true, attack_num)
 			closePopup()
+
+			attacks_num++
 		} else {
 			object = JSON.parse($('#attacks_objects').val())
 			object[attack_num] = validate.attack
 			removeAttack()
-			makeAttack(edited_name, attack_num, edited_magic_lvl)
+			console.log(created)
+			if (created) {
+				makeAttack(edited_name, attack_num, edited_magic_lvl, true, validate.attack.id)
+			} else {
+				makeAttack(edited_name, attack_num, edited_magic_lvl)
+			}
 		}
 		
+		$("#attacks_objects").val(JSON.stringify(object))
+
 		closePopup()
 	})
 </script>
@@ -1015,23 +1043,18 @@
 	$('#delete_attack-button').on('click', () => {
 		const created = JSON.parse($('#is_created').val())
 		let object
-		if (created) {
-			removeAttack(true)
-		} else {
-			object = JSON.parse($('#attacks_objects').val())
-			object.splice(attack_num, 1)
 
-			$("#attacks_objects").val(JSON.stringify(object))
+		object = JSON.parse($('#attacks_objects').val())
+		object.splice(attack_num, 1)
+		$("#attacks_objects").val(JSON.stringify(object))
 
-			removeAttack()
-		}
-		
+		removeAttack(created)
 		closePopup()
 	})
 
 	//remover ataque do front end
 	function removeAttack(created) {
-		if (created) {
+		if (is_init) {
 			if (attack_type == 'magic') {
 				$('#attack_magic_config-' + attack_num + '-created').remove()
 				$('#attack_magic_data-' + attack_num).remove()
@@ -1039,16 +1062,6 @@
 				$('#attack_physical_config-' + attack_num  + '-created').remove()
 				$('#attack_physical_data-' + attack_num).remove()
 			}
-
-			if (!!$('#remove_attacks_objects').val() && !edit) {
-				object = JSON.parse($('#remove_attacks_objects').val())
-				object.push(attack_num)
-				$('#remove_attacks_objects').val(JSON.stringify(object))
-			} else if (!edit) {
-				object = [attack_num]
-				$('#remove_attacks_objects').val(JSON.stringify(object))
-			}
-			
 		} else {
 			if (attack_type == 'magic') {
 				$('#attack_magic_config-' + attack_num).remove()
@@ -1056,7 +1069,17 @@
 				$('#attack_physical_config-' + attack_num).remove()
 			}
 		}
-		
+
+		if ((is_init || created) && !edit) {
+			if (!!$('#remove_attacks_objects').val()) {
+				object = JSON.parse($('#remove_attacks_objects').val())
+				object.push(attack_num)
+				$('#remove_attacks_objects').val(JSON.stringify(object))
+			} else {
+				object = [attack_num]
+				$('#remove_attacks_objects').val(JSON.stringify(object))
+			}
+		}
 
 		$('.lvl-content').map((index, element)=> {
 			const id = element.id
@@ -1101,14 +1124,19 @@
 	//funções globais
 
 	//função para criar um novo elemento no front end
-	function makeAttack(fName, fAttack_num, fMagic_lvl) {
+	function makeAttack(fName, fAttack_num, fMagic_lvl, created=false, id=-1) {
 		if (attack_type == 'physical') {
 			const temp = '<div class="attack" id="attack_physical_config-' + fAttack_num + '"> \n' +
 				'<h2>' + fName + '</h2> \n' +
 				'</div>'
 
 			$('.physical_attacks-field').append(temp)
-			add_event('attack_physical_config-' + fAttack_num)
+
+			if (id != -1) {
+				add_event('attack_physical_config-' + fAttack_num, created, false, id)
+			} else {
+				add_event('attack_physical_config-' + fAttack_num, created, false)
+			}
 		}
 
 		if (attack_type == 'magic') {
@@ -1118,7 +1146,12 @@
 
 			$('#' + fMagic_lvl).append(temp)
 			$('.' + fMagic_lvl).css('display', 'block')
-			add_event('attack_magic_config-' + fAttack_num)
+
+			if (id != -1) {
+				add_event('attack_magic_config-' + fAttack_num, created, false, id)
+			} else {
+				add_event('attack_magic_config-' + fAttack_num, created, false)
+			}
 		}
 	}
 

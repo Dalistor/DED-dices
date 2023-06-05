@@ -287,7 +287,10 @@ def view_edit_token(request, hash):
         character_form = CharacterForm(request.POST, instance=character)
         if character_form.is_valid():
             character_commit = character_form.save(commit=False)
-            character_commit.portrait =  request.FILES.get('portrait')
+            
+            if request.FILES:
+                character_commit.portrait =  request.FILES.get('portrait')
+            
             character_commit.save()
 
         atributes_form = AtributesForm(request.POST, instance=atributes)
