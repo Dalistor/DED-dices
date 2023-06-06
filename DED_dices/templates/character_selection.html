@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/character_selection.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -36,4 +37,16 @@
 		{% endfor %}
 	</div>
 </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+		$('.delete-btn').on('click', (e)=> {
+			e.preventDefault()
+			
+			if (confirm('Tem certeza? Essa ação não pode ser desfeita.')) {
+				window.location.href = $(e.target).attr('href')
+			}
+		})
+	</script>
 {% endblock %}
