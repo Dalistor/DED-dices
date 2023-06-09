@@ -9,29 +9,29 @@
 {% block content %}
 <div class="container">
 	<div class="header">
-		<h1>Seleção de Personagens</h1>
-		<a class="new-char" href="/player_token_creation/">Novo Personagem</a>
+		<h1>Seleção de Campanha</h1>
+		<a class="new-char" href="/player_token_creation/">Nova campanha</a>
 	</div>
 	<form class="search-container" method="GET">
 		<input type="text" placeholder="Pesquisar..." name="search_input">
 		<input type="submit" class="search-btn" value="Pesquisar" name="search">
 	</form>
 	<div class="display-container">
-		{% for character in all_characters %}
+		{% for campaign in campaigns %}
 		<div class="character">
 
-			<a href="/play/{{character.id}}/">
-				{% if character.portrait %}
-				<img src="{{character.portrait.url}}" alt="Imagem do personagem">
+			<a href="/campaign/{{campaign.id}}/">
+				{% if campaign.cover %}
+				<img src="{{campaign.cover.url}}" alt="Imagem da campanha">
 				{% else %}
-				<img src="{% static 'imgs/default_portrait.webp' %}" alt="Imagem do personagem">
+				<img src="{% static 'imgs/default_portrait.webp' %}" alt="Imagem da campanha">
 				{% endif %}
 			</a>
 
-			<h2>{{character.name}} - {{character.job}}</h2>
+			<h2>{{campaign.name}}</h2>
 			<div class="buttons">
-				<a class="edit-btn" href="/edit_token/{{character.id}}/">Editar</a>
-				<a class="delete-btn" href='/delete_token/{{character.id}}/'>Excluir</a>
+				<a class="edit-btn" href="/edit_campaign/{{campaign.id}}/">Editar</a>
+				<a class="delete-btn" href='/delete_campaign/{{campaign.id}}/'>Excluir</a>
 			</div>
 		</div>
 		{% endfor %}

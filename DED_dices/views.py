@@ -74,18 +74,16 @@ def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
 
-    user_id = request.user.id
-
     # pesquisa
     if request.GET.get('search'):
         search_input = request.GET['search_input']
         all_characters = Character.objects.filter(
-            owner=user_id,
+            owner=request.user.id,
             name__icontains=search_input
         )
 
     else:
-        all_characters = Character.objects.filter(owner=user_id)
+        all_characters = Character.objects.filter(owner=request.user.id)
 
     # trocar id por hash
     for character in all_characters:
@@ -345,6 +343,31 @@ def view_edit_token(request, hash):
             'attacks': attacks
         })
 
+def campaign_selection_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    
+    # pesquisa
+    if request.GET.get('search'):
+        search_input = request.GET['search_input']
+        campaigns = Campaign.objects.filter(
+            owner=request.user.id,
+            name__icontains=search_input
+        )
+
+    else:
+        campaigns = Campaign.objects.filter(owner=request.user)
+    
+    
+    for campaign in campaigns:
+        campaign.id = hash_id(campaign.id)
+
+    return render(request, 'campaign_selection.html', {
+        'campaigns': campaigns
+    })
 
 def campaign_creation_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    
     return render(request, 'campaign_creation.html')
