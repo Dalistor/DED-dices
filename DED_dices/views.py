@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseNotFound, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 from .models import *
 from .forms import *
@@ -370,4 +371,31 @@ def campaign_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     
-    return render(request, 'campaign_creation.html')
+    # pesquisa
+    if request.GET.get('search'):
+        search_input = request.GET['search_input']
+        players = User.objects.filter(
+            name__icontains=search_input
+        )
+
+        print(json.dumps(list(players.values())))
+        return JsonResponse({
+            'players': json.dumps(list(players.values()))
+        })
+    
+    else:
+        return render(request, 'campaign_creation.html')
+    
+def userSearch(request):
+    if request.method == 'GET':
+        search = request.GET['search']
+        players = None
+
+        if request.GET.get('search'):
+            players = User.objects.filter(
+                username__icontains=search
+            ).exclude(username=request.user.username)
+
+        return JsonResponse({
+            'players': list(players.values()) if players else []
+        })

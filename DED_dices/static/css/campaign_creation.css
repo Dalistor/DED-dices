@@ -132,3 +132,10 @@ body {
   width: 100%;
   height: 100%;
 }
+
+.user {
+  padding: 1rem;
+  border: solid;
+  margin: 0.1rem;
+  border-radius: 10px;
+}

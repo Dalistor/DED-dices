@@ -7,44 +7,71 @@ jogadores da campanha
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/campaign_creation.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
 {% block content %}
 <header class ="header">
 		<div class="campain">
-			<label for="campain"> nome da campanha</label>
-			<input id="campain" type="text" name="campain" placeholder="nome campanha"/>
+			<input id="campain" type="text" name="campain-name" placeholder="Nome da campanha"/>
 		</div>
 </header>
   <div class="container">
-	<h1 class="h1"> escolha os jogadores</h1>
+	<h1 class="h1">Escolha os jogadores</h1>
 
 	<div class="players_manager">
 		<div class="tables">
 			<div class="table">
-				<h2>jogadores</h2>
+				<h2>Jogadores</h2>
 				<div class="table-search">
-					<input id="campain" type="text" name="search" placeholder="Pesquisar"/>
+					<input id="searchField" type="text" name="search" placeholder="Pesquisar"/>
 				</div>
-				<div class="table-results">
-					<h3>Nome do jogador</h3>
-				</div>
+				<div class="table-results" id="user_display"></div>
 			</div>
 
 			<div class="table">
-				<h2>campanha</p>
-
-				<div class="table-results">
-
-				</div>
-
+				<h2>Campanha</p>
+				<div class="table-results"></div>
 			</div>
 		</div>
 	</div>
   
 	<div class="confirm">
-		<input type="submit" value="confirmar os jogadores" class="submit-button"  >
+		<input type="submit" value="Criar campanha" class="submit-button" >
 	</div>
-	
+{% endblock %}
 
+{% block script %}
+	<script>
+		$('#searchField').on('input', ()=> {
+			$.ajax({
+				url: '/campaign_creation_userSearch/',
+				type: 'GET',
+				data: {
+					'search': $('#searchField').val()
+				},
+				success: (response)=> {
+					clearPlace('user_display')
+					setResponse(response)
+				},
+				error: ()=> {
+					console.log('Um erro ocorreu')
+				}
+			})
+		})
+
+		function clearPlace(id) {
+			$('#' + id).html('')
+		}
+
+		function setResponse(response) {
+			for (key=0; key < response.players.length; key++) {
+				temp = '<div class="user" id="user-' + response.players[key].id + '">' + '\n' +
+					'<p>' + response.players[key].username + '</p>' + '\n' +
+					'</div>'
+
+				$('#user_display').append(temp)
+			} 
+		}
+	</script>
 {% endblock %}

@@ -20,5 +20,6 @@ urlpatterns = [
     path('character_autosave/<str:hash>/<str:field>/', views.character_autosave, name='character autosave'),
 
     path('campaign_selection/', views.campaign_selection_view, name='campaign selection'),
-    path('campaign_creation/', views.campaign_creation_view, name='create campaign')
+    path('campaign_creation/', views.campaign_creation_view, name='create campaign'),
+    path('campaign_creation_userSearch/', views.userSearch, name='user search')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
