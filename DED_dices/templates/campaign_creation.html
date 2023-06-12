@@ -30,10 +30,12 @@ jogadores da campanha
 			</div>
 
 			<div class="table">
-				<h2>Campanha</p>
-				<div class="table-results"></div>
+				<h2>Campanha</h2>
+				<div class="table-results" id="selectedUsers_display"></div>
 			</div>
 		</div>
+
+		<input type="hidden" id="selectedUsers" name="selected_users">
 	</div>
   
 	<div class="confirm">
@@ -43,6 +45,8 @@ jogadores da campanha
 
 {% block script %}
 	<script>
+		//script para pesquisar usuário
+
 		$('#searchField').on('input', ()=> {
 			$.ajax({
 				url: '/campaign_creation_userSearch/',
@@ -71,7 +75,106 @@ jogadores da campanha
 					'</div>'
 
 				$('#user_display').append(temp)
+
+				addEvent_user()
 			} 
+		}
+	</script>
+
+	<script>
+		//script para selecionar usuário
+
+		var selectedUsers = []
+
+		function addEvent_user() {
+			$('.user').map((index, element)=> {
+				id = element.id
+				if($.inArray(id, selectedUsers.map(user => user.id)) == -1) {
+					$('#' + element.id).on('click', (e)=> {
+						id = e.currentTarget.id
+	
+						if($.inArray(id, selectedUsers.map(user => user.id)) == -1) {
+							const user = {
+								name: $('#' + id + ' p').text(),
+								id: id,
+								personal_id: id.split('-')[1]
+							}
+	
+							putInSelectedsField(user)
+	
+							toGray()
+						}
+					})
+				} else {
+					toGray()
+				}
+			})
+
+			function toGray() {
+				$('#' + id).css({
+					'background-color': 'gray',
+					'cursor': 'auto'
+				})
+			}
+		}
+
+		function putInSelectedsField(user) {
+			temp = '<div class="selected-user" id="selectedUser-' + user.id + '">' + '\n' +
+				'<p>' + user.name + '</p>' + '\n' +
+				'</div>'
+
+			$('#selectedUsers_display').append(temp)
+
+			selectedUsers.push(user)
+
+			addInPost()
+			addEvent_selectedUser()
+		}
+
+		function addInPost() {
+			let selecteds = []
+			for(i=0; i < selectedUsers.length; i++) {
+				const personalId = selectedUsers[i].personal_id
+				selecteds.push(parseInt(personalId))
+			}
+			
+			jsonUsers = JSON.stringify(selecteds)
+			$('#selectedUsers').val(jsonUsers)
+		}
+	</script>
+
+	<script>
+		//script para remover o participante dos selecionados
+
+		function addEvent_selectedUser() {
+			$('.selected-user').map((index, element) => {
+				$('#' + element.id).on('click', (e)=> {
+					console.log('clicado')
+					id = e.currentTarget.id
+					removeUser(id)
+				})
+			})
+		}
+
+		function removeUser(id) {
+			const personal_id = id.split('-')[2]
+		  
+			$('#' + id).remove()
+		  
+			const index = $.inArray(personal_id, selectedUsers.map(user => user.personal_id))
+			if (index !== -1) {
+			  	selectedUsers.splice(index, 1)
+			}
+		  
+			const jsonValue = JSON.stringify(selectedUsers)
+			$('#selectedUsers').val(jsonValue)
+
+			clearUserDisplay()
+		}
+
+		function clearUserDisplay() {
+			$('#searchField').val(null)
+			$('#user_display').html(null)
 		}
 	</script>
 {% endblock %}

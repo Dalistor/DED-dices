@@ -103,6 +103,10 @@ body {
   justify-content: center;
 }
 
+#selectedUsers_display {
+  margin-top: 2rem;
+}
+
 .table-search input {
   padding: 4px;
   border-radius: 10px;
@@ -133,9 +137,10 @@ body {
   height: 100%;
 }
 
-.user {
+.user, .selected-user {
   padding: 1rem;
   border: solid;
   margin: 0.1rem;
   border-radius: 10px;
+  cursor: pointer;
 }
