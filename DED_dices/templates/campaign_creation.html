@@ -12,9 +12,9 @@ jogadores da campanha
 
 {% block content %}
 <header class ="header">
-		<div class="campain">
-			<input id="campain" type="text" name="campain-name" placeholder="Nome da campanha"/>
-		</div>
+	<div class="campain">
+		<input id="campain" type="text" name="campain-name" placeholder="Nome da campanha"/>
+	</div>
 </header>
   <div class="container">
 	<h1 class="h1">Escolha os jogadores</h1>
@@ -149,7 +149,6 @@ jogadores da campanha
 		function addEvent_selectedUser() {
 			$('.selected-user').map((index, element) => {
 				$('#' + element.id).on('click', (e)=> {
-					console.log('clicado')
 					id = e.currentTarget.id
 					removeUser(id)
 				})
@@ -162,19 +161,31 @@ jogadores da campanha
 			$('#' + id).remove()
 		  
 			const index = $.inArray(personal_id, selectedUsers.map(user => user.personal_id))
+			let jsonValue = JSON.parse($('#selectedUsers').val())
+
 			if (index !== -1) {
 			  	selectedUsers.splice(index, 1)
-			}
-		  
-			const jsonValue = JSON.stringify(selectedUsers)
-			$('#selectedUsers').val(jsonValue)
+				jsonValue = $.grep(jsonValue, (element)=> {
+					return element != personal_id
+				})
 
-			clearUserDisplay()
+				jsonValue = JSON.stringify(jsonValue)
+
+				if(Array.isArray(jsonValue)) {
+					$('#selectedUsers').val(jsonValue)
+				} else {
+					$('#selectedUsers').val([jsonValue])
+				}
+			}
+
+			clearUserDisplay(personal_id)
 		}
 
-		function clearUserDisplay() {
-			$('#searchField').val(null)
-			$('#user_display').html(null)
+		function clearUserDisplay(id) {
+			$('#user-' + id).css({
+				'background-color': 'white',
+				'cursor': 'pointer'
+			})
 		}
 	</script>
 {% endblock %}
