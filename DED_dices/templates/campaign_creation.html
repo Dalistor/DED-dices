@@ -11,36 +11,41 @@ jogadores da campanha
 {% endblock %}
 
 {% block content %}
-<header class ="header">
-	<div class="campain">
-		<input id="campain" type="text" name="campain-name" placeholder="Nome da campanha"/>
-	</div>
-</header>
-  <div class="container">
-	<h1 class="h1">Escolha os jogadores</h1>
-
-	<div class="players_manager">
-		<div class="tables">
-			<div class="table">
-				<h2>Jogadores</h2>
-				<div class="table-search">
-					<input id="searchField" type="text" name="search" placeholder="Pesquisar"/>
-				</div>
-				<div class="table-results" id="user_display"></div>
-			</div>
-
-			<div class="table">
-				<h2>Campanha</h2>
-				<div class="table-results" id="selectedUsers_display"></div>
-			</div>
+<form method="POST">
+	<header class ="header">
+		<div class="campain">
+			<input id="campain" type="text" name="name" placeholder="Nome da campanha" required/>
 		</div>
+	</header>
 
-		<input type="hidden" id="selectedUsers" name="selected_users">
-	</div>
-  
-	<div class="confirm">
-		<input type="submit" value="Criar campanha" class="submit-button" >
-	</div>
+	<main class="container">
+		<h1 class="h1">Escolha os jogadores</h1>
+
+		<div class="players_manager">
+			<div class="tables">
+				<div class="table">
+					<h2>Jogadores</h2>
+					<div class="table-search">
+						<input id="searchField" type="text" name="search" placeholder="Pesquisar"/>
+					</div>
+					<div class="table-results" id="user_display"></div>
+				</div>
+
+				<div class="table">
+					<h2>Campanha</h2>
+					<div class="table-results" id="selectedUsers_display"></div>
+				</div>
+			</div>
+
+			<input type="hidden" id="selectedUsers" name="team">
+		</div>
+	
+		<div class="confirm">
+			{% csrf_token %}
+			<input type="submit" value="Criar campanha" class="submit-button">
+		</div>
+	</main>
+</form>
 {% endblock %}
 
 {% block script %}

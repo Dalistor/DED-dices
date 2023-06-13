@@ -38,7 +38,7 @@ class Campaign(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=50)
-    team = models.ManyToManyField(User, related_name='team')
+    team = models.ManyToManyField(User, related_name='team', null=True, blank=True)
     cover = models.ImageField(upload_to='cover/', null=True, blank=True)
 
     is_private = models.BooleanField(default=False)

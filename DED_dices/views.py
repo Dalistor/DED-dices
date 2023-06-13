@@ -13,6 +13,8 @@ from .hash import *
 import json
 
 # redirecionar para uma view
+
+
 def redirect_view(request):
     if request.user.is_authenticated:
         return redirect('/selection/')
@@ -20,6 +22,8 @@ def redirect_view(request):
         return redirect('/login/')
 
 # login
+
+
 def login_view(request):
     error_message = None
     if request.method == "POST":
@@ -40,6 +44,8 @@ def login_view(request):
     })
 
 # registro
+
+
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -64,6 +70,8 @@ def register_view(request):
         return render(request, 'register.html')
 
 # seleção de conta
+
+
 def selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -71,6 +79,8 @@ def selection_view(request):
         return render(request, 'selection.html')
 
 # seleção de personagens
+
+
 def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -107,6 +117,8 @@ def delete_character(request, hash):
     return redirect('/player_selection/')
 
 # autosave do personagem
+
+
 @csrf_exempt
 def character_autosave(request, hash, field):
     if not check_hash(hash):
@@ -166,6 +178,8 @@ def character_autosave(request, hash, field):
     return HttpResponse('fail')
 
 # ficha do personagem
+
+
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -286,10 +300,10 @@ def view_edit_token(request, hash):
         character_form = CharacterForm(request.POST, instance=character)
         if character_form.is_valid():
             character_commit = character_form.save(commit=False)
-            
+
             if request.FILES:
-                character_commit.portrait =  request.FILES.get('portrait')
-            
+                character_commit.portrait = request.FILES.get('portrait')
+
             character_commit.save()
 
         atributes_form = AtributesForm(request.POST, instance=atributes)
@@ -300,7 +314,8 @@ def view_edit_token(request, hash):
         if skills_form.is_valid():
             skills_form.save()
 
-        characteristics_form = CharacteristicsForm(request.POST, instance=characteristics)
+        characteristics_form = CharacteristicsForm(
+            request.POST, instance=characteristics)
         if characteristics_form.is_valid():
             characteristics_form.save()
 
@@ -344,10 +359,11 @@ def view_edit_token(request, hash):
             'attacks': attacks
         })
 
+
 def campaign_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    
+
     # pesquisa
     if request.GET.get('search'):
         search_input = request.GET['search_input']
@@ -358,8 +374,7 @@ def campaign_selection_view(request):
 
     else:
         campaigns = Campaign.objects.filter(owner=request.user)
-    
-    
+
     for campaign in campaigns:
         campaign.id = hash_id(campaign.id)
 
@@ -367,10 +382,30 @@ def campaign_selection_view(request):
         'campaigns': campaigns
     })
 
+
 def campaign_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    
+
+    # Criação da campanha
+    if request.method == 'POST':
+        campaignForm = CampaignForm(request.POST)
+        if campaignForm.is_valid():
+            campaign = campaignForm.save(commit=False)
+            campaign.owner = request.user
+            campaign.save()
+
+            # Converta o JSON em uma lista de IDs
+            team_ids = json.loads(request.POST['team'])
+            team_users = User.objects.filter(id__in=team_ids)
+
+            # Atualize os usuários relacionados no campo ManyToMany "team"
+            campaign.team.set(team_users)
+
+            return redirect('/campaign_selection/')
+        else:
+            print(f'Erro ao salvar campanha: {campaignForm.errors}')
+
     # pesquisa
     if request.GET.get('search'):
         search_input = request.GET['search_input']
@@ -382,10 +417,11 @@ def campaign_creation_view(request):
         return JsonResponse({
             'players': json.dumps(list(players.values()))
         })
-    
+
     else:
         return render(request, 'campaign_creation.html')
-    
+
+
 def userSearch(request):
     if request.method == 'GET':
         search = request.GET['search']

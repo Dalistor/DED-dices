@@ -10,7 +10,7 @@ class CharacterForm(forms.ModelForm):
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = Campaign
-        exclude = ['owner']
+        exclude = ['owner', 'team']
         fields = '__all__'
 
 class AtributesForm(forms.ModelForm):

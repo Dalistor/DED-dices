@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/character_selection.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/campaign_selection.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
@@ -18,13 +18,13 @@
 	</form>
 	<div class="display-container">
 		{% for campaign in campaigns %}
-		<div class="character">
+		<div class="campaign">
 
 			<a href="/campaign/{{campaign.id}}/">
 				{% if campaign.cover %}
 				<img src="{{campaign.cover.url}}" alt="Imagem da campanha">
 				{% else %}
-				<img src="{% static 'imgs/default_portrait.webp' %}" alt="Imagem da campanha">
+				<img src="{% static 'imgs/default_cover.png' %}" alt="Imagem da campanha">
 				{% endif %}
 			</a>
 
