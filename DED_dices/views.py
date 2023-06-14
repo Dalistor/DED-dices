@@ -393,13 +393,12 @@ def campaign_creation_view(request):
         if campaignForm.is_valid():
             campaign = campaignForm.save(commit=False)
             campaign.owner = request.user
+            campaign.cover = request.FILES.get('cover')
             campaign.save()
 
-            # Converta o JSON em uma lista de IDs
             team_ids = json.loads(request.POST['team'])
             team_users = User.objects.filter(id__in=team_ids)
 
-            # Atualize os usuários relacionados no campo ManyToMany "team"
             campaign.team.set(team_users)
 
             return redirect('/campaign_selection/')

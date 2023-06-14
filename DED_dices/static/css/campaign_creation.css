@@ -126,6 +126,7 @@ body {
   color: #fff;
   cursor: pointer;
   transition: 0.5s;
+  margin-bottom: 2rem;
 }
 
 .submit-button:hover {
@@ -143,4 +144,24 @@ body {
   margin: 0.1rem;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.configs-section {
+  margin-top: 2rem;
+}
+
+.configs-section h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.configs {
+  margin: 1rem;
+}
+
+.config {
+  margin: 1rem 0;
 }

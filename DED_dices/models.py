@@ -41,7 +41,7 @@ class Campaign(models.Model):
     team = models.ManyToManyField(User, related_name='team', null=True, blank=True)
     cover = models.ImageField(upload_to='campaign_cover/', null=True, blank=True)
 
-    is_private = models.BooleanField(default=False)
+    chat_private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

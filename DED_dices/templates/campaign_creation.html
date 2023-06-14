@@ -11,7 +11,7 @@ jogadores da campanha
 {% endblock %}
 
 {% block content %}
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 	<header class ="header">
 		<div class="campain">
 			<input id="campain" type="text" name="name" placeholder="Nome da campanha" required/>
@@ -19,27 +19,45 @@ jogadores da campanha
 	</header>
 
 	<main class="container">
-		<h1 class="h1">Escolha os jogadores</h1>
+		<section>
+			<h1 class="h1">Escolha os jogadores</h1>
 
-		<div class="players_manager">
-			<div class="tables">
-				<div class="table">
-					<h2>Jogadores</h2>
-					<div class="table-search">
-						<input id="searchField" type="text" name="search" placeholder="Pesquisar"/>
+			<div class="players_manager">
+				<div class="tables">
+					<div class="table">
+						<h2>Jogadores</h2>
+						<div class="table-search">
+							<input id="searchField" type="text" name="search" placeholder="Pesquisar"/>
+						</div>
+						<div class="table-results" id="user_display"></div>
 					</div>
-					<div class="table-results" id="user_display"></div>
+
+					<div class="table">
+						<h2>Campanha</h2>
+						<div class="table-results" id="selectedUsers_display"></div>
+					</div>
 				</div>
 
-				<div class="table">
-					<h2>Campanha</h2>
-					<div class="table-results" id="selectedUsers_display"></div>
+				<input type="hidden" id="selectedUsers" name="team">
+			</div>
+		</section>
+		<section>
+			<div class="configs-section">
+				<h2>Configurações da sessão</h2>
+
+				<div class="configs">
+					<ul>
+						<li class="config"><label>Chat privado: <input type="checkbox" name="chat_private"></label></li>
+						<li class="config">
+							<label for="image" class="custom-file-upload">
+								<i class="fa fa-cloud-upload"></i>Capa da sessão: 
+							</label>
+							<input type="file" name="cover" id="image" accept="image/*">
+						</li>
+					</ul>
 				</div>
 			</div>
-
-			<input type="hidden" id="selectedUsers" name="team">
-		</div>
-	
+		</section>
 		<div class="confirm">
 			{% csrf_token %}
 			<input type="submit" value="Criar campanha" class="submit-button">
