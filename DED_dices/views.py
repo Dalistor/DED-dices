@@ -258,6 +258,7 @@ def player_token_creation_view(request):
     return render(request, 'new_character.html')
 
 
+#sessão de editar personagem
 def character_play_view(request, hash):
     if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
