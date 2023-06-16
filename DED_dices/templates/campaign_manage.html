@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/campaign_manage.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>{{campaign.name}}</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="block">
+                <h2>Bloco 1</h2>
+                <p>Conteúdo do bloco 1</p>
+            </div>
+            <div class="block">
+                <h2>Bloco 2</h2>
+                <p>Conteúdo do bloco 2</p>
+            </div>
+        </div>
+        <div class="third-block">
+            <h2>Bloco 3</h2>
+            <p>Conteúdo do bloco 3</p>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

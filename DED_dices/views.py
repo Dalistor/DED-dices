@@ -501,3 +501,18 @@ def campaign_delete_view(request, hash):
     campaign.delete()
 
     return redirect('/campaign_selection/')
+
+def campaig_manage_view(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
+    id = hash.split('-')[0]
+
+    if not check_hash(hash):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    campaign = Campaign.objects.get(id=id)
+
+    return render(request, 'campaign_manage.html', {
+        'campaign': campaign
+    })
