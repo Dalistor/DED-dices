@@ -14,7 +14,4 @@ def check_hash(hash):
     hash_obj = hashlib.sha256((secret_key + str(id)).encode('utf-8'))
     hash_id = hash_obj.hexdigest()
 
-    if hash_id == hash:
-        return True
-    else:
-        return False
+    return hash_id == hash

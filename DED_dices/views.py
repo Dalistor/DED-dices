@@ -125,7 +125,7 @@ def character_autosave(request, hash, field):
 
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
@@ -267,7 +267,7 @@ def character_play_view(request, hash):
 
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
@@ -295,7 +295,7 @@ def view_edit_token(request, hash):
 
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
@@ -451,7 +451,7 @@ def campaign_edit_view(request, hash):
 
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
@@ -494,5 +494,10 @@ def campaign_delete_view(request, hash):
 
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
+    
+    campaign = Campaign.objects.get(id=id)
+    campaign.delete()
+
+    return redirect('/campaign_selection/')
