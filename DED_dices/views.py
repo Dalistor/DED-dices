@@ -258,6 +258,7 @@ def player_token_creation_view(request):
     return render(request, 'new_character.html')
 
 
+#sessão de editar personagem
 def character_play_view(request, hash):
     id = hash.split('-')[0]
 
@@ -396,10 +397,11 @@ def campaign_creation_view(request):
             campaign.cover = request.FILES.get('cover')
             campaign.save()
 
-            team_ids = json.loads(request.POST['team'])
-            team_users = User.objects.filter(id__in=team_ids)
+            if request.POST['team']:
+                team_ids = json.loads(request.POST['team'])
+                team_users = User.objects.filter(id__in=team_ids)
 
-            campaign.team.set(team_users)
+                campaign.team.set(team_users)
 
             return redirect('/campaign_selection/')
         else:
