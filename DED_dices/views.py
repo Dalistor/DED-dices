@@ -43,9 +43,8 @@ def login_view(request):
         'error_message': error_message
     })
 
+
 # registro
-
-
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -121,6 +120,9 @@ def delete_character(request, hash):
 
 @csrf_exempt
 def character_autosave(request, hash, field):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
     id = hash.split('-')[0]
 
     if not check_hash(hash) and request.user.id == id:
@@ -258,8 +260,11 @@ def player_token_creation_view(request):
     return render(request, 'new_character.html')
 
 
-#sessão de editar personagem
+
 def character_play_view(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
     id = hash.split('-')[0]
 
     if not check_hash(hash) and request.user.id == id:
@@ -283,8 +288,11 @@ def character_play_view(request, hash):
         'attacks': attacks
     })
 
-
+#sessão de editar personagem
 def view_edit_token(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
     id = hash.split('-')[0]
 
     if not check_hash(hash) and request.user.id == id:
@@ -414,7 +422,6 @@ def campaign_creation_view(request):
             name__icontains=search_input
         )
 
-        print(json.dumps(list(players.values())))
         return JsonResponse({
             'players': json.dumps(list(players.values()))
         })
@@ -437,13 +444,42 @@ def userSearch(request):
             'players': list(players.values()) if players else []
         })
 
+
 def campaign_edit_view(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
     id = hash.split('-')[0]
 
     if not check_hash(hash) and request.user.id == id:
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
+
+    if request.method == 'POST':
+        campaignForm = CampaignForm(request.POST, instance=campaign)
+
+        if campaignForm.is_valid():
+            campaign_commit = campaignForm.save(commit=False)
+            
+            if request.FILES:
+                campaign_commit.cover = request.FILES.get('cover')
+
+            if request.POST['removedUsers']:
+                removedUsers = json.loads(request.POST['removedUsers'])
+                for rmUser in removedUsers:
+                    user = User.objects.get(id=rmUser)
+                    campaign_commit.team.remove(user)
+                
+            if request.POST['newUsers']:
+                newUsers = json.loads(request.POST['newUsers'])
+                for newUser in newUsers:
+                    user = User.objects.get(id=newUser)
+                    campaign_commit.team.add(user)
+
+            campaign_commit.save()
+            return redirect('/campaign_selection/')
+
     usersInCampaign = campaign.team.all()
 
     return render(request, 'campaign_edit.html', {
@@ -453,6 +489,9 @@ def campaign_edit_view(request, hash):
 
 
 def campaign_delete_view(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
     id = hash.split('-')[0]
 
     if not check_hash(hash) and request.user.id == id:

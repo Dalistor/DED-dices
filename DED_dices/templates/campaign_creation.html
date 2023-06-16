@@ -152,6 +152,7 @@ jogadores da campanha
 
 			addInPost()
 			addEvent_selectedUser()
+			clearUserDisplay()
 		}
 
 		function addInPost() {
@@ -205,10 +206,8 @@ jogadores da campanha
 		}
 
 		function clearUserDisplay(id) {
-			$('#user-' + id).css({
-				'background-color': 'white',
-				'cursor': 'pointer'
-			})
+            $('#user_display').html('')
+            $('#searchField').val('')
 		}
 	</script>
 {% endblock %}

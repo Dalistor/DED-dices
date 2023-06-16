@@ -45,7 +45,7 @@ jogadores da campanha
 				</div>
 
 				<input type="hidden" id="newUsers" name="newUsers">
-                <input type="hidden" id="removedUsers" name="removeUsers">
+                <input type="hidden" id="removedUsers" name="removedUsers">
 			</div>
 		</section>
 		<section>
@@ -54,7 +54,7 @@ jogadores da campanha
 
 				<div class="configs">
 					<ul>
-						<li class="config"><label>Chat privado: <input type="checkbox" name="chat_private"></label></li>
+						<li class="config"><label>Chat privado: <input type="checkbox" name="chat_private" {% if campaign.chat_private %}checked>{% endif %}</label></li>
 						<li class="config">
 							<label for="image" class="custom-file-upload">
 								<i class="fa fa-cloud-upload"></i>Capa da campanha: 
@@ -67,7 +67,7 @@ jogadores da campanha
 		</section>
 		<div class="confirm">
 			{% csrf_token %}
-			<input type="submit" value="Criar campanha" class="submit-button">
+			<input type="submit" value="Editar campanha" class="submit-button">
 		</div>
 	</main>
 </form>
@@ -78,6 +78,7 @@ jogadores da campanha
         //variaveis globais
         var selectedUsers = []
         var oldUsers = []
+        var removedUsers = []
     </script>
 
     <script>
@@ -122,8 +123,7 @@ jogadores da campanha
 		function addEvent_user() {
 			$('.user').map((index, element)=> {
 				id = element.id
-                console.log(id)
-                console.log($.inArray(id, oldUsers.map(user => user.id)) == 1)
+
 				if($.inArray(id, selectedUsers.map(user => user.id)) == -1 && $.inArray(id, oldUsers.map(user => user.id)) == -1) {
 					$('#' + element.id).on('click', (e)=> {
 						id = e.currentTarget.id
@@ -164,6 +164,7 @@ jogadores da campanha
 
 			addInPost()
 			addEvent_selectedUser()
+            clearUserDisplay()
 		}
 
 		function addInPost() {
@@ -197,15 +198,18 @@ jogadores da campanha
 		function removeUser(id, is_oldUser=false) {
             $('#' + id).remove()
             const personal_id = id.split('-')[2]
-            console.log(id)
 
             if (is_oldUser) {
-                selectedUsers = $.grep(selectedUsers, (element)=> {
-                    return element != personal_id
+                oldUsers = $.grep(oldUsers, (element)=> {
+                    return personal_id != element.personal_id
                 })
+
+                removedUsers.push(parseInt(personal_id))
+                jsonValue = JSON.stringify(removedUsers)
+                $('#removedUsers').val(jsonValue)
             } else {
                 const index = $.inArray(personal_id, selectedUsers.map(user => user.personal_id))
-                let jsonValue = JSON.parse($('#selectedUsers').val())
+                let jsonValue = JSON.parse($('#newUsers').val())
 
                 if (index !== -1) {
                     selectedUsers.splice(index, 1)
@@ -216,9 +220,9 @@ jogadores da campanha
                     jsonValue = JSON.stringify(jsonValue)
 
                     if(Array.isArray(jsonValue)) {
-                        $('#selectedUsers').val(jsonValue)
+                        $('#newUsers').val(jsonValue)
                     } else {
-                        $('#selectedUsers').val([jsonValue])
+                        $('#newUsers').val([jsonValue])
                     }
                 }
             }
@@ -227,10 +231,8 @@ jogadores da campanha
 		}
 
 		function clearUserDisplay(id) {
-			$('#user-' + id).css({
-				'background-color': 'white',
-				'cursor': 'pointer'
-			})
+            $('#user_display').html('')
+            $('#searchField').val('')
 		}
 	</script>
 
@@ -244,7 +246,8 @@ jogadores da campanha
             }
 
             oldUsers.push(user)
-            addEvent_selectedUser(true)
+            console.log('a')
         }) 
+        addEvent_selectedUser(true)
     </script>
 {% endblock %}
