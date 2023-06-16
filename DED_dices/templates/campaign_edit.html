@@ -14,7 +14,7 @@ jogadores da campanha
 <form method="POST" enctype="multipart/form-data">
 	<header class ="header">
 		<div class="campain">
-			<input id="campain" type="text" name="name" placeholder="Nome da campanha" required/>
+			<input id="campain" type="text" name="name" placeholder="Nome da campanha" value="{{campaign.name}}" required/>
 		</div>
 	</header>
 
@@ -34,11 +34,18 @@ jogadores da campanha
 
 					<div class="table">
 						<h2>Campanha</h2>
-						<div class="table-results" id="selectedUsers_display"></div>
+						<div class="table-results" id="selectedUsers_display">
+                            {% for user in users %}
+                                <div class="selected-user" id="selectedUser-user-{{user.id}}">
+                                    <p>{{user.username}}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
 					</div>
 				</div>
 
-				<input type="hidden" id="selectedUsers" name="team">
+				<input type="hidden" id="newUsers" name="newUsers">
+                <input type="hidden" id="removedUsers" name="removeUsers">
 			</div>
 		</section>
 		<section>
@@ -67,9 +74,14 @@ jogadores da campanha
 {% endblock %}
 
 {% block script %}
-	<script>
-		//script para pesquisar usuário
+    <script>
+        //variaveis globais
+        var selectedUsers = []
+        var oldUsers = []
+    </script>
 
+    <script>
+		//script para pesquisar usuário
 		$('#searchField').on('input', ()=> {
 			$.ajax({
 				url: '/campaign_userSearch/',
@@ -107,12 +119,12 @@ jogadores da campanha
 	<script>
 		//script para selecionar usuário
 
-		var selectedUsers = []
-
 		function addEvent_user() {
 			$('.user').map((index, element)=> {
 				id = element.id
-				if($.inArray(id, selectedUsers.map(user => user.id)) == -1) {
+                console.log(id)
+                console.log($.inArray(id, oldUsers.map(user => user.id)) == 1)
+				if($.inArray(id, selectedUsers.map(user => user.id)) == -1 && $.inArray(id, oldUsers.map(user => user.id)) == -1) {
 					$('#' + element.id).on('click', (e)=> {
 						id = e.currentTarget.id
 	
@@ -162,44 +174,54 @@ jogadores da campanha
 			}
 			
 			jsonUsers = JSON.stringify(selecteds)
-			$('#selectedUsers').val(jsonUsers)
+			$('#newUsers').val(jsonUsers)
 		}
 	</script>
 
 	<script>
 		//script para remover o participante dos selecionados
 
-		function addEvent_selectedUser() {
+		function addEvent_selectedUser(is_oldUser=false) {
 			$('.selected-user').map((index, element) => {
 				$('#' + element.id).on('click', (e)=> {
-					id = e.currentTarget.id
-					removeUser(id)
+                    id = e.currentTarget.id
+                    if (is_oldUser) {
+                        removeUser(id, true)
+                    } else {
+					    removeUser(id)
+                    }
 				})
 			})
 		}
 
-		function removeUser(id) {
-			const personal_id = id.split('-')[2]
-		  
-			$('#' + id).remove()
-		  
-			const index = $.inArray(personal_id, selectedUsers.map(user => user.personal_id))
-			let jsonValue = JSON.parse($('#selectedUsers').val())
+		function removeUser(id, is_oldUser=false) {
+            $('#' + id).remove()
+            const personal_id = id.split('-')[2]
+            console.log(id)
 
-			if (index !== -1) {
-			  	selectedUsers.splice(index, 1)
-				jsonValue = $.grep(jsonValue, (element)=> {
-					return element != personal_id
-				})
+            if (is_oldUser) {
+                selectedUsers = $.grep(selectedUsers, (element)=> {
+                    return element != personal_id
+                })
+            } else {
+                const index = $.inArray(personal_id, selectedUsers.map(user => user.personal_id))
+                let jsonValue = JSON.parse($('#selectedUsers').val())
 
-				jsonValue = JSON.stringify(jsonValue)
+                if (index !== -1) {
+                    selectedUsers.splice(index, 1)
+                    jsonValue = $.grep(jsonValue, (element)=> {
+                        return element != personal_id
+                    })
 
-				if(Array.isArray(jsonValue)) {
-					$('#selectedUsers').val(jsonValue)
-				} else {
-					$('#selectedUsers').val([jsonValue])
-				}
-			}
+                    jsonValue = JSON.stringify(jsonValue)
+
+                    if(Array.isArray(jsonValue)) {
+                        $('#selectedUsers').val(jsonValue)
+                    } else {
+                        $('#selectedUsers').val([jsonValue])
+                    }
+                }
+            }
 
 			clearUserDisplay(personal_id)
 		}
@@ -211,4 +233,18 @@ jogadores da campanha
 			})
 		}
 	</script>
+
+    <script>
+        //colocar dados no sistema do front-end
+        $('.selected-user').map((index, element)=> {
+            const user = {
+                name: $('#' + element.id + ' p').text(),
+                id: 'user-' + element.id.split('-')[2],
+                personal_id: element.id.split('-')[2]
+            }
+
+            oldUsers.push(user)
+            addEvent_selectedUser(true)
+        }) 
+    </script>
 {% endblock %}

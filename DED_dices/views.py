@@ -106,10 +106,10 @@ def player_selection_view(request):
 
 
 def delete_character(request, hash):
-    if not check_hash(hash):
-        return HttpResponseNotFound('Personagem não encontrado.')
-
     id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
     character.delete()
@@ -121,10 +121,10 @@ def delete_character(request, hash):
 
 @csrf_exempt
 def character_autosave(request, hash, field):
-    if not check_hash(hash):
-        return HttpResponseNotFound('Personagem não encontrado.')
-
     id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
     table = Characteristics.objects.get(owner=character.id)
@@ -259,10 +259,10 @@ def player_token_creation_view(request):
 
 
 def character_play_view(request, hash):
-    if not check_hash(hash):
-        return HttpResponseNotFound('Personagem não encontrado.')
-
     id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
 
@@ -284,10 +284,10 @@ def character_play_view(request, hash):
 
 
 def view_edit_token(request, hash):
-    if not check_hash(hash):
-        return HttpResponseNotFound('Personagem não encontrado.')
-
     id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
     atributes = Atributes.objects.get(owner=character.id)
@@ -434,3 +434,24 @@ def userSearch(request):
         return JsonResponse({
             'players': list(players.values()) if players else []
         })
+
+def campaign_edit_view(request, hash):
+    id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    campaign = Campaign.objects.get(id=id)
+    usersInCampaign = campaign.team.all()
+
+    return render(request, 'campaign_edit.html', {
+        'campaign': campaign,
+        'users': usersInCampaign
+    })
+
+
+def campaign_delete_view(request, hash):
+    id = hash.split('-')[0]
+
+    if not check_hash(hash) and request.user.id == id:
+        return HttpResponseNotFound('Personagem não encontrado.')
