@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/character_edit.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/popup.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
@@ -26,6 +27,8 @@
 					<input type="file" name="portrait" id="image" accept="image/*">
 				</div>
 			</div>
+
+			<button type="button" class="alloc_button" id="allocate">Alocar ficha a uma campanha</button>
 		</div>
 
 		<div class="first-page">
@@ -593,8 +596,28 @@
 			</div>
 
 			<input value="" type="hidden" id="attacks_objects" name="attacks">		
-			<input value="" type="hidden" id="remove_attacks_objects" name="remove_attacks">		
+			<input value="" type="hidden" id="remove_attacks_objects" name="remove_attacks">
+			<input value="{{character.allocated_campaign.id}}" type="hidden" id="allocated_campaign" name="allocated_campaign">	
 		</div>
+
+		<div class="popup-container" id="alocate-popup">
+			<div class="popup-content">
+				<span class="close-btn">&times;</span>
+				<h2 class="popup-title">Escolha uma campanha</h2>
+				<div class="popup-body">
+					{% for invited_campaign in invited_campaigns %}
+						<div class="campaign" id="campaign-{{invited_campaign.id}}" {%if invited_campaign.id == character.allocated_campaign.id %} style="background-color: gray" {% endif %}>
+							<p>{{invited_campaign.name}}</p>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="popup-options">
+					<button type="button" id="close-btn">Fechar</button>
+					<button type="button" id="desaloc">Desalocar</button>
+				</div>
+			</div>
+		</div>
+
 
 		<div class="submit_form">
 			{% csrf_token %}
@@ -1022,7 +1045,7 @@
 			object = JSON.parse($('#attacks_objects').val())
 			object[attack_num] = validate.attack
 			removeAttack()
-			console.log(created)
+
 			if (created) {
 				makeAttack(edited_name, attack_num, edited_magic_lvl, true, validate.attack.id)
 			} else {
@@ -1198,5 +1221,46 @@
 			attack
 		}
 	}
+</script>
+
+<script>
+	//script para alocar ficha a uma campanha
+	$('#allocate').click(()=> {
+		$('#alocate-popup').show()
+	})
+
+	// Fechar o pop-up quando o botão de fechar for clicado
+	$('.close-btn, #close-btn').click(()=> {
+		$('#alocate-popup').hide()
+	})
+
+	$('.campaign').map((index, element)=> {
+		$('#' + element.id).on('click', (e)=> {
+			id = e.currentTarget.id
+			id_parsed = parseInt(e.currentTarget.id.split('-')[1])
+			$('#allocated_campaign').val(id_parsed)
+
+			$('.campaign').map((ind, el)=> {
+				$('#' + el.id).css({
+					'background-color': 'white'
+				})
+			})
+
+			$('#' + id).css({
+				'background-color': 'gray'
+			})
+		})
+	})
+
+	$('#desaloc').on('click', ()=> {
+		$('#allocated_campaign').val(null)
+		$('#alocate-popup').hide()
+
+		$('.campaign').map((ind, el)=> {
+			$('#' + el.id).css({
+				'background-color': 'white'
+			})
+		})
+	})
 </script>
 {% endblock %}

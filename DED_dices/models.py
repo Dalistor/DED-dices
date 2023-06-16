@@ -20,6 +20,8 @@ class Character(models.Model):
     experience = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(1000000000)])
     portrait = models.ImageField(upload_to='portraits/', null=True, blank=True)
 
+    allocated_campaign = models.ForeignKey('Campaign', on_delete=models.PROTECT, null=True, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -49,7 +51,7 @@ class Campaign(models.Model):
 
 # modelo dos atributos dos personagens
 class Atributes(models.Model):
-    owner = models.ForeignKey("Character", on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
 
     strength_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
     strength_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
@@ -154,22 +156,22 @@ class Characteristics(models.Model):
 
 # modelo dos ataques
 class Attack(models.Model):
-    owner = models.ForeignKey("Character", on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=30)
 
     magic_lvl = models.CharField(max_length=30, blank=True, null=True)
 
-    dice_1 = models.CharField(max_length=10, default="Nenhum", blank=True)
-    dice_2 = models.CharField(max_length=10, default="Nenhum", blank=True)
-    dice_3 = models.CharField(max_length=10, default="Nenhum", blank=True)
+    dice_1 = models.CharField(max_length=10, default='Nenhum', blank=True)
+    dice_2 = models.CharField(max_length=10, default='Nenhum', blank=True)
+    dice_3 = models.CharField(max_length=10, default='Nenhum', blank=True)
 
     roll_1 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
     roll_2 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
     roll_3 = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
 
     damage_modifier = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(100)])
-    attribute_modifier = models.TextField(max_length=12, default="Nenhum", blank=True)
+    attribute_modifier = models.TextField(max_length=12, default='Nenhum', blank=True)
 
     proficiency = models.BooleanField()
     description = models.TextField(max_length=5000, null=True, blank=True)
@@ -181,8 +183,8 @@ class Attack(models.Model):
 
 # modelo das mensagens
 class Message(models.Model):
-    campaign = models.ForeignKey("Campaign", on_delete=models.CASCADE)
-    owner = models.ForeignKey("Character", on_delete=models.CASCADE)
+    campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
 
     content = models.TextField(max_length=1000)
 

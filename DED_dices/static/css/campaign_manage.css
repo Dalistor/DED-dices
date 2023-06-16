@@ -11,14 +11,14 @@ header h1 {
     font-size: xx-large;
 }
 
-.container {
+.section_display {
     display: flex;
     justify-content: space-between;
     width: 80%;
     margin: 50px auto;
 }
 
-.block {
+.display_block {
     width: 40%;
     height: 30rem;
     padding: 20px;
@@ -27,7 +27,7 @@ header h1 {
     box-shadow: 0px 0px 5px #aba9a9;
 }
 
-.third-block {
+.entity-manage {
     width: 80%;
     height: 40rem;
     margin: 50px auto;

@@ -194,6 +194,11 @@ def player_token_creation_view(request):
             character = character_form.save(commit=False)
             character.owner = request.user
             character.portrait = request.FILES.get('portrait')
+
+            if request.POST['allocated_campaign']:
+                campaign = Campaign.objects.get(id=int(request.POST['allocated_campaign']))
+                campaign.team.add(request.user)
+
             character.save()
 
         character_id = character.id
@@ -256,8 +261,18 @@ def player_token_creation_view(request):
             attack.save()
 
         return redirect('/player_selection/')
+    
+    invited_campaigns = Campaign.objects.filter(
+        team=request.user
+    )
 
-    return render(request, 'new_character.html')
+    user_campaigns = Campaign.objects.filter(
+        owner=request.user
+    )
+
+    return render(request, 'new_character.html', {
+        'invited_campaigns': invited_campaigns.union(user_campaigns)
+    })
 
 
 
@@ -313,6 +328,13 @@ def view_edit_token(request, hash):
             if request.FILES:
                 character_commit.portrait = request.FILES.get('portrait')
 
+            if request.POST['allocated_campaign']:
+                campaign = Campaign.objects.get(id=int(request.POST['allocated_campaign']))
+                campaign.team.add(request.user)
+            else:
+                if character_commit.allocated_campaign:
+                    character_commit.allocated_campaign = None
+
             character_commit.save()
 
         atributes_form = AtributesForm(request.POST, instance=atributes)
@@ -360,12 +382,22 @@ def view_edit_token(request, hash):
         return redirect('/player_selection/')
 
     else:
+
+        invited_campaigns = Campaign.objects.filter(
+            team=request.user
+        )
+
+        user_campaigns = Campaign.objects.filter(
+            owner=request.user
+        )
+
         return render(request, 'edit_character.html', {
             'character': character,
             'atributes': atributes,
             'skills': skills,
             'characteristics': characteristics,
-            'attacks': attacks
+            'attacks': attacks,
+            'invited_campaigns': invited_campaigns.union(user_campaigns)
         })
 
 

@@ -26,8 +26,19 @@ textarea {
     border-radius: 10px;
     padding: 0.5rem;
     margin-left: 1rem;
+    margin-right: 1rem;
     display: flex;
     flex-wrap: wrap;
+}
+
+.alloc_button {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.alloc_button:hover {
+    background-color: #e0e0e0;
 }
 
 .character-upperFeatures div {
@@ -566,4 +577,12 @@ input[type=number] {
 
 input[type="file"] {
     display: none;
+}
+
+.campaign {
+    margin: 1rem;
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    cursor: pointer;
 }
