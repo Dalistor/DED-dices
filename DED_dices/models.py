@@ -185,6 +185,7 @@ class Attack(models.Model):
 class Message(models.Model):
     campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
     owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
 
     content = models.TextField(max_length=1000)
 

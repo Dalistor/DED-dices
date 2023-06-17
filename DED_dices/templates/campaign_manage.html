@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/campaign_manage.css' %}">
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
 
@@ -29,7 +30,7 @@
 
                     <div id="chat_manager">
                         <div class="textInput">
-                            <input type="text" name="response" id="inputResponse">
+                            <input type="text" name="response" id="inputResponse" maxlength="1000">
                             <button type="button" id="sendMessageButton">></div>
                         </div>
                         <div class="dices_manager">
@@ -60,16 +61,21 @@
 
         //enviar mensagem
         $('#sendMessageButton').on('click', ()=> {
-            $.ajax({
-                type: 'POST',
-                url: '/sendMessage/{{campaign.id}}/master/',
-                data: {
-                    'content': $('#inputResponse').val()
-                }
-            })
-
+            sendMessage($('#inputResponse').val())
             $('#inputResponse').val(null)
         })
+
+        function sendMessage(input) {
+            if (input.trim() != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/sendMessage/{{campaign.id}}/master/',
+                    data: {
+                        'content': input
+                    }
+                })
+            }
+        }
 
         //receber mensagem
         function getMessage() {
@@ -78,7 +84,6 @@
                 url: '/getMessage/{{campaign.id}}/',
                 success: (response)=> {
                     setMessagesInDisplay(response)
-                    console.log('a')
                 }
             })
         }
@@ -88,16 +93,12 @@
         //colocar mensagens no display
         let responseLength
         function setMessagesInDisplay(response) {
-            console.log(response.payload.length)
-
             if (response.payload.length == responseLength) {
                 return
             }
 
             responseLength = response.payload.length
             $('#chat_display').html(null)
-
-            console.log('a')
 
             for(key = 0; key < response.payload.length; key++) {
                 let temp
@@ -108,13 +109,40 @@
                         '</div>'
                 } else {
                     temp = '<div class="message">\n' +
-                        '<h3>' + response.payload[key].character + '</h3>\n' +
+                        '<h3>' + response.payload[key].username + '</h3>\n' +
                         '<p>' + response.payload[key].content + '</p>\n' +
                         '</div>'
                 }
 
                 $('#chat_display').append(temp)
+                $('#chat_display').scrollTop($('#chat_display').prop("scrollHeight"))
             }
+        }
+
+        //enviar mensagem ao pressionar enter
+        $('#inputResponse').keypress((event)=> {
+            if (event.keyCode == 13) {
+                $('#sendMessageButton').click()
+            }
+        })
+    </script>
+
+    <script>
+        //script para rolagens de dados
+        $('.dice').map((index, element)=> {
+            $('#' + element.id).on('click', (event)=> {
+                diceType = event.currentTarget.id
+                diceValue = rollDice(diceType)
+
+                sendMessage(diceType + ': ' + diceValue)
+            })
+        })
+
+        //rolar dados
+        function rollDice(type) {
+            type = parseInt(type.match(/\d+/g)[0])
+            
+            return Math.floor(Math.random() * type) + 1
         }
     </script>
 {% endblock %}

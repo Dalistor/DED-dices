@@ -275,7 +275,6 @@ def player_token_creation_view(request):
     })
 
 
-
 def character_play_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -295,13 +294,21 @@ def character_play_view(request, hash):
 
     character.id = hash_id(character.id)
 
-    return render(request, 'character_play.html', {
+    response = {
         'character': character,
         'atributes': atributes,
         'skills': skills,
         'characteristics': characteristics,
         'attacks': attacks
-    })
+    }
+
+    if character.allocated_campaign is not None:
+        character.allocated_campaign.id = hash_id(character.allocated_campaign.id)
+        response['campaign'] = character.allocated_campaign
+    else:
+        response['campaign'] = None
+
+    return render(request, 'character_play.html', response)
 
 #sessão de editar personagem
 def view_edit_token(request, hash):
@@ -576,6 +583,7 @@ def send_message(request, campaign, character):
 
         if character != 'master':
             messageCommit.owner = character
+            messageCommit.username = character.name
         
         messageCommit.campaign = campaign
         messageCommit.content = content

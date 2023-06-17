@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/character_play.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 {% endblock %}
@@ -295,7 +296,32 @@
             </div>
         </div>
     </div>
+    {% if campaign%}
+    {% if not campaign.chat_private %}
+    <div class="display_block">
+        <h2>Chat</h2>
+        <div class="block_content">
+            <div id="chat_display"></div>
 
+            <div id="chat_manager">
+                <div class="textInput">
+                    <input type="text" name="response" id="inputResponse">
+                    <button type="button" id="sendMessageButton">></div>
+                </div>
+                <div class="dices_manager">
+                    <button type="button" class="dice" id="D4">D4</button>
+                    <button type="button" class="dice" id="D6">D6</button>
+                    <button type="button" class="dice" id="D8">D8</button>
+                    <button type="button" class="dice" id="D10">D10</button>
+                    <button type="button" class="dice" id="D12">D12</button>
+                    <button type="button" class="dice" id="D20">D20</button>
+                    <button type="button" class="dice" id="D100">D100</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
     <div class="second-page">
         <div class="appaerance">
             <textarea name="appaerance" readonly>{{characteristics.appaerance}}</textarea>
@@ -506,7 +532,7 @@
                     <p id="popup-p2" class='popup-temp'></p>
 
                     <div class="popup-attackSection">
-                        <textarea id="popup-textarea" class="popup-temp"></textarea>
+                        <textarea id="popup-textarea" class="popup-temp" readonly></textarea>
 
                         <label>
                             Rolagens: <input type="number" id="times" min="1" max="100" value="1">
@@ -862,6 +888,107 @@
             $('#hp').val(initialValue)
             $('#hp').css('color', 'black')
         }
+    }
+</script>
+
+<script>
+    //script para mensagens
+
+    let character_id = '{{character.id}}'
+    character_id = parseInt(character_id.split('-')[0])
+
+    //enviar mensagem
+    $('#sendMessageButton').on('click', ()=> {
+        sendMessage($('#inputResponse').val())
+        $('#inputResponse').val(null)
+    })
+
+    function sendMessage(input) {
+        $.ajax({
+            type: 'POST',
+            url: '/sendMessage/{{campaign.id}}/' + character_id + '/',
+            data: {
+                'content': input
+            }
+        })
+    }
+
+    {% if not campaign.chat_private %}
+    //receber mensagem
+    function getMessage() {
+        $.ajax({
+            type: 'GET',
+            url: '/getMessage/{{campaign.id}}/',
+            success: (response)=> {
+                setMessagesInDisplay(response)
+            }
+        })
+    }
+
+    setInterval(getMessage, 500)
+    {% endif %}
+
+    //colocar mensagens no display
+    let responseLength
+
+    function setMessagesInDisplay(response) {
+        if (response.payload.length == responseLength) {
+            return
+        }
+
+        responseLength = response.payload.length
+        $('#chat_display').html(null)
+
+        for(key = 0; key < response.payload.length; key++) {
+            let temp
+            if (response.payload[key].owner_id == null) {
+                temp = '<div class="master_message">\n' +
+                    '<h3>Mestre</h3>\n' +
+                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '</div>'
+            } else if (response.payload[key].owner_id == character_id) {
+                temp = '<div class="your_message">\n' +
+                    '<h3>Você</h3>\n' +
+                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '</div>'
+            } else {
+                temp = '<div class="message">\n' +
+                    '<h3>' + response.payload[key].username + '</h3>\n' +
+                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '</div>'
+            }
+
+            console.log(response)
+
+            $('#chat_display').append(temp)
+            $('#chat_display').scrollTop($('#chat_display').prop("scrollHeight"))
+        }
+    }
+
+    //enviar mensagem ao pressionar enter
+    $('#inputResponse').keypress((event)=> {
+        if (event.keyCode == 13) {
+            $('#sendMessageButton').click()
+        }
+    })
+</script>
+
+<script>
+    //script para rolagens de dados
+    $('.dice').map((index, element)=> {
+        $('#' + element.id).on('click', (event)=> {
+            diceType = event.currentTarget.id
+            diceValue = rollDice(diceType)
+
+            sendMessage(diceType + ': ' + diceValue)
+        })
+    })
+
+    //rolar dados
+    function rollDice(type) {
+        type = parseInt(type.match(/\d+/g)[0])
+        
+        return Math.floor(Math.random() * type) + 1
     }
 </script>
 {% endblock %}
