@@ -13,21 +13,108 @@
     <main>
         <div class="section_display">
             <div class="display_block">
-                <h2>Bloco 1</h2>
-                <p>Conteúdo do bloco 1</p>
+                <h2>personagens</h2>
+                <div class="block_content" id="players_display">
+                    {% for character in characters %}
+                    <a class="character" href="/play/{{character.id}}/">
+                        <p>{{character.name}} - {{character.job}}</p>
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
             <div class="display_block">
-                <h2>Bloco 2</h2>
-                <p>Conteúdo do bloco 2</p>
+                <h2>Chat</h2>
+                <div class="block_content">
+                    <div id="chat_display"></div>
+
+                    <div id="chat_manager">
+                        <div class="textInput">
+                            <input type="text" name="response" id="inputResponse">
+                            <button type="button" id="sendMessageButton">></div>
+                        </div>
+                        <div class="dices_manager">
+                            <button type="button" class="dice" id="D4">D4</button>
+                            <button type="button" class="dice" id="D6">D6</button>
+                            <button type="button" class="dice" id="D8">D8</button>
+                            <button type="button" class="dice" id="D10">D10</button>
+                            <button type="button" class="dice" id="D12">D12</button>
+                            <button type="button" class="dice" id="D20">D20</button>
+                            <button type="button" class="dice" id="D100">D100</button>
+                        </div>
+
+                        {% csrf_token %}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="entity-manage">
-            <h2>Bloco 3</h2>
-            <p>Conteúdo do bloco 3</p>
+            <h2>Gerenciador de entidades</h2>
+            <p>Em breve...</p>
         </div>
     </main>
 {% endblock %}
 
 {% block script %}
+    <script>
+        //script para mensagens
 
+        //enviar mensagem
+        $('#sendMessageButton').on('click', ()=> {
+            $.ajax({
+                type: 'POST',
+                url: '/sendMessage/{{campaign.id}}/master/',
+                data: {
+                    'content': $('#inputResponse').val()
+                }
+            })
+
+            $('#inputResponse').val(null)
+        })
+
+        //receber mensagem
+        function getMessage() {
+            $.ajax({
+                type: 'GET',
+                url: '/getMessage/{{campaign.id}}/',
+                success: (response)=> {
+                    setMessagesInDisplay(response)
+                    console.log('a')
+                }
+            })
+        }
+
+        setInterval(getMessage, 500)
+
+        //colocar mensagens no display
+        let responseLength
+        function setMessagesInDisplay(response) {
+            console.log(response.payload.length)
+
+            if (response.payload.length == responseLength) {
+                return
+            }
+
+            responseLength = response.payload.length
+            $('#chat_display').html(null)
+
+            console.log('a')
+
+            for(key = 0; key < response.payload.length; key++) {
+                let temp
+                if (response.payload[key].owner_id == null) {
+                    temp = '<div class="master_message">\n' +
+                        '<h3>Você</h3>\n' +
+                        '<p>' + response.payload[key].content + '</p>\n' +
+                        '</div>'
+                } else {
+                    temp = '<div class="message">\n' +
+                        '<h3>' + response.payload[key].character + '</h3>\n' +
+                        '<p>' + response.payload[key].content + '</p>\n' +
+                        '</div>'
+                }
+
+                $('#chat_display').append(temp)
+            }
+        }
+    </script>
 {% endblock %}

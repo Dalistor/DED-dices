@@ -64,3 +64,9 @@ class AttackForm(forms.ModelForm):
         model = Attack
         exclude = ['owner']
         fields = '__all__'
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        exclude = ['owner', 'campaign']
+        fields = '__all__'

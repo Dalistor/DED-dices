@@ -24,5 +24,8 @@ urlpatterns = [
     path('campaign_edit/<str:hash>/', views.campaign_edit_view, name='campaign_edit'),
     path('campaign_delete/<str:hash>/', views.campaign_delete_view, name='campaign_edit'),
     path('campaign_userSearch/', views.userSearch, name='user search'),
-    path('campaign_manage/<str:hash>/', views.campaig_manage_view, name='campaign manage')
+    path('campaign_manage/<str:hash>/', views.campaig_manage_view, name='campaign manage'),
+
+    path('sendMessage/<str:campaign>/<str:character>/', views.send_message, name='send message'),
+    path('getMessage/<str:campaign>/', views.get_message, name='send message')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

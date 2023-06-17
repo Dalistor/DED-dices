@@ -544,7 +544,61 @@ def campaig_manage_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
+    charactersInCampaign = Character.objects.filter(allocated_campaign=campaign)
+
+    for character in charactersInCampaign:
+        character.id = hash_id(character.id)
+
+    campaign.id = hash_id(campaign.id)
 
     return render(request, 'campaign_manage.html', {
-        'campaign': campaign
+        'campaign': campaign,
+        'characters': charactersInCampaign
+    })
+
+@csrf_exempt
+def send_message(request, campaign, character):
+    campaign_id = campaign.split('-')[0]
+    if character != 'master':
+        character_id = character.split('-')[0]
+
+    if not check_hash(campaign) and not check_hash(character):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    if request.method == 'POST':
+        campaign = Campaign.objects.get(id=campaign_id)
+        content = request.POST['content']
+
+        if character != 'master':
+            character = Character.objects.get(id=character_id)
+
+        messageCommit = Message()
+
+        if character != 'master':
+            messageCommit.owner = character
+        
+        messageCommit.campaign = campaign
+        messageCommit.content = content
+        messageCommit.save()
+
+    return HttpResponse('success')
+
+def get_message(request, campaign):
+    if not check_hash(campaign):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    id = campaign.split('-')[0]
+    campaign = Campaign.objects.get(id=id)
+    
+    messages = Message.objects.filter(campaign=campaign)
+
+    for message in messages:
+        try:
+            character = Character.objects.get(id=message.owner)
+            message.owner = character.name
+        except:
+            pass
+
+    return JsonResponse({
+        'payload': list(messages.values())
     })

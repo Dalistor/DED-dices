@@ -40,7 +40,7 @@ class Campaign(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=50)
-    team = models.ManyToManyField(User, related_name='team', null=True, blank=True)
+    team = models.ManyToManyField(User, related_name='team', blank=True)
     cover = models.ImageField(upload_to='campaign_cover/', null=True, blank=True)
 
     chat_private = models.BooleanField(default=False)
@@ -184,9 +184,9 @@ class Attack(models.Model):
 # modelo das mensagens
 class Message(models.Model):
     campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
 
     content = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.owner.name
+        return self.content
