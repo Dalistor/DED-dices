@@ -24,37 +24,37 @@
     <div class="first-page">
         <div class="col-1">
             <div class="modifier">
-                <p>Força</p>
+                <p id="_strength">Força</p>
                 <input type="number" name="strength_modifier" value="{{atributes.strength_modifier}}" class="modifier-input" readonly id="strength_modifier">
                 <input type="number" name="strength_atribute" value="{{atributes.strength_atribute}}" class="atribute-input" readonly id="strength_atribute">
             </div>
 
             <div class="modifier">
-                <p>Destreza</p>
+                <p id="_dexterity">Destreza</p>
                 <input type="number" name="dexterity_modifier" value="{{atributes.dexterity_modifier}}" class="modifier-input" readonly id="dexterity_modifier">
                 <input type="number" name="dexterity_atribute" value="{{atributes.dexterity_atribute}}" class="atribute-input" readonly id="dexterity_atribute">
             </div>
 
             <div class="modifier">
-                <p>Constituição</p>
+                <p id="_constituition">Constituição</p>
                 <input type="number" name="constituition_modifier" value="{{atributes.constituition_modifier}}" class="modifier-input" readonly id="constituition_modifier">
                 <input type="number" name="constituition_atribute" value="{{atributes.constituition_atribute}}" class="atribute-input" readonly id="constituition_atribute">
             </div>
 
             <div class="modifier">
-                <p>Inteligência</p>
+                <p id="_intelligence">Inteligência</p>
                 <input type="number" name="intelligence_modifier" value="{{atributes.intelligence_modifier}}" class="modifier-input" readonly id="intelligence_modifier">
                 <input type="number" name="intelligence_atribute" value="{{atributes.intelligence_atribute}}" class="atribute-input" readonly id="intelligence_atribute">
             </div>
             
             <div class="modifier">
-                <p>Sabedoria</p>
+                <p id="_wisdom">Sabedoria</p>
                 <input type="number" name="wisdom_modifier" value="{{atributes.wisdom_modifier}}" class="modifier-input" readonly id="wisdom_modifier">
                 <input type="number" name="wisdom_atribute" value="{{atributes.wisdom_atribute}}" class="atribute-input" readonly id="wisdom_atribute">
             </div>
             
             <div class="modifier">
-                <p>Carisma</p>
+                <p id="_charisma">Carisma</p>
                 <input type="number" name="charisma_modifier" value="{{atributes.charisma_modifier}}" class="modifier-input" readonly id="charisma_modifier">
                 <input type="number" name="charisma_atribute" value="{{atributes.charisma_atribute}}" class="atribute-input" readonly id="charisma_atribute">
             </div>
@@ -615,13 +615,16 @@
 
     $('.modifier-input').map((index, element)=> {
         id = element.id
-        $('#' + id).on('click', ()=> {
+        $('#' + id).on('click', (event)=> {
             const value = parseInt($('#' + element.id).val())
-            atributeTest(value)
+
+            name = $('#_' + event.currentTarget.id.split('_')[0]).text()
+
+            atributeTest(value, name)
         })
     })
 
-    function atributeTest(value) {
+    function atributeTest(value, name) {
         const roll = rollDice([[20, 1]], value)
 
         let obj = {
@@ -630,6 +633,9 @@
 
         if (inspiration != 0 || isNaN(inspiration)) {
             obj.p2 = 'Com inspiração: ' + (roll + parseInt($('#inspiration').val()))
+            sendMessage(name + ' | ' + 'Resultado: ' + roll + ' | ' + 'Com inspiração: ' + (roll + parseInt($('#inspiration').val())))
+        } else {
+            sendMessage(name + ' | ' + 'Resultado: ' + roll)
         }
 
         openPopup({
@@ -655,6 +661,10 @@
             let type
             let title
 
+            eventId = event.currentTarget.id.split('-')[0]
+            name = $('label[for="' + eventId + '"]').text().split('-')[0].trim()
+
+
             if (allowed_ids.includes(id)) {
                 type = id + '_modifier'
                 title = 'Teste de salvaguarda'
@@ -663,11 +673,11 @@
                 title = 'Teste de pericia'
             }
             
-            saveguard_and_skill_test(value, type, title)
+            saveguard_and_skill_test(value, type, title, name)
         })
     })
 
-    function saveguard_and_skill_test(proficiency, modifier_id, popup_title) {
+    function saveguard_and_skill_test(proficiency, modifier_id, popup_title, name) {
         let value
         let value_i
         const modifier = $('#' + modifier_id).val()
@@ -685,12 +695,26 @@
 
         if (inspiration != 0) {
             obj.p2 = 'Com inspiração: ' + (value + inspiration)
+
+            if (popup_title == 'Teste de salvaguarda') {
+                sendMessage(name + ' (salvaguarda) | ' + 'Resultado: ' + value + ' | ' + 'Com inspiração: ' + (value + inspiration))
+            } else {
+                sendMessage(name + ' | ' + 'Resultado: ' + value + ' | ' + 'Com inspiração: ' + (value + inspiration))
+            }
+        } else {
+            if (popup_title == 'Teste de salvaguarda') {
+                sendMessage(name + ' (salvaguarda) | ' + 'Resultado: ' + value)
+            } else {
+                sendMessage(name + ' | ' + 'Resultado: ' + value)
+            }
         }
 
         openPopup({
             title: popup_title,
             query: obj
         })
+
+        
     }
 </script>
 
@@ -803,13 +827,26 @@
             }
         }
 
-        openPopup({
-            title: 'Ataque',
-            query: {
-                p: 'Ataque: ' + attackDice,
-                p2: 'Dano: ' + damageDice
-            }
-        })
+        if (damageDice != 0) {
+            openPopup({
+                title: 'Ataque',
+                query: {
+                    p: 'Ataque: ' + attackDice,
+                    p2: 'Dano: ' + damageDice
+                }
+            })
+    
+            sendMessage(attack.name + ' | ' + 'Ataque: '  + attackDice + ' | ' + 'Dano: ' + damageDice)
+        } else {
+            openPopup({
+                title: 'Resultado',
+                query: {
+                    p: 'Resultado: ' + attackDice,
+                }
+            })
+
+            sendMessage(attack.name + ' | ' + 'Resultado: '  + attackDice)
+        }
     })
 </script>
 
@@ -823,6 +860,8 @@
                 p: 'Resultado: ' + result
             }
         })
+
+        sendMessage('Iniciativa: ' + result)
     })
 </script>
 
@@ -904,13 +943,15 @@
     })
 
     function sendMessage(input) {
-        $.ajax({
-            type: 'POST',
-            url: '/sendMessage/{{campaign.id}}/' + character_id + '/',
-            data: {
-                'content': input
-            }
-        })
+        if (input.trim() != '') {
+            $.ajax({
+                type: 'POST',
+                url: '/sendMessage/{{campaign.id}}/' + character_id + '/',
+                data: {
+                    'content': input
+                }
+            })
+        }
     }
 
     {% if not campaign.chat_private %}
@@ -944,17 +985,17 @@
             if (response.payload[key].owner_id == null) {
                 temp = '<div class="master_message">\n' +
                     '<h3>Mestre</h3>\n' +
-                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '<p>' + htmlToText(response.payload[key].content) + '</p>\n' +
                     '</div>'
             } else if (response.payload[key].owner_id == character_id) {
                 temp = '<div class="your_message">\n' +
                     '<h3>Você</h3>\n' +
-                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '<p>' + htmlToText(response.payload[key].content) + '</p>\n' +
                     '</div>'
             } else {
                 temp = '<div class="message">\n' +
-                    '<h3>' + response.payload[key].username + '</h3>\n' +
-                    '<p>' + response.payload[key].content + '</p>\n' +
+                    '<h3>' + htmlToText(response.payload[key].username) + '</h3>\n' +
+                    '<p>' + htmlToText(response.payload[key].content) + '</p>\n' +
                     '</div>'
             }
 
@@ -962,6 +1003,12 @@
 
             $('#chat_display').append(temp)
             $('#chat_display').scrollTop($('#chat_display').prop("scrollHeight"))
+        }
+
+        function htmlToText(html) {
+            var div = document.createElement("div");
+            div.innerHTML = html;
+            return div.textContent || div.innerText || "";
         }
     }
 
@@ -978,14 +1025,14 @@
     $('.dice').map((index, element)=> {
         $('#' + element.id).on('click', (event)=> {
             diceType = event.currentTarget.id
-            diceValue = rollDice(diceType)
+            diceValue = rollSingleDice(diceType)
 
             sendMessage(diceType + ': ' + diceValue)
         })
     })
 
     //rolar dados
-    function rollDice(type) {
+    function rollSingleDice(type) {
         type = parseInt(type.match(/\d+/g)[0])
         
         return Math.floor(Math.random() * type) + 1

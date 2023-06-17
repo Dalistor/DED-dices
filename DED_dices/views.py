@@ -509,6 +509,13 @@ def campaign_edit_view(request, hash):
                 for rmUser in removedUsers:
                     user = User.objects.get(id=rmUser)
                     campaign_commit.team.remove(user)
+
+                    characters_in_campaign = Character.objects.filter(owner=user, allocated_campaign=campaign)
+                    print(characters_in_campaign)
+                    for character in characters_in_campaign:
+                        character.allocated_campaign = None
+                        character.save()
+
                 
             if request.POST['newUsers']:
                 newUsers = json.loads(request.POST['newUsers'])
