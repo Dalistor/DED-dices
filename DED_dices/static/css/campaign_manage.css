@@ -33,10 +33,72 @@ header h1 {
 
 .entity-manage {
     width: 80%;
-    height: 40rem;
     margin: 50px auto;
     padding: 20px;
     border: solid;
     border-radius: 10px;
     box-shadow: 0px 0px 5px #aba9a9;
+}
+
+.entity-manage h2 {
+    text-align: center;
+    font-size: x-large;
+    text-transform: uppercase;
+}
+
+.your_entitys {
+    width: 30%;
+    height: 94%;
+    border: solid;
+    margin: 1rem;
+    border-radius: 10px;
+}
+
+.your_entitys h3 {
+    text-align: center;
+    font-size: large;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid;
+}
+
+#block_entity {
+    display: flex;
+    height: 40rem;
+}
+
+.entity_token {
+    border: solid;
+    border-radius: 10px;
+    width: 70%;
+    margin: 1rem;
+}
+
+.your_entitys-display {
+    overflow-y: scroll;
+    height: 90%;
+}
+
+.new_entity-button {
+    background-color: #2b2d42;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.new_entity-button:hover {
+    background-color: #1d1f2f;
+}
+
+.entity_nav {
+    margin: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
 }

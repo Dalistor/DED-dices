@@ -29,6 +29,7 @@ h1 {
 	font-weight: bold;
 	cursor: pointer;
 	text-decoration: none;
+	transition: 0.3s;
 }
 
 .new-char:hover {

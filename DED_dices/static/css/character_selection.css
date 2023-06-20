@@ -29,6 +29,7 @@ h1 {
 	font-weight: bold;
 	cursor: pointer;
 	text-decoration: none;
+	transition: 0.3s;
 }
 
 .new-char:hover {
@@ -99,6 +100,7 @@ input[type="text"] {
     border: solid 2px;
     border-radius: 5px;
     cursor: pointer;
+	transition: 0.3s;
 }
 
 .edit-btn:hover,

@@ -2,9 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 
-from PIL import Image
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django_cleanup.signals import cleanup_pre_delete
+from django.utils import timezone
+from datetime import timedelta
 
-import json
+from PIL import Image
 
 # modelo dos personagens e criaturas
 
@@ -21,6 +26,8 @@ class Character(models.Model):
     portrait = models.ImageField(upload_to='portraits/', null=True, blank=True)
 
     allocated_campaign = models.ForeignKey('Campaign', on_delete=models.PROTECT, null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
@@ -44,6 +51,8 @@ class Campaign(models.Model):
     cover = models.ImageField(upload_to='campaign_cover/', null=True, blank=True)
 
     chat_private = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -70,6 +79,8 @@ class Atributes(models.Model):
 
     charisma_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
     charisma_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.owner.name
@@ -107,6 +118,8 @@ class Skills(models.Model):
     animal_proeficiency = models.BooleanField(null=True, blank=True)
     perception_proeficiency = models.BooleanField(null=True, blank=True)
     survive_proeficiency = models.BooleanField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.owner.name
@@ -150,6 +163,8 @@ class Characteristics(models.Model):
 
     history = models.TextField(max_length=50000, null=True, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
     def __str__(self):
         return self.owner.name
 
@@ -178,6 +193,8 @@ class Attack(models.Model):
 
     type = models.CharField(max_length=8)
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
     def __str__(self):
         return self.name
 
@@ -189,5 +206,16 @@ class Message(models.Model):
 
     content = models.TextField(max_length=1000)
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
     def __str__(self):
         return self.content
+
+
+#funções do banco de dados
+
+@receiver(post_save, sender=Message)
+def schedule_exclusion(sender, instance, **kwargs):
+    now = timezone.now()
+    day_after = now + timedelta(days=1)
+    cleanup_pre_delete.send(sender=instance.__class__, instance=instance, when=day_after)
