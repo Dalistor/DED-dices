@@ -29,7 +29,3 @@ def userVerify(username, email, password, password_confirm):
 		'is_valid': is_valid,
 		'error_message': error_message
 	}
-
-class GS():
-	getter = None
-	setter = None
