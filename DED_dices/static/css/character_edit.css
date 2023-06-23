@@ -78,7 +78,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0.95rem 0;
+    margin: 1.034rem 0;
 }
 
 .modifier .modifier-input {
@@ -596,4 +596,135 @@ input[type="file"] {
     border: solid;
     border-radius: 10px;
     cursor: pointer;
+}
+
+
+.appaerance,
+.ideals,
+.ligations,
+.defects,
+.characteristics_and_skills, 
+.other_characteristics,
+.allies_and_organizations,
+.history
+ {
+    width: 90%;
+    height: 37.7rem;
+    display: none;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.inventory {
+    width: 90%;
+    height: 37.7rem;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.general_informations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.col-4{
+    width: 37rem;
+    border: solid;
+    verical-align: bottom;
+    border-radius: 10px;
+}
+
+.choose-camp{
+    border: solid;
+    margin: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.choose-camp h3 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.input-choose-camp{
+    height: 2rem;
+    border-radius: 7px;
+    width: 6rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.input-choose-camp:hover {
+    background-color: #bdbdbd;
+}
+
+.general_information{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+.second-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appaerance,
+.ideals,
+.ligations,
+.defects,
+.characteristics_and_skills, 
+.other_characteristics,
+.allies_and_organizations,
+.history
+ {
+    width: 90%;
+    height: 38.4rem;
+    display: none;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.inventory {
+    width: 90%;
+    height: 38.4rem;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.general_informations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.second-page textarea {
+    width: 20rem;
+    height: 40rem;
+    margin-bottom: 1rem;
+}
+
+.second-page p {
+    margin-bottom: 1rem
+}
+
+.second-page .inventory textarea {
+    width: 60rem
+}
+
+.third-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
 }

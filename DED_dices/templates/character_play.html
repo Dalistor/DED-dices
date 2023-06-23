@@ -275,27 +275,29 @@
         </div>
 
         <div class="col-4">
-            <div class="character-characteristics">
-                <div class="characteristics">
-                    <textarea name="ideals" readonly>{{characteristics.ideals}}</textarea>
-                    <p>Ideais</p>
-                </div>
-                <div class="characteristics">
-                    <textarea name="ligations" readonly>{{characteristics.ligations}}</textarea>
-                    <p>Ligações</p>
-                </div>
-                <div class="characteristics">
-                    <textarea name="defects" readonly>{{characteristics.defects}}</textarea>
-                    <p>Defeitos</p>
-                </div>
+            <div class="choose-camp">
+              <div class="input-choose-camp">
+                <button id="before" class="input-choose-camp" type="button"><<</button>
+              </div>
+              <h3 id="camp-name">Inventário</h3>
+              <div class="input-choose-camp">
+                <button id="after" class="input-choose-camp" type="button">>></button>
+              </div>
             </div>
-
-            <div class="characteristics_and_skills">
-                <textarea name="characteristics_and_skills" readonly>{{characteristics.characteristics_and_skills}}</textarea>
-                <p>Características e habilidades</p>
+            <div class="general_informations">
+                <textarea name="appaerance"                 id="appaerance"                  class="appaerance" readonly>{{characteristics.appaerance}}</textarea>
+                <textarea name="ideals"                     id="ideals"                      class="ideals" readonly>{{characteristics.ideals}}</textarea>
+                <textarea name="ligations"                  id="ligations"                   class="ligations" readonly>{{characteristics.ligations}}</textarea>
+                <textarea name="defects"                    id="defects"                     class="defects" readonly>{{characteristics.defects}}</textarea>
+                <textarea name="characteristics_and_skills" id="characteristics_and_skills"  class="characteristics_and_skills" readonly>{{characteristics.characteristics_and_skills}}</textarea>
+                <textarea name="other_characteristics"      id="other_characteristics"       class="other_characteristics" readonly>{{characteristics.other_characteristics}}</textarea>
+                <textarea name="allies_and_organizations"   id="allies_and_organizations"    class="allies_and_organizations" readonly>{{characteristics.allies_and_organizations}}</textarea>
+                <textarea name="inventory"                  id="inventory"                   class="inventory autosave">{{characteristics.inventory}}</textarea>
+                <textarea name="history"                    id="history"                     class="history autosave">{{characteristics.history}}</textarea>
             </div>
         </div>
     </div>
+
     {% if campaign%}
     {% if not campaign.chat_private %}
     <div class="display_block">
@@ -322,34 +324,6 @@
     </div>
     {% endif %}
     {% endif %}
-    <div class="second-page">
-        <div class="appaerance">
-            <textarea name="appaerance" readonly>{{characteristics.appaerance}}</textarea>
-            <p>Aparência</p>
-        </div>
-        <div class="other_characteristics">
-            <textarea name="other_characteristics" readonly>{{characteristics.other_characteristics}}</textarea>
-            <p>Outras características e habilidades</p>
-        </div>
-
-        <div class="allies_and_organizations">
-            <textarea name="allies_and_organizations" readonly>{{characteristics.allies_and_organizations}}</textarea>
-            <p>Aliados e organizações</p>
-        </div>
-        <div class="inventory">
-            <textarea name="inventory" id="inventory" class="autosave">{{characteristics.inventory}}</textarea>
-            <p>Inventário</p>
-        </div>
-    </div>
-
-    <div class="third-page">
-        <div class="col-6">
-            <div class="history">
-                <textarea name="history" id="history" class="autosave">{{characteristics.history}}</textarea>
-                <p>História</p>
-            </div>
-        </div>
-    </div>
 
     <div class="four-page">
         <div class="col-7">
@@ -546,7 +520,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}
@@ -1036,6 +1009,72 @@
         type = parseInt(type.match(/\d+/g)[0])
         
         return Math.floor(Math.random() * type) + 1
+    }
+</script>
+
+<script>
+    const sequenceCamp = [
+        'appaerance',
+        'ideals',
+        'ligations',
+        'defects',
+        'characteristics_and_skills',
+        'other_characteristics',
+        'allies_and_organizations', 
+        'inventory',
+        'history'
+    ]
+
+    const sequenceCamp_trasnlated = [
+        'Aparência',
+        'Ideais',
+        'Ligações',
+        'Defeitos',
+        'Características e habilidades',
+        'Outras características',
+        'Aliados e organizações', 
+        'Inventário',
+        'História'
+    ]
+
+    let campIndex = 7
+
+    $('#after').on('click', ()=> {
+        let changeSelectet = campIndex + 1
+
+        if(changeSelectet >= sequenceCamp.length) {
+            changeSelectet = 0
+        }
+
+        change(changeSelectet)
+    })
+
+    $('#before').on('click', ()=> {
+        let changeSelectet = campIndex - 1
+
+        if(changeSelectet <= 0) {
+            changeSelectet = sequenceCamp.length -1
+        }
+
+        change(changeSelectet)
+    })
+
+    function change(index) {
+        console.log(sequenceCamp[index])
+        console.log(index)
+        for(key=0; key < sequenceCamp.length; key++) {
+            $('#' + sequenceCamp[key]).css({
+                'display': 'none'
+            })
+        }
+        
+        $('#' + sequenceCamp[index]).css({
+            'display': 'block'
+        })
+
+        $('#camp-name').text(sequenceCamp_trasnlated[index])
+
+        campIndex = index
     }
 </script>
 {% endblock %}

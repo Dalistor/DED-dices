@@ -136,7 +136,10 @@ body {
 
 .table-results {
   width: 100%;
-  height: 100%;
+  height: 79%;
+  overflow: auto;
+  scrollbar-width: thin; /* Adiciona uma largura fina à barra de rolagem */
+  scrollbar-color: transparent transparent; /* Define a cor transparente para a barra de rolagem */
 }
 
 .user, .selected-user {

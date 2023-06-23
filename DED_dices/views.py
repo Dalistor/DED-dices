@@ -134,43 +134,43 @@ def character_autosave(request, hash, field):
 
     if request.method == 'POST':
         if field == 'inspiration':
-            skill.inspiration = request.POST['value']
+            skill.inspiration = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'class_armor_temp':
-            table.class_armor_temp = request.POST['value']
+            table.class_armor_temp = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'displacement_temp':
-            table.displacement_temp = request.POST['value']
+            table.displacement_temp = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'hp_temp':
-            table.hp_temp = request.POST['value']
+            table.hp_temp = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'pc':
-            table.pc = request.POST['value']
+            table.pc = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'pp':
-            table.pp = request.POST['value']
+            table.pp = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'po':
-            table.po = request.POST['value']
+            table.po = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'pl':
-            table.pl = request.POST['value']
+            table.pl = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'da':
-            table.da = request.POST['value']
+            table.da = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'equipments':
-            table.equipments = request.POST['value']
+            table.equipments = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'inventory':
-            table.inventory = request.POST['value']
+            table.inventory = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'history':
-            table.history = request.POST['value']
+            table.history = request.POST['value'] if request.POST['value'] != '' else None
 
         elif field == 'hp':
-            table.hp = request.POST['value']
+            table.hp = request.POST['value'] if request.POST['value'] != '' else None
 
         table.save()
         skill.save()

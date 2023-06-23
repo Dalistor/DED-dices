@@ -124,7 +124,7 @@ input[type=number] {
     margin: 1rem;
     border: solid;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
 .saveguard p {
@@ -136,7 +136,7 @@ input[type=number] {
     margin: 1rem;
     border: solid;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
 .skills-proeficiency, .saveguard-attribute {
@@ -157,10 +157,12 @@ input[type=number] {
     flex-direction: column;
     border: solid;
     border-radius: 10px;
+    width: 25rem;
 }
 
 .body_statistics-defined {
     display: flex;
+    justify-content: space-around;
 }
 
 .body_statistic {
@@ -176,6 +178,11 @@ input[type=number] {
     text-align: center;
 }
 
+.choose-camp h3 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .body_statistic input[type="text"] {
     text-align: center;
 }
@@ -184,7 +191,7 @@ input[type=number] {
     margin-top: 1rem;
     border: solid;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -277,24 +284,67 @@ input[type=number] {
     margin-bottom: 0.5rem;
 }
 
-.characteristics_and_skills {
-    margin-top: 1.5rem;
+.characteristics_and_skills p {
+    margin-top: 1rem
+}
+
+.second-page {
+    margin-top: 2rem;
     border: solid;
-    padding: 1rem;
     border-radius: 10px;
+    padding: 1rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appaerance,
+.ideals,
+.ligations,
+.defects,
+.characteristics_and_skills, 
+.other_characteristics,
+.allies_and_organizations,
+.history
+ {
+    width: 90%;
+    height: 37.7rem;
+    display: none;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.inventory {
+    width: 90%;
+    height: 37.7rem;
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.general_informations {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.characteristics_and_skills textarea {
-    width: 15rem;
-    resize: none;
-    height: 10rem;
+.second-page textarea {
+    width: 20rem;
+    height: 40rem;
+    margin-bottom: 1rem;
 }
 
-.characteristics_and_skills p {
-    margin-top: 1rem
+.second-page p {
+    margin-bottom: 1rem
+}
+
+.second-page .inventory textarea {
+    width: 60rem
+}
+
+.third-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
 }
 
 .display_block {
@@ -349,50 +399,6 @@ input[type=number] {
     margin-left: 70%;
 }
 
-.second-page {
-    margin-top: 2rem;
-    border: solid;
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.appaerance,
-.other_characteristics,
-.allies_and_organizations,
-.inventory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.second-page textarea {
-    width: 20rem;
-    height: 40rem;
-    margin-bottom: 1rem;
-}
-
-.second-page p {
-    margin-bottom: 1rem
-}
-
-.second-page .inventory textarea {
-    width: 60rem
-}
-
-.third-page {
-    margin-top: 2rem;
-    border: solid;
-    border-radius: 10px;
-}
-
-.history {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .history textarea {
     width: 95%;
@@ -632,3 +638,40 @@ input[type=number] {
 input[type="file"] {
     display: none;
 }
+
+.col-4{
+    width: 37rem;
+    border: solid;
+    verical-align: bottom;
+    border-radius: 10px;
+}
+
+.choose-camp{
+    border: solid;
+    margin: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-choose-camp{
+    height: 2rem;
+    border-radius: 7px;
+    width: 6rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.input-choose-camp:hover {
+    background-color: #bdbdbd;
+}
+
+.general_information{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+

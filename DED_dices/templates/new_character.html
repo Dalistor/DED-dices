@@ -259,53 +259,25 @@
 			</div>
 
 			<div class="col-4">
-				<div class="character-characteristics">
-					<div class="characteristics">
-						<textarea name="ideals" maxlength="5000"></textarea>
-						<p>Ideais</p>
-					</div>
-					<div class="characteristics">
-						<textarea name="ligations" maxlength="5000"></textarea>
-						<p>Ligações</p>
-					</div>
-					<div class="characteristics">
-						<textarea name="defects" maxlength="5000"></textarea>
-						<p>Defeitos</p>
-					</div>
+				<div class="choose-camp">
+				  <div class="input-choose-camp">
+					<button id="before" class="input-choose-camp" type="button"><<</button>
+				  </div>
+				  <h3 id="camp-name">Inventário</h3>
+				  <div class="input-choose-camp">
+					<button id="after" class="input-choose-camp" type="button">>></button>
+				  </div>
 				</div>
-
-				<div class="characteristics_and_skills">
-					<textarea name="characteristics_and_skills" maxlength="5000"></textarea>
-					<p>Características e habilidades</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="second-page">
-			<div class="appaerance">
-				<textarea name="appaerance" maxlength="5000"></textarea>
-				<p>Aparência</p>
-			</div>
-			<div class="other_characteristics">
-				<textarea name="other_characteristics" maxlength="5000"></textarea>
-				<p>Outras características e habilidades</p>
-			</div>
-
-			<div class="allies_and_organizations">
-				<textarea name="allies_and_organizations" maxlength="5000"></textarea>
-				<p>Aliados e organizações</p>
-			</div>
-			<div class="inventory">
-				<textarea name="inventory" maxlength="5000"></textarea>
-				<p>Inventário</p>
-			</div>
-		</div>
-
-		<div class="third-page">
-			<div class="col-6">
-				<div class="history">
-					<textarea name="history" maxlength="50000"></textarea>
-					<p>História</p>
+				<div class="general_informations">
+					<textarea name="appaerance"                 id="_appaerance"                  class="appaerance"></textarea>
+					<textarea name="ideals"                     id="_ideals"                      class="ideals"></textarea>
+					<textarea name="ligations"                  id="_ligations"                   class="ligations"></textarea>
+					<textarea name="defects"                    id="_defects"                     class="defects"></textarea>
+					<textarea name="characteristics_and_skills" id="_characteristics_and_skills"  class="characteristics_and_skills"></textarea>
+					<textarea name="other_characteristics"      id="_other_characteristics"       class="other_characteristics"></textarea>
+					<textarea name="allies_and_organizations"   id="_allies_and_organizations"    class="allies_and_organizations"></textarea>
+					<textarea name="inventory"                  id="_inventory"                   class="inventory"></textarea>
+					<textarea name="history"                    id="_history"                     class="history"></textarea>
 				</div>
 			</div>
 		</div>
@@ -1028,5 +1000,71 @@
 			})
 		})
 	})
+</script>
+
+<script>
+    const sequenceCamp = [
+        '_appaerance',
+        '_ideals',
+        '_ligations',
+        '_defects',
+        '_characteristics_and_skills',
+        '_other_characteristics',
+        '_allies_and_organizations', 
+        '_inventory',
+        '_history'
+    ]
+
+    const sequenceCamp_trasnlated = [
+        'Aparência',
+        'Ideais',
+        'Ligações',
+        'Defeitos',
+        'Características e habilidades',
+        'Outras características',
+        'Aliados e organizações', 
+        'Inventário',
+        'História'
+    ]
+
+    let campIndex = 7
+
+    $('#after').on('click', ()=> {
+        let changeSelectet = campIndex + 1
+
+        if(changeSelectet >= sequenceCamp.length) {
+            changeSelectet = 0
+        }
+
+        change(changeSelectet)
+    })
+
+    $('#before').on('click', ()=> {
+        let changeSelectet = campIndex - 1
+
+        if(changeSelectet <= 0) {
+            changeSelectet = sequenceCamp.length -1
+        }
+
+        change(changeSelectet)
+    })
+
+    function change(index) {
+
+        for(key=0; key < sequenceCamp.length; key++) {
+            $('#' + sequenceCamp[key]).css({
+                'display': 'none'
+            })
+        }
+        
+		console.log(sequenceCamp[index])
+        $('#' + sequenceCamp[index]).css({
+            'display': 'block'
+        })
+
+        $('#camp-name').text(sequenceCamp_trasnlated[index])
+
+        campIndex = index
+    }
 </script>
 {% endblock %}
