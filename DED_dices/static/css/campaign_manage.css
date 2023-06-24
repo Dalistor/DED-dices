@@ -97,6 +97,14 @@ header a {
     margin: 1rem;
 }
 
+.entity {
+    margin: 1rem;
+    border: solid;
+    padding: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .your_entitys-display {
     overflow-y: scroll;
     height: 90%;
@@ -106,6 +114,7 @@ header a {
     padding: 0.5rem;
     border-bottom: solid;
     display: flex;
+    overflow-x: scroll;
 }
 
 .entity-nav {

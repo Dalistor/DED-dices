@@ -61,7 +61,11 @@
             <div class="your_entitys">
                 <h3>Suas entidades</h3>
                 <div class="your_entitys-display" id="entity_display">
-
+                    {% for entity in entitys %}
+                    <div class="entity" id="entity-{{entity.id}}">
+                        <h4>{{entity.name}}</h3>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
 

@@ -154,6 +154,10 @@ input[type=number] {
     font-size: large;
 }
 
+.col-2 input {
+    cursor: pointer;
+}
+
 .bonus {
     margin: 1rem;
 }

@@ -42,6 +42,26 @@ class Character(models.Model):
             img.save(self.portrait.path)
 
 
+class Entity(models.Model):
+    owner = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=50)
+    portrait = models.ImageField(upload_to='portraits/', null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.portrait:
+            img = Image.open(self.portrait.path)
+            output_size = (150, 230)
+            img.thumbnail(output_size)
+            img.save(self.portrait.path)
+
 # modelo das campanhas
 class Campaign(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -60,7 +80,8 @@ class Campaign(models.Model):
 
 # modelo dos atributos dos personagens
 class Atributes(models.Model):
-    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    entity_owner = models.ForeignKey('Entity', on_delete=models.CASCADE, null=True, blank=True)
 
     strength_modifier = models.IntegerField(validators=[MaxValueValidator(20)])
     strength_atribute = models.IntegerField(validators=[MaxValueValidator(50)])
@@ -83,12 +104,17 @@ class Atributes(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.owner.name
+        if self.owner:
+            return self.owner.name
+        else:
+            return self.entity_owner.name
+        
 
 
 # proeficiencias
 class Skills(models.Model):
-    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    entity_owner = models.ForeignKey('Entity', on_delete=models.CASCADE, null=True, blank=True)
 
     inspiration = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(100)])
     proeficiency = models.IntegerField(blank=True, null=True, validators=[MaxValueValidator(20)])
@@ -122,12 +148,16 @@ class Skills(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.owner.name
+        if self.owner:
+            return self.owner.name
+        else:
+            return self.entity_owner.name
 
 
 # caracteristicas
 class Characteristics(models.Model):
-    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    entity_owner = models.ForeignKey('Entity', on_delete=models.CASCADE, null=True, blank=True)
 
     class_armor = models.IntegerField(validators=[MaxValueValidator(100)])
     iniciative = models.IntegerField(validators=[MaxValueValidator(20)])
@@ -166,12 +196,16 @@ class Characteristics(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.owner.name
+        if self.owner:
+            return self.owner.name
+        else:
+            return self.entity_owner.name
 
 
 # modelo dos ataques
 class Attack(models.Model):
-    owner = models.ForeignKey('Character', on_delete=models.CASCADE)
+    owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    entity_owner = models.ForeignKey('Entity', on_delete=models.CASCADE, null=True, blank=True)
 
     name = models.CharField(max_length=30)
 
@@ -196,12 +230,17 @@ class Attack(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.name
+        if self.owner:
+            return self.owner.name
+        else:
+            return self.entity_owner.name
 
 # modelo das mensagens
 class Message(models.Model):
-    campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+    campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE, null=True, blank=True)
     owner = models.ForeignKey('Character', on_delete=models.CASCADE, null=True, blank=True)
+    entity_owner = models.ForeignKey('Entity', on_delete=models.CASCADE, null=True, blank=True)
+
     username = models.CharField(max_length=50, null=True, blank=True)
 
     content = models.TextField(max_length=1000)
@@ -209,7 +248,10 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.content
+        if self.owner:
+            return self.owner.name
+        else:
+            return self.entity_owner.name
 
 
 #funções do banco de dados

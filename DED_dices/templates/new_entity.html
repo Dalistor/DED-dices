@@ -19,7 +19,7 @@
 	<div class="container">
 		<form method="POST" enctype="multipart/form-data">
 			<div class="header">
-				<input type="text" name="name" maxlength="50" placeholder="Nome da entidade" class="character-name" required>
+				<input type="text" name="name" maxlength="50" placeholder="Nome da entidade" class="entity-name" required>
 
 				<div>
                     <label for="image" class="custom-file-upload">
@@ -65,6 +65,145 @@
 						<p>Carisma</p>
 						<input type="number" name="charisma_modifier" max="20" value="0" class="modifier-input">
 						<input type="number" name="charisma_atribute" max="50" value="10" class="atribute-input">
+					</div>
+				</div>
+				
+				<div class="col-2">
+					<div class="bonus">
+						<div class="inspiration">
+							<input type="number" name="inspiration" value="0" max="100">
+							<p>Inspiração</p>
+						</div>
+						<div class="proeficiency">
+							<input type="number" name="proeficiency" value="2" max="20">
+							<p>Proeficiência</p>
+						</div>
+					</div>
+
+					<div class="saveguard">
+						<p>Testes de resistência</p>
+
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="strength_proeficiency" id="strength">
+							<label for="strength">Força</label>
+						</div>
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="dexterity_proeficiency" id="dexterity">
+							<label for="dexterity">Destreza</label>
+						</div>
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="constituition_proeficiency" id="constituition">
+							<label for="constituition">Constituição</label>
+						</div>
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="intelligence_proeficiency" id="intelligence">
+							<label for="intelligence">Inteligência</label>
+						</div>
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="wisdom_proeficiency" id="wisdom">
+							<label for="wisdom">Sabedoria</label>
+						</div>
+						<div class="saveguard-attribute">
+							<input type="checkbox" name="charisma_proeficiency" id="charisma">
+							<label for="charisma">Carisma</label>
+						</div>
+					</div>
+
+					<div class="skills">
+						<p>Perícias</p>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="athletics_proeficiency" id="athletics">
+							<label for="athletics">Atletismo - (For)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="stunt_proeficiency" id="stunt">
+							<label for="stunt">Acrobacia - (Des)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="stealth_proeficiency" id="stealth">
+							<label for="stealth">Furtividade - (Des)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="sleight_proeficiency" id="sleight">
+							<label for="sleight">Prestidigitação - (Des)</label>
+						</div>
+
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="arcana_proeficiency" id="arcana">
+							<label for="arcana">Arcanismo - (Int)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="history_proeficiency" id="history">
+							<label for="history">História - (Int)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="investigation_proeficiency" id="investigation">
+							<label for="investigation">Investigação - (Int)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="medicine_proeficiency" id="medicine">
+							<label for="medicine">Medicina - (Int)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="nature_proeficiency" id="nature">
+							<label for="nature">Natureza - (Int)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="religion_proeficiency" id="religion">
+							<label for="religion">Religião - (Int)</label>
+						</div>
+
+						
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="acting_proeficiency" id="acting">
+							<label for="acting">Atuação - (Car)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="bluff_proeficiency" id="bluff">
+							<label for="bluff">Blefar - (Car)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="intimidation_proeficiency" id="intimidation">
+							<label for="intimidation">Intimidação - (Car)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="intuition_proeficiency" id="intuition">
+							<label for="intuition">Intuição - (Car)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="persuasion_proeficiency" id="persuasion">
+							<label for="persuasion">Persuasão - (Car)</label>
+						</div>
+
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="animal_proeficiency" id="animal">
+							<label for="animal">Adestrar - (Sab)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="perception_proeficiency" id="perception">
+							<label for="perception">Percepção - (Sab)</label>
+						</div>
+
+						<div class="skills-proeficiency">
+							<input type="checkbox" name="survive_proeficiency" id="survive">
+							<label for="survive">Sobrevivência - (Sab)</label>
+						</div>
 					</div>
 				</div>
 
@@ -857,7 +996,6 @@
             })
         }
         
-		console.log(sequenceCamp[index])
         $('#' + sequenceCamp[index]).css({
             'display': 'block'
         })

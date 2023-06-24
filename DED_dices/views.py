@@ -234,31 +234,11 @@ def player_token_creation_view(request):
             attacks = json.loads(attacks.strip())
 
         for attack_dict in attacks:
-            attack = Attack()
-
-            attack.owner = Character.objects.get(id=character_id)
-            attack.name = attack_dict['name']
-
-            attack.magic_lvl = attack_dict['magic_lvl']
-
-            attack.dice_1 = attack_dict['dice_1']
-            attack.dice_2 = attack_dict['dice_2']
-            attack.dice_3 = attack_dict['dice_3']
-
-            attack.roll_1 = attack_dict['roll_1'] or None
-            attack.roll_2 = attack_dict['roll_2'] or None
-            attack.roll_3 = attack_dict['roll_3'] or None
-
-            attack.damage_modifier = attack_dict['damage_modifier'] or None
-            attack.attribute_modifier = attack_dict['attribute_modifier']
-
-            attack.proficiency = attack_dict['proficiency']
-
-            attack.description = attack_dict['description']
-
-            attack.type = attack_dict['type']
-
-            attack.save()
+            attack = AttackForm(attack_dict)
+            if attack.is_valid:
+                attack_commit = attack.save(commit=False)
+                attack_commit.owner = Character.objects.get(id=character_id)
+                attack_commit.save()
 
         return redirect('/player_selection/')
     
@@ -559,15 +539,20 @@ def campaig_manage_view(request, hash):
     
     campaign = Campaign.objects.get(id=id)
     charactersInCampaign = Character.objects.filter(allocated_campaign=campaign)
+    entitysInCampaign = Entity.objects.filter(owner=campaign)
 
     for character in charactersInCampaign:
         character.id = hash_id(character.id)
+
+    for entity in entitysInCampaign:
+        entity.id = hash_id(entity.id)
 
     campaign.id = hash_id(campaign.id)
 
     return render(request, 'campaign_manage.html', {
         'campaign': campaign,
-        'characters': charactersInCampaign
+        'characters': charactersInCampaign,
+        'entitys': entitysInCampaign
     })
 
 @csrf_exempt
@@ -626,5 +611,53 @@ def new_entity_view(request, hash):
 
     if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
+    
+    if request.method == 'POST':
+        entity_form = EntityForm(request.POST)
+        if entity_form.is_valid:
+            entity = entity_form.save(commit=False)
+            entity.owner = Campaign.objects.get(id=id)
+            entity.portrait = request.FILES.get('portrait')
+
+            entity.save()
+
+        entity_id = entity.id
+
+        # atributos e modificadores
+        atributes_form = AtributesForm(request.POST)
+        if atributes_form.is_valid:
+            atributes = atributes_form.save(commit=False)
+            atributes.entity_owner = Entity.objects.get(id=entity_id)
+            atributes.save()
+
+        # habilidades
+        skills_form = SkillsForm(request.POST)
+        if skills_form.is_valid:
+            skills = skills_form.save(commit=False)
+            skills.entity_owner = Entity.objects.get(id=entity_id)
+            skills.save()
+
+        # caracteristicas
+        characteristics_form = CharacteristicsForm(request.POST)
+        if characteristics_form.is_valid:
+            characteristics = characteristics_form.save(commit=False)
+            characteristics.entity_owner = Entity.objects.get(id=entity_id)
+            characteristics.hp = characteristics.hp_max
+            characteristics.save()
+
+        # ataques
+        attacks = request.POST.get('attacks')
+
+        if attacks:
+            attacks = json.loads(attacks.strip())
+
+        for attack_dict in attacks:
+            attack = AttackForm(attack_dict)
+            if attack.is_valid:
+                attack_commit = attack.save(commit=False)
+                attack_commit.entity_owner = Entity.objects.get(id=entity_id)
+                attack_commit.save()
+        
+        return redirect(f'/campaign_manage/{hash}/')
     
     return render(request, 'new_entity.html')

@@ -7,6 +7,12 @@ class CharacterForm(forms.ModelForm):
         exclude = ['owner']
         fields = '__all__'
 
+class EntityForm(forms.ModelForm):
+    class Meta:
+        model = Entity
+        exclude = ['owner']
+        fields = '__all__'
+
 class CampaignForm(forms.ModelForm):
     class Meta:
         model = Campaign

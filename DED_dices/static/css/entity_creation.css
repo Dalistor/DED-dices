@@ -36,16 +36,16 @@ header a {
     justify-content: space-around;
 }
 
-.character-name {
+.entity-name {
     padding: 1.5rem;
     border-radius: 10px;
 }
 
-.character-name[type="text"] {
+.entity-name[type="text"] {
     font-size: large;
 }
 
-.character-upperFeatures {
+.entity-upperFeatures {
     border: solid;
     border-radius: 10px;
     padding: 0.5rem;
@@ -90,11 +90,15 @@ header a {
     align-items: center;
 }
 
+.col-2 input {
+    cursor: pointer;
+}
+
 .alloc_button:hover {
     background-color: #e0e0e0;
 }
 
-.character-upperFeatures div {
+.entity-upperFeatures div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -339,7 +343,7 @@ input[type=number] {
     flex-wrap: wrap;
 }
 
-.character-characteristics {
+.entity-characteristics {
     border: solid;
     border-radius: 10px;
     padding: 1rem 1rem 0 1rem;
