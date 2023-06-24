@@ -9,7 +9,7 @@
 
 {% block content %}
 <header>
-	<a class="back-button" href="{{ request.META.HTTP_REFERER }}"><</a>
+	<a class="back-button" href="/campaign_selection/"><</a>
 	<a class="home-page" href="/">
 		DED-dices
 	</a>
@@ -65,10 +65,19 @@
                 </div>
             </div>
 
-            <div class="entity_token"></div>
+            <div class="entity_token">
+                <div class="entity-navbar">
+                    <div class="entity-nav">
+                        Diego ;-;
+                    </div>
+                </div>
+                <div class="entity_token-display">
+
+                </div>
+            </div>
         </div>
         <nav class="entity_nav">
-            <a href="#" class="new_entity-button">Nova entidade</a>
+            <a href="/new_entity/at-{{campaign.id}}" class="new_entity-button">Nova entidade</a>
         </nav>
     </div>
 </main>

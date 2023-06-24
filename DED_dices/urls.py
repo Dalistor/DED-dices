@@ -26,6 +26,8 @@ urlpatterns = [
     path('campaign_userSearch/', views.userSearch, name='user search'),
     path('campaign_manage/<str:hash>/', views.campaig_manage_view, name='campaign manage'),
 
+    path('new_entity/at-<str:hash>/', views.new_entity_view, name="new entity"),
+
     path('sendMessage/<str:campaign>/<str:character>/', views.send_message, name='send message'),
     path('getMessage/<str:campaign>/', views.get_message, name='send message')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

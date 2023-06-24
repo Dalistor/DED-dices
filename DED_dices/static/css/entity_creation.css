@@ -32,6 +32,8 @@ header a {
 
 .header {
     display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .character-name {

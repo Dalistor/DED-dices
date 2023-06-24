@@ -102,6 +102,23 @@ header a {
     height: 90%;
 }
 
+.entity-navbar {
+    padding: 0.5rem;
+    border-bottom: solid;
+    display: flex;
+}
+
+.entity-nav {
+    padding: 0.5rem;
+    border: solid;
+    display: flex;
+    cursor: pointer;
+}
+
+.entity_token-display {
+    display: none;
+}
+
 .new_entity-button {
     background-color: #2b2d42;
     color: #fff;

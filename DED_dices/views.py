@@ -617,3 +617,14 @@ def get_message(request, campaign):
     return JsonResponse({
         'payload': list(messages.values())
     })
+
+def new_entity_view(request, hash):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
+    id = hash.split('-')[0]
+
+    if not check_hash(hash):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    return render(request, 'new_entity.html')
