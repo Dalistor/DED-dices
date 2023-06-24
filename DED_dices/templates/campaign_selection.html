@@ -7,36 +7,45 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-	<div class="header">
-		<h1>Seleção de Campanha</h1>
-		<a class="new-char" href="/campaign_creation/">Nova campanha</a>
-	</div>
-	<form class="search-container" method="GET">
-		<input type="text" placeholder="Pesquisar..." name="search_input">
-		<input type="submit" class="search-btn" value="Pesquisar" name="search">
-	</form>
-	<div class="display-container">
-		{% for campaign in campaigns %}
-		<div class="campaign">
+<header>
+	<a class="back-button" href="/selection/"><</a>
+	<a class="home-page" href="/">
+		DED-dices
+	</a>
+</header>
 
-			<a href="/campaign_manage/{{campaign.id}}/">
-				{% if campaign.cover %}
-				<img src="{{campaign.cover.url}}" alt="Imagem da campanha">
-				{% else %}
-				<img src="{% static 'imgs/default_cover.png' %}" alt="Imagem da campanha">
-				{% endif %}
-			</a>
-
-			<h2>{{campaign.name}}</h2>
-			<div class="buttons">
-				<a class="edit-btn" href="/campaign_edit/{{campaign.id}}/">Editar</a>
-				<a class="delete-btn" href='/campaign_delete/{{campaign.id}}/'>Excluir</a>
-			</div>
+<main>
+	<div class="container">
+		<div class="header">
+			<h1>Seleção de Campanha</h1>
+			<a class="new-char" href="/campaign_creation/">Nova campanha</a>
 		</div>
-		{% endfor %}
+		<form class="search-container" method="GET">
+			<input type="text" placeholder="Pesquisar..." name="search_input">
+			<input type="submit" class="search-btn" value="Pesquisar" name="search">
+		</form>
+		<div class="display-container">
+			{% for campaign in campaigns %}
+			<div class="campaign">
+
+				<a href="/campaign_manage/{{campaign.id}}/">
+					{% if campaign.cover %}
+					<img src="{{campaign.cover.url}}" alt="Imagem da campanha">
+					{% else %}
+					<img src="{% static 'imgs/default_cover.png' %}" alt="Imagem da campanha">
+					{% endif %}
+				</a>
+
+				<h2>{{campaign.name}}</h2>
+				<div class="buttons">
+					<a class="edit-btn" href="/campaign_edit/{{campaign.id}}/">Editar</a>
+					<a class="delete-btn" href='/campaign_delete/{{campaign.id}}/'>Excluir</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
+</main>
 {% endblock %}
 
 {% block script %}

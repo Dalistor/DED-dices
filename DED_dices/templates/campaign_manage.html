@@ -8,63 +8,70 @@
 {% endblock %}
 
 {% block content %}
-    <header>
+<header>
+	<a class="back-button" href="{{ request.META.HTTP_REFERER }}"><</a>
+	<a class="home-page" href="/">
+		DED-dices
+	</a>
+</header>
+
+<main>
+    <div class="header">
         <h1>{{campaign.name}}</h1>
-    </header>
-    <main>
-        <div class="section_display">
-            <div class="display_block">
-                <h2>personagens</h2>
-                <div class="block_content" id="players_display">
-                    {% for character in characters %}
-                    <a class="character" href="/play/{{character.id}}/">
-                        <p>{{character.name}} - {{character.job}}</p>
-                    </a>
-                    {% endfor %}
-                </div>
+    </div>
+    <div class="section_display">
+        <div class="display_block">
+            <h2>personagens</h2>
+            <div class="block_content" id="players_display">
+                {% for character in characters %}
+                <a class="character" href="/play/{{character.id}}/">
+                    <p>{{character.name}} - {{character.job}}</p>
+                </a>
+                {% endfor %}
             </div>
-            <div class="display_block">
-                <h2>Chat</h2>
-                <div class="block_content">
-                    <div id="chat_display"></div>
+        </div>
+        <div class="display_block">
+            <h2>Chat</h2>
+            <div class="block_content">
+                <div id="chat_display"></div>
 
-                    <div id="chat_manager">
-                        <div class="textInput">
-                            <input type="text" name="response" id="inputResponse" maxlength="1000">
-                            <button type="button" id="sendMessageButton">></div>
-                        </div>
-                        <div class="dices_manager">
-                            <button type="button" class="dice" id="D4">D4</button>
-                            <button type="button" class="dice" id="D6">D6</button>
-                            <button type="button" class="dice" id="D8">D8</button>
-                            <button type="button" class="dice" id="D10">D10</button>
-                            <button type="button" class="dice" id="D12">D12</button>
-                            <button type="button" class="dice" id="D20">D20</button>
-                            <button type="button" class="dice" id="D100">D100</button>
-                        </div>
-
-                        {% csrf_token %}
+                <div id="chat_manager">
+                    <div class="textInput">
+                        <input type="text" name="response" id="inputResponse" maxlength="1000">
+                        <button type="button" id="sendMessageButton">></div>
                     </div>
+                    <div class="dices_manager">
+                        <button type="button" class="dice" id="D4">D4</button>
+                        <button type="button" class="dice" id="D6">D6</button>
+                        <button type="button" class="dice" id="D8">D8</button>
+                        <button type="button" class="dice" id="D10">D10</button>
+                        <button type="button" class="dice" id="D12">D12</button>
+                        <button type="button" class="dice" id="D20">D20</button>
+                        <button type="button" class="dice" id="D100">D100</button>
+                    </div>
+
+                    {% csrf_token %}
                 </div>
             </div>
         </div>
-        <div class="entity-manage">
-            <h2>Gerenciador de entidades</h2>
-            <div class="block_content" id="block_entity">
-                <div class="your_entitys">
-                    <h3>Suas entidades</h3>
-                    <div class="your_entitys-display" id="entity_display">
+    </div>
+    <div class="entity-manage">
+        <h2>Gerenciador de entidades</h2>
+        <div class="block_content" id="block_entity">
+            <div class="your_entitys">
+                <h3>Suas entidades</h3>
+                <div class="your_entitys-display" id="entity_display">
 
-                    </div>
                 </div>
-
-                <div class="entity_token"></div>
             </div>
-            <nav class="entity_nav">
-                <a href="#" class="new_entity-button">Nova entidade</a>
-            </nav>
+
+            <div class="entity_token"></div>
         </div>
-    </main>
+        <nav class="entity_nav">
+            <a href="#" class="new_entity-button">Nova entidade</a>
+        </nav>
+    </div>
+</main>
 {% endblock %}
 
 {% block script %}
