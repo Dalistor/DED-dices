@@ -669,3 +669,8 @@ header a {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
+.entity nav a {
+    color: black;
+    text-decoration: none;
+}

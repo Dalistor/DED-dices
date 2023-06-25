@@ -28,7 +28,9 @@ urlpatterns = [
 
     path('campaign_autosave/<str:hash>/<str:field>/', views.campaign_autosave, name='campaign_autosave'),
 
-    path('new_entity/at-<str:hash>/', views.new_entity_view, name="new entity"),
+    path('new_entity/at-<str:hash>/', views.new_entity_view, name='new entity'),
+    path('entity_delete/<str:entity>/<str:campaign>/', views.entity_delete, name='delete entity'),
+    path('entity_edit/<str:entity>/<str:campaign>/', views.entity_edit_view, name='edit entity'),
 
     path('sendMessage/<str:campaign>/<str:character>/', views.send_message, name='send message'),
     path('getMessage/<str:campaign>/', views.get_message, name='send message')

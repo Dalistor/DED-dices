@@ -22,7 +22,7 @@ class CampaignForm(forms.ModelForm):
 class AtributesForm(forms.ModelForm):
     class Meta:
         model = Atributes
-        exclude = ['owner']
+        exclude = ['owner', 'entity_owner']
         fields = '__all__'
 
 class SkillsForm(forms.ModelForm):
@@ -56,23 +56,23 @@ class SkillsForm(forms.ModelForm):
 
     class Meta:
         model = Skills
-        exclude = ['owner']
+        exclude = ['owner', 'entity_owner']
         fields = '__all__'
 
 class CharacteristicsForm(forms.ModelForm):
     class Meta:
         model = Characteristics
-        exclude = ['owner']
+        exclude = ['owner', 'entity_owner']
         fields = '__all__'
 
 class AttackForm(forms.ModelForm):
     class Meta:
         model = Attack
-        exclude = ['owner']
+        exclude = ['owner', 'entity_owner']
         fields = '__all__'
 
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
-        exclude = ['owner', 'campaign']
+        exclude = ['owner', 'campaign', 'entity_owner']
         fields = '__all__'

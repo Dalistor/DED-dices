@@ -570,8 +570,6 @@ def campaig_manage_view(request, hash):
 
         character_json = json.dumps(character_data)
 
-        print(character_json)
-
         entity.token = character_json
         entity.id = hash_id(entity.id)
 
@@ -713,3 +711,96 @@ def campaign_autosave(request, hash, field):
         return HttpResponse('200')
     
     return HttpResponse('303')
+
+def entity_delete(request, entity, campaign):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
+    entity_id = entity.split('-')[0]
+
+    if not check_hash(entity):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    entityCommit = Entity.objects.get(id=entity_id)
+    entityCommit.delete()
+
+    return redirect(f'/campaign_manage/{campaign}/')
+
+def entity_edit_view(request, entity, campaign):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
+    entity_id = entity.split('-')[0]
+
+    if not check_hash(entity):
+        return HttpResponseNotFound('Personagem não encontrado.')
+    
+    entity = Entity.objects.get(id=entity_id)
+    atributes = Atributes.objects.get(entity_owner=entity)
+    skills = Skills.objects.get(entity_owner=entity)
+    characteristics = Characteristics.objects.get(entity_owner=entity)
+
+    attacks = Attack.objects.filter(entity_owner=entity)
+
+    if request.method == 'POST':
+        entity_form = EntityForm(request.POST, instance=entity)
+        if entity_form.is_valid():
+            entity_commit = entity_form.save(commit=False)
+
+            if request.FILES:
+                entity_commit.portrait = request.FILES.get('portrait')
+
+            entity_commit.save()
+
+        atributes_form = AtributesForm(request.POST, instance=atributes)
+        if atributes_form.is_valid():
+            atributes_form.save()
+
+        skills_form = SkillsForm(request.POST, instance=skills)
+        if skills_form.is_valid():
+            skills_form.save()
+
+        characteristics_form = CharacteristicsForm(request.POST, instance=characteristics)
+        if characteristics_form.is_valid():
+            characteristics_form.save()
+
+        all_attacks = request.POST.get('attacks')
+        if all_attacks:
+            all_attacks = json.loads(all_attacks)
+
+            for attack_dict in all_attacks:
+                if attack_dict['created']:
+                    attack = Attack.objects.get(id=attack_dict['id'])
+                    attack_form = AttackForm(attack_dict, instance=attack)
+
+                    if attack_form.is_valid():
+                        attack_form.save()
+
+                else:
+                    attack_form = AttackForm(attack_dict)
+
+                    if attack_form.is_valid():
+                        attack = attack_form.save(commit=False)
+                        attack.entity_owner = Entity.objects.get(id=entity_id)
+                        attack.save()
+
+        all_attacks_remove = request.POST.get('remove_attacks')
+        if all_attacks_remove:
+            all_attacks_remove = json.loads(all_attacks_remove)
+
+            for attack_dict in all_attacks_remove:
+                attack = Attack.objects.get(id=attack_dict)
+                if attack.entity_owner == entity:
+                    attack.delete()
+
+        return redirect(f'/campaign_manage/{campaign}')
+
+    else:
+
+        return render(request, 'entity_edit.html', {
+            'entity': entity,
+            'atributes': atributes,
+            'skills': skills,
+            'characteristics': characteristics,
+            'attacks': attacks,
+        })

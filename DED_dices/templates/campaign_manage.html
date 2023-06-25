@@ -65,13 +65,24 @@
                     <div class="entity">
                         <h4 class="entity-object" id="entity-{{entity.id}}">{{entity.name}}</h3>
                         <nav>
-                            <a>Editar</a>
-                            <a>Deletar</a>
+                            <a href="/entity_edit/{{entity.id}}/{{campaign.id}}/">Editar</a>
+                            <a class="deleteToken" href="/entity_delete/{{entity.id}}/{{campaign.id}}/">Deletar</a>
                         </nav>
 
                         <input type="hidden" id="token-{{entity.id}}" value="{{entity.token}}">
                     </div>
                     {% endfor %}
+
+                    <script>
+                        $('.deleteToken').on('click', function(event) {
+                            event.preventDefault()
+                        
+                            if (confirm("Tem certeza? Essa ação não pode ser desfeita.")) {
+                                var link = $(this).attr('href')
+                                window.location.href = link
+                            }
+                        });
+                    </script>
                 </div>
             </div>
 
@@ -646,6 +657,7 @@
 
     function atributeTest(value, name) {
         const roll = rollDice([[20, 1]], value)
+        const inspiration = parseInt($('#inspiration').val())
 
         let obj = {
             p: 'Resultado: ' + roll,
@@ -941,6 +953,7 @@
 
         temp = '<div class="entity-nav" id="entity-nav-' + id + '">\n' +
             '<h4>' + name + '</h4>\n' +
+            '<input type="hidden" id="subCharacteristcs-' + id + '">'
             '</div>'
 
         if($('#entity-nav-' + id).length == 0) {
@@ -1007,6 +1020,8 @@
                 $.each(characteristics, (index, element)=> {
                     $('#' + index).val(element)
                 })
+
+                $('#hp').val(characteristics.hp_max)
             }
 
             function addSkills(skills) {
