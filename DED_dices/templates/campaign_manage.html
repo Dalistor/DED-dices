@@ -79,7 +79,7 @@
                 <div class="entity-navbar">
 
                 </div>
-                <div class="entity_token-display">
+                <div class="entity_token-display" style="display: none">
                     <div class="first-page">
                         <div class="col-1">
                             <div class="modifier">
@@ -118,7 +118,7 @@
                             <div class="body_statistics">
                                 <div class="body_statistics-defined">
                                     <div class="body_statistic">
-                                        <input type="number" name="ca" id="ca" value="{{characteristics.class_armor}}" required readonly>
+                                        <input type="number" name="ca" id="class_armor" value="{{characteristics.class_armor}}" required readonly>
                                         <p>CA</p>
                                     </div>
                                     <div class="body_statistic">
@@ -130,28 +130,28 @@
                                         <p>Deslocamento</p>
                                     </div>
                                     <div class="body_statistic">
-                                        <input type="number" name="hp" class="autosave" id="hp" value="{{characteristics.hp}}" required>
+                                        <input type="number" name="hp" id="hp" value="{{characteristics.hp}}" required>
                                         <p>HP</p>
                                     </div>
                                 </div>
                                 <div class="body_statistics-defined">
                                     <div class="body_statistic">
-                                        <input type="number" name="class_armor_temp" class="autosave" id="ca-temp" value="{{characteristics.class_armor_temp}}" required>
+                                        <input type="number" name="class_armor_temp" id="ca-temp" value="{{characteristics.class_armor_temp}}" required>
                                         <p>CA - temp</p>
                                     </div>
                                     <div class="body_statistic">
-                                        <input type="number" name="displacement_temp" class="autosave" id="displacement-temp" value="{{characteristics.displacement_temp}}" required>
+                                        <input type="number" name="displacement_temp" id="displacement-temp" value="{{characteristics.displacement_temp}}" required>
                                         <p>Deslocamento - temp</p>
                                     </div>
                                     <div class="body_statistic">
-                                        <input type="number" name="hp_temp" class="autosave" id="hp-temp" value="{{characteristics.hp_temp}}" required>
+                                        <input type="number" name="hp_temp" id="hp-temp" value="{{characteristics.hp_temp}}" required>
                                         <p>HP - temp</p>
                                     </div>
                                 </div>
                             </div>
                 
                             <div class="language_and_other_skills-field">
-                                <textarea name="language_and_other_skills" readonly>{{characteristics.language_and_other_skills}}</textarea>
+                                <textarea name="language_and_other_skills" readonly id="language_and_other_skills">{{characteristics.language_and_other_skills}}</textarea>
                                 <p>Idiomas e outras proeficiências</p>
                             </div>
                 
@@ -159,23 +159,23 @@
                                 <div class="equipment-content">
                                     <div class="money">
                                         <label class="money_category" for="pc">
-                                            PC <input type="number" name="pc" class="autosave" id="pc" value="{{characteristics.pc}}">
+                                            PC <input type="number" name="pc" id="pc" value="{{characteristics.pc}}">
                                         </label>
                                         <label class="money_category" for="pp">
-                                            PP <input type="number" name="pp" class="autosave" id="pp" value="{{characteristics.pp}}">
+                                            PP <input type="number" name="pp" id="pp" value="{{characteristics.pp}}">
                                         </label>
                                         <label class="money_category" for="po">
-                                            PO <input type="number" name="po" class="autosave" id="po" value="{{characteristics.po}}">
+                                            PO <input type="number" name="po" id="po" value="{{characteristics.po}}">
                                         </label>
                                         <label class="money_category" for="pl">
-                                            PL <input type="number" name="pl" class="autosave" id="pl" value="{{characteristics.pl}}">
+                                            PL <input type="number" name="pl" id="pl" value="{{characteristics.pl}}">
                                         </label>
                                         <label class="money_category" for="da">
-                                            DA <input type="number" name="da" class="autosave" id="da" value="{{characteristics.da}}">
+                                            DA <input type="number" name="da" id="da" value="{{characteristics.da}}">
                                         </label>
                                     </div>
                 
-                                    <textarea name="equipments" class="autosave" id="equipments">{{characteristics.equipments}}</textarea>
+                                    <textarea name="equipments" id="equipments">{{characteristics.equipments}}</textarea>
                                 </div>
                 
                                 <p>Equipamentos</p>
@@ -185,7 +185,7 @@
                         <div class="col-3">
                             <div class="bonus">
                                 <div class="inspiration">
-                                    <input type="number" name="inspiration" class="autosave" value="{{skills.inspiration}}" id="inspiration">
+                                    <input type="number" name="inspiration" value="{{skills.inspiration}}" id="inspiration">
                                     <p>Inspiração</p>
                                 </div>
                                 <div class="proeficiency">
@@ -526,19 +526,22 @@
 
                     <div class="col-4">
                         <div class="choose-camp">
-                        <div class="input-choose-camp">
-                            <button id="before" class="input-choose-camp" type="button"><<</button>
-                        </div>
-                        <h3 id="camp-name">Descrição</h3>
-                        <div class="input-choose-camp">
-                            <button id="after" class="input-choose-camp" type="button">>></button>
-                        </div>
+                            <div class="input-choose-camp">
+                                <button id="before" class="input-choose-camp" type="button"><<</button>
+                            </div>
+                            <h3 id="camp-name">Descrição</h3>
+                            <div class="input-choose-camp">
+                                <button id="after" class="input-choose-camp" type="button">>></button>
+                            </div>
                         </div>
                         <div class="general_informations">
                             <textarea name="characteristics_and_skills" id="_characteristics_and_skills"  class="characteristics_and_skills"></textarea>
-                            <textarea name="inventory"                  id="_inventory"                   class="inventory"></textarea>
-                            <textarea name="description"                id="_description"                 class="history"></textarea>
+                            <textarea name="inventory"                  id="_inventory"                   class="characteristics_and_skills"></textarea>
+                            <textarea name="description"                id="_history"                     class="characteristics_and_skills"></textarea>
                         </div>
+                    </div>
+                    <div class="removeFromGame">
+                        <button type="button" id="removeToken">Tirar do jogo</button>
                     </div>
                 </div>
             </div>
@@ -547,12 +550,382 @@
             <a href="/new_entity/at-{{campaign.id}}" class="new_entity-button">Nova entidade</a>
         </nav>
     </div>
+
+    <div class="notes-block">
+        <div class="notes">
+            <div class="choose-camp">
+            <div class="input-choose-camp">
+                <button id="notes-before" class="input-choose-camp" type="button"><<</button>
+            </div>
+            <h3 id="notes-camp-name">Anotações</h3>
+            <div class="input-choose-camp">
+                <button id="notes-after" class="input-choose-camp" type="button">>></button>
+            </div>
+            </div>
+            <div class="general_informations">
+                <textarea name="notes"                  id="_notes"               style="display: block"            class="inventory autosave">{{campaign.notes|default:""}}</textarea>
+                <textarea name="history"                id="_campaign-history"    style="display: none"             class="inventory autosave">{{campaign.history|default:""}}</textarea>
+            </div>
+        </div>
+    </div>
 </main>
 {% endblock %}
 
 {% block script %}
 <script>
+	//script para o popup
+
+	const popupContainer = $('#popup-container')
+	const popup = $('#popup')
+	const closePopup_button = $('#close_popup-button')
+
+	function openPopup(obj, attack=false) {
+        $('#popup-title').text(obj.title)
+
+        for (i in obj.query) {
+            $('#popup-' + i).text(obj.query[i])
+        }
+
+		popupContainer.css('display', 'block')
+
+        if (attack) {
+            $('.popup-attackSection').add('#edit_attack-section').css('display', 'block')
+            $('#popup').css('width', '50vw')
+        } else {
+            $('.popup-attackSection').add('#edit_attack-section').css('display', 'none')
+            $('#popup').css('width', '20vw')
+        }
+	}
+
+	function closePopup() {
+        //limpar popup
+        $('#times').val(1)
+        $('.popup-temp').map((index, element)=> {
+            element.innerText = null
+        })
+
+		popupContainer.css('display', 'none')
+	}
+
+	closePopup_button.on('click', closePopup)
+
+	popupContainer.on('click', (event) => {
+		if (event.target === popupContainer) {
+			closePopup()
+		}
+	})
+</script>
+
+<script>
+    //mostrar/esconder campos de magias
+
+    $('.lvl-content').map((index, element)=> {
+        const id = element.id
+
+        if ($.trim($('#' + id).html()) === '') {
+            $('.' + id).hide()
+        } else {
+            $('.' + id).show()
+        }
+    })
+</script>
+
+<script>
+    //script para realizar testes de atributos e modificadores
+
+    $('.modifier-input').map((index, element)=> {
+        id = element.id
+        $('#' + id).on('click', (event)=> {
+            const value = parseInt($('#' + element.id).val())
+
+            name = $('#_' + event.currentTarget.id.split('_')[0]).text()
+
+            atributeTest(value, name)
+        })
+    })
+
+    function atributeTest(value, name) {
+        const roll = rollDice([[20, 1]], value)
+
+        let obj = {
+            p: 'Resultado: ' + roll,
+        }
+
+        if (inspiration != 0 || isNaN(inspiration)) {
+            obj.p2 = 'Com inspiração: ' + (roll + parseInt($('#inspiration').val()))
+            sendMessage(name + ' | ' + 'Resultado: ' + roll + ' | ' + 'Com inspiração: ' + (roll + parseInt($('#inspiration').val())))
+        } else {
+            sendMessage(name + ' | ' + 'Resultado: ' + roll)
+        }
+
+        openPopup({
+            title: 'Teste de atributo',
+            query: obj
+        })
+    }
+</script>
+
+<script>
+    //script para salvaguardas e pericias
+
+    $('.saveguard-input').add('.skill-input').map((index, element) => {
+        const id = element.id
+        
+        $('#' + id).on('click', (event)=> {
+            event.preventDefault()
+            
+            const el = $('#' + id)
+            const value = !$(el).is(':checked')
+            
+            const allowed_ids = ['strength', 'dexterity', 'constituition', 'intelligence', 'wisdom', 'charisma']
+            let type
+            let title
+
+            eventId = event.currentTarget.id.split('-')[0]
+            name = $('label[for="' + eventId + '"]').text().split('-')[0].trim()
+
+
+            if (allowed_ids.includes(id)) {
+                type = id + '_modifier'
+                title = 'Teste de salvaguarda'
+            } else {
+                type = id.split('-')[1] + '_modifier'
+                title = 'Teste de pericia'
+            }
+            
+            saveguard_and_skill_test(value, type, title, name)
+        })
+    })
+
+    function saveguard_and_skill_test(proficiency, modifier_id, popup_title, name) {
+        let value
+        let value_i
+        const modifier = $('#' + modifier_id).val()
+        const proficiencyValue = $('#proeficiency').val()
+        const inspiration = parseInt($('#inspiration').val())
+
+        if (proficiency) {
+            value = rollDice([[20, 1]], parseInt(modifier) + parseInt(proficiencyValue))
+        } else {
+            value = rollDice([[20, 1]], parseInt(modifier))
+        }
+
+        let obj = {
+            p: 'Resultado: ' + value
+        }
+
+        if (inspiration != 0) {
+            obj.p2 = 'Com inspiração: ' + (value + inspiration)
+            console.log(value)
+            console.log(inspiration)
+
+            if (popup_title == 'Teste de salvaguarda') {
+                sendMessage(name + ' (salvaguarda) | ' + 'Resultado: ' + value + ' | ' + 'Com inspiração: ' + (value + inspiration))
+            } else {
+                sendMessage(name + ' | ' + 'Resultado: ' + value + ' | ' + 'Com inspiração: ' + (value + inspiration))
+            }
+        } else {
+            if (popup_title == 'Teste de salvaguarda') {
+                sendMessage(name + ' (salvaguarda) | ' + 'Resultado: ' + value)
+            } else {
+                sendMessage(name + ' | ' + 'Resultado: ' + value)
+            }
+        }
+
+        openPopup({
+            title: popup_title,
+            query: obj
+        })
+
+        
+    }
+</script>
+
+<script>
+    //script para ataques
+    let attack
+    let modifier
+    let proeficiency
+
+    function addAttack() {
+        $('.attack').map((index, element) => {
+            let id = element.id
+            const type = id.split('_')[1]
+            
+            $('#' + element.id).on('click', ()=> {
+                const idNumber = id.split('-')[1]
+                attack = JSON.parse($('#attack_' + type + '_data-' + idNumber).val())
+    
+                switch (attack.attribute_modifier) {
+                    case 'Nenhum':
+                        modifier = 0
+                        break
+                    
+                    case 'Força':
+                        modifier = parseInt($('[name="strength_modifier"]').val())
+                        break
+    
+                    case 'Destreza':
+                        modifier = parseInt($('[name="dexterity_modifier"]').val())
+                        break
+    
+                    case 'Constituição':
+                        modifier = parseInt($('[name="constituition_modifier"]').val())
+                        break
+    
+                    case 'Inteligência':
+                        modifier = parseInt($('[name="intelligence_modifier"]').val())
+                        break
+    
+                    case 'Sabedoria':
+                        modifier = parseInt($('[name="wisdom_modifier"]').val())
+                        break
+    
+                    case 'Carisma':
+                        modifier = parseInt($('[name="charisma_modifier"]').val())
+                        break
+                }
+    
+                if (attack.proficiency) {
+                    proeficiency = parseInt($('#proeficiency').val())
+                } else {
+                    proeficiency = 0
+                }
+    
+                let formula = '';
+                function appendToFormula(dice, roll) {
+                    if (dice != 'Nenhum') {
+                        formula += (formula ? ' + ' : '') + roll + dice
+                    }
+                }
+    
+                appendToFormula(attack.dice_1, attack.roll_1)
+                appendToFormula(attack.dice_2, attack.roll_2)
+                appendToFormula(attack.dice_3, attack.roll_3)
+    
+                let obj = {
+                    p: 'Nome: ' + attack.name,
+                    textarea: attack.description.replace(/\{\$br\$\}/g, "\n")
+                }
+    
+                if (formula) {
+                    obj.p2 = 'Fórmula: ' + formula
+                }
+    
+                openPopup({
+                    title: 'Opções de ataque',
+                    query: obj
+                }, true)
+            })
+        })
+    }
+
+    addAttack()
+
+    $('#attack-button').on('click', ()=> {
+        const times = $('#times').val()
+        if (times < 0 || times == '') {
+            return alert("Rolagens deve ser maior que 0")
+        } else if (times > 10) {
+            return alert("Rolagens deve ser menor que 10")
+        }
+
+        closePopup()
+        
+        let attackDice = []
+        let damageDice = []
+        for (i = 0; i < times; i++) {
+            attackDice.push(rollDice([[20, 1]], modifier + proeficiency))
+
+            if (attack.type == 'physical') {
+                damageDice.push(rollDice([
+                [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
+                [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
+                [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
+                ], attack.damage_modifier + modifier))
+            }
+
+            if (attack.type == 'magic') {
+                damageDice.push(rollDice([
+                [parseInt(attack.dice_1.match(/\d+/)?.[0] ?? 0), attack.roll_1 ?? 0],
+                [parseInt(attack.dice_2.match(/\d+/)?.[0] ?? 0), attack.roll_2 ?? 0],
+                [parseInt(attack.dice_3.match(/\d+/)?.[0] ?? 0), attack.roll_3 ?? 0]
+                ], attack.damage_modifier))
+            }
+        }
+
+        if (damageDice != 0) {
+            openPopup({
+                title: 'Ataque',
+                query: {
+                    p: 'Ataque: ' + attackDice,
+                    p2: 'Dano: ' + damageDice
+                }
+            })
+    
+            sendMessage(attack.name + ' | ' + 'Ataque: '  + attackDice + ' | ' + 'Dano: ' + damageDice)
+        } else {
+            openPopup({
+                title: 'Resultado',
+                query: {
+                    p: 'Resultado: ' + attackDice,
+                }
+            })
+
+            sendMessage(attack.name + ' | ' + 'Resultado: '  + attackDice)
+        }
+    })
+</script>
+
+<script>
+    $('#iniciative').on('click', ()=> {
+        const result = rollDice([[20, 1]], parseInt($('#iniciative').val()))
+        
+        openPopup({
+            title: 'Iniciativa',
+            query: {
+                p: 'Resultado: ' + result
+            }
+        })
+
+        sendMessage('Iniciativa: ' + result)
+    })
+</script>
+
+<script>
+    //funções globais
+
+    //inspiração
+    var inspiration = parseInt($('#inspiration').val())
+    $('#inspiration').on('change', ()=> {
+        if ($('#inspiration').val() == '') {
+            $('#inspiration').val(0)
+        }
+
+        inspiration = parseInt($('#inspiration').val())
+    })
+
+    //rolar dados
+    function rollDice(type, modifier) {
+        let sum = 0
+        $.each(type, (index, value)=> {
+            if (value[0] > 0) {
+                for(let i = 0; i < value[1]; i++) {
+                    sum += (Math.floor(Math.random() * value[0]) + 1)
+                }
+            }
+        })
+
+        const roll = sum + modifier;
+
+        return roll
+    }
+</script>
+
+<script>
     //script para colocar entidade em jogo
+    let currentId
+
 
     $('.entity-object').map((index, element)=> {
         $('#' + element.id).on('click', (event)=> {
@@ -577,21 +950,121 @@
 
     function addToToken(id) {
         $('#entity-nav-' + id).on('click', (event)=> {
-            $('#' + event.currentTarget.id).css({
-                'background-color': 'gray'
-            })
+            currentId = event.currentTarget.id
+
+            rePaint(currentId)
+
+            $('.entity_token-display').css('display', 'block')
+            $('#_history').css('display', 'block')
 
             token = JSON.parse($('#token' + id.split('entity')[1]).val())
-            console.log(token)
+
+            removePastAttacks()
+            addInToken(token)
         })
+
+        function rePaint(id) {
+            $('.entity-nav').map((index, element)=> {
+                $('#' + element.id).css({
+                    'background-color': 'white'
+                })
+
+                $('#' + id).css({
+                    'background-color': 'gray'
+                })
+            })
+        }
+
+        function removePastAttacks() {
+            $('.attack').each((index, element)=> {
+                $('#' + element.id).remove()
+                $('.magic_lvl').css('display', 'none')
+            })
+        }
+
+        function addInToken(token) {
+            addAtributes(token.attributes)
+            addCharacteristics(token.characteristics)
+            addSkills(token.skills)
+            addAttacks(token.attacks)
+
+            function addAtributes(attributes) {
+                const modifiers = Object.keys(attributes).filter((key) => {
+                    return key.split('_')[1] == 'modifier'
+                })
+            
+                for (let i = 0; i < modifiers.length; i++) {
+                    let key = modifiers[i]
+                    $('#' + key).val(attributes[key])
+                }
+            }
+
+            function addCharacteristics(characteristics) {
+                $('#_characteristics_and_skills').val(characteristics.characteristics_and_skills)
+                $('#_inventory').val(characteristics.inventory)
+                $('#_history').val(characteristics.history)
+
+                $.each(characteristics, (index, element)=> {
+                    $('#' + index).val(element)
+                })
+            }
+
+            function addSkills(skills) {
+                $('#inspiration').val(skills.inspiration)
+                $('#proeficiency').val(skills.proeficiency)
+
+                const all_skills = Object.keys(skills).filter((key) => {
+                    return key.split('_')[1] == 'proeficiency'
+                })
+
+                for (let i = 0; i < all_skills.length; i++) {
+                    let key = all_skills[i]
+                    $('input[name="' + key + '"]').prop('checked', skills[key])
+                }
+            }
+
+            function addAttacks(attacks) {
+                let attack_num = 0
+
+                for (key in attacks) {
+                    if(attacks[key].type == 'physical') {
+                        temp = '<div class="attack" id="attack_physical_config-' + attack_num + '">\n' +
+                            '<h2>' + attacks[key].name + '</h2>\n' +
+                            '<input type="hidden" id="attack_physical_data-' + attack_num + '" value=' + JSON.stringify(attacks[key]) + '>\n' +
+                        '</div>'
+    
+                        $('.physical_attacks-field').append(temp)
+                    }
+
+                    if(attacks[key].type == 'magic') {
+                        temp = '<div class="attack" id="attack_magic_config-' + attack_num + '">\n' +
+                            '<h2>' + attacks[key].name + '</h2>\n' +
+                            '<input type="hidden" id="attack_magic_data-' + attack_num + '" value=' + JSON.stringify(attacks[key]) + '>\n' +
+                        '</div>'
+                            
+                        $('.' + attacks[key].magic_lvl).css('display', 'block')
+                        $('#' + attacks[key].magic_lvl).append(temp)
+                    }
+
+                    attack_num++
+                    addAttack()
+                }
+            }
+        }
     }
+
+    $('#removeToken').on('click', ()=> {
+        $('.entity_token-display').css('display', 'none')
+        $('#_history').css('display', 'none')
+        $('#' + currentId).remove()
+    })
 </script>
 
 <script>
     const sequenceCamp = [
-        'characteristics_and_skills',
-        'inventory',
-        'description'
+        '_characteristics_and_skills',
+        '_inventory',
+        '_history'
     ]
 
     const sequenceCamp_trasnlated = [
@@ -600,7 +1073,18 @@
         'Descrição'
     ]
 
+    const sequenceCamp_notes = [
+        '_notes',
+        '_campaign-history'
+    ]
+
+    const sequenceCamp_notes_trasnlated = [
+        'Anotações',
+        'História'
+    ]
+
     let campIndex = 2
+    let notes = 0
 
     $('#after').on('click', ()=> {
         let changeSelectet = campIndex + 1
@@ -615,16 +1099,34 @@
     $('#before').on('click', ()=> {
         let changeSelectet = campIndex - 1
 
-        if(changeSelectet <= 0) {
+        if(changeSelectet < 0) {
             changeSelectet = sequenceCamp.length -1
         }
 
         change(changeSelectet)
     })
 
+    $('#notes-after').on('click', ()=> {
+        let changeSelectet = notes + 1
+
+        if(changeSelectet >= sequenceCamp_notes.length) {
+            changeSelectet = 0
+        }
+
+        notesChange(changeSelectet)
+    })
+
+    $('#notes-before').on('click', ()=> {
+        let changeSelectet = notes - 1
+
+        if(changeSelectet < 0) {
+            changeSelectet = sequenceCamp_notes.length -1
+        }
+
+        notesChange(changeSelectet)
+    })
+
     function change(index) {
-        console.log(sequenceCamp[index])
-        console.log(index)
         for(key=0; key < sequenceCamp.length; key++) {
             $('#' + sequenceCamp[key]).css({
                 'display': 'none'
@@ -638,6 +1140,22 @@
         $('#camp-name').text(sequenceCamp_trasnlated[index])
 
         campIndex = index
+    }
+
+    function notesChange(index) {
+        for(key=0; key < sequenceCamp_notes.length; key++) {
+            $('#' + sequenceCamp_notes[key]).css({
+                'display': 'none'
+            })
+        }
+        
+        $('#' + sequenceCamp_notes[index]).css({
+            'display': 'block'
+        })
+
+        $('#notes-camp-name').text(sequenceCamp_notes_trasnlated[index])
+
+        notes = index
     }
 </script>
 
@@ -717,17 +1235,30 @@
     $('.dice').map((index, element)=> {
         $('#' + element.id).on('click', (event)=> {
             diceType = event.currentTarget.id
-            diceValue = rollDice(diceType)
+            diceValue = rollChatDice(diceType)
 
             sendMessage(diceType + ': ' + diceValue)
         })
     })
 
     //rolar dados
-    function rollDice(type) {
-        type = parseInt(type.match(/\d+/g)[0])
-        
-        return Math.floor(Math.random() * type) + 1
+    function rollChatDice(type) {
+        return Math.floor(Math.random() * type[0]) + 1
     }
+</script>
+
+<script>
+    //salvamento automático dos campos
+    $('.autosave').map((index, element) => {
+        $('#' + element.id).on('input', () => {
+            $.ajax({
+                type: 'POST',
+                url: '/campaign_autosave/{{campaign.id}}/' + element.name + '/',
+                data: {
+                    'value': element.value,
+                }
+            })
+        })
+    })
 </script>
 {% endblock %}

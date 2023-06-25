@@ -268,7 +268,7 @@
 					<div class="general_informations">
 						<textarea name="characteristics_and_skills" id="_characteristics_and_skills"  class="characteristics_and_skills"></textarea>
 						<textarea name="inventory"                  id="_inventory"                   class="inventory"></textarea>
-						<textarea name="description"                id="_description"                 class="history"></textarea>
+						<textarea name="history"                id="_description"                 class="history"></textarea>
 					</div>
 				</div>
 			</div>
@@ -981,7 +981,7 @@
     $('#before').on('click', ()=> {
         let changeSelectet = campIndex - 1
 
-        if(changeSelectet <= 0) {
+        if(changeSelectet < 0) {
             changeSelectet = sequenceCamp.length -1
         }
 

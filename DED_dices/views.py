@@ -689,3 +689,27 @@ def new_entity_view(request, hash):
         return redirect(f'/campaign_manage/{hash}/')
     
     return render(request, 'new_entity.html')
+
+@csrf_exempt
+def campaign_autosave(request, hash, field):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+
+    id = hash.split('-')[0]
+
+    if not check_hash(hash):
+        return HttpResponseNotFound('Personagem não encontrado.')
+
+    if request.method == 'POST':
+        table = Campaign.objects.get(id=id)
+
+        if field == 'notes':
+            table.notes = request.POST['value']
+        elif field == 'history':
+            table.history = request.POST['value']
+
+        table.save()
+
+        return HttpResponse('200')
+    
+    return HttpResponse('303')

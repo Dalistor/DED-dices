@@ -1286,7 +1286,7 @@
     $('#before').on('click', ()=> {
         let changeSelectet = campIndex - 1
 
-        if(changeSelectet <= 0) {
+        if(changeSelectet < 0) {
             changeSelectet = sequenceCamp.length -1
         }
 

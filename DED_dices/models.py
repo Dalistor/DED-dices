@@ -72,6 +72,9 @@ class Campaign(models.Model):
 
     chat_private = models.BooleanField(default=False)
 
+    history = models.TextField(max_length=99999999, null=True, blank=True)
+    notes = models.TextField(max_length=99999999, null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

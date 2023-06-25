@@ -936,6 +936,7 @@
         }
     }
 
+    {% if campaign %}
     {% if not campaign.chat_private %}
     //receber mensagem
     function getMessage() {
@@ -949,6 +950,7 @@
     }
 
     setInterval(getMessage, 500)
+    {% endif %}
     {% endif %}
 
     //colocar mensagens no display
@@ -1061,7 +1063,7 @@
     $('#before').on('click', ()=> {
         let changeSelectet = campIndex - 1
 
-        if(changeSelectet <= 0) {
+        if(changeSelectet < 0) {
             changeSelectet = sequenceCamp.length -1
         }
 
