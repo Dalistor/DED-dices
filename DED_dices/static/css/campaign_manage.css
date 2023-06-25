@@ -137,6 +137,7 @@ header a {
     border-bottom: solid;
     display: flex;
     overflow-x: scroll;
+    height: 3.2rem;
 }
 
 .entity-nav {
@@ -144,6 +145,7 @@ header a {
     border: solid;
     display: flex;
     cursor: pointer;
+    margin: 0 0.5rem;
 }
 
 .entity_token-display {

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseNotFound, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.core import serializers
 
 from .models import *
 from .forms import *
@@ -513,7 +514,6 @@ def campaign_edit_view(request, hash):
         'users': usersInCampaign
     })
 
-
 def campaign_delete_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -545,6 +545,34 @@ def campaig_manage_view(request, hash):
         character.id = hash_id(character.id)
 
     for entity in entitysInCampaign:
+        atributes = Atributes.objects.get(entity_owner=entity.id)
+        skills = Skills.objects.get(entity_owner=entity.id)
+        characteristics = Characteristics.objects.get(entity_owner=entity.id)
+
+        attacks = Attack.objects.filter(entity_owner=entity.id)
+
+        serialized_attributes = serializers.serialize('json', [atributes])
+        serialized_skills = serializers.serialize('json', [skills])
+        serialized_characteristics = serializers.serialize('json', [characteristics])
+        serialized_attacks = serializers.serialize('json', attacks)
+
+        attributes_data = json.loads(serialized_attributes)[0]['fields']
+        skills_data = json.loads(serialized_skills)[0]['fields']
+        characteristics_data = json.loads(serialized_characteristics)[0]['fields']
+        attacks_data = [item['fields'] for item in json.loads(serialized_attacks)]
+
+        character_data = {
+            "attributes": attributes_data,
+            "skills": skills_data,
+            "characteristics": characteristics_data,
+            "attacks": attacks_data
+        }
+
+        character_json = json.dumps(character_data)
+
+        print(character_json)
+
+        entity.token = character_json
         entity.id = hash_id(entity.id)
 
     campaign.id = hash_id(campaign.id)

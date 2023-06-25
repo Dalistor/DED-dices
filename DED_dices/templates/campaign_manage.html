@@ -62,12 +62,14 @@
                 <h3>Suas entidades</h3>
                 <div class="your_entitys-display" id="entity_display">
                     {% for entity in entitys %}
-                    <div class="entity" id="entity-{{entity.id}}">
-                        <h4>{{entity.name}}</h3>
+                    <div class="entity">
+                        <h4 class="entity-object" id="entity-{{entity.id}}">{{entity.name}}</h3>
                         <nav>
                             <a>Editar</a>
                             <a>Deletar</a>
                         </nav>
+
+                        <input type="hidden" id="token-{{entity.id}}" value="{{entity.token}}">
                     </div>
                     {% endfor %}
                 </div>
@@ -75,9 +77,7 @@
 
             <div class="entity_token">
                 <div class="entity-navbar">
-                    <div class="entity-nav">
-                        Diego ;-;
-                    </div>
+
                 </div>
                 <div class="entity_token-display">
                     <div class="first-page">
@@ -551,6 +551,41 @@
 {% endblock %}
 
 {% block script %}
+<script>
+    //script para colocar entidade em jogo
+
+    $('.entity-object').map((index, element)=> {
+        $('#' + element.id).on('click', (event)=> {
+            id = event.currentTarget.id
+
+            createInstance(id)
+            addToToken(id)
+        })
+    })
+
+    function createInstance(id) {
+        name = $('#' + id).text()
+
+        temp = '<div class="entity-nav" id="entity-nav-' + id + '">\n' +
+            '<h4>' + name + '</h4>\n' +
+            '</div>'
+
+        if($('#entity-nav-' + id).length == 0) {
+            $('.entity-navbar').append(temp)
+        }
+    }
+
+    function addToToken(id) {
+        $('#entity-nav-' + id).on('click', (event)=> {
+            $('#' + event.currentTarget.id).css({
+                'background-color': 'gray'
+            })
+
+            token = JSON.parse($('#token' + id.split('entity')[1]).val())
+            console.log(token)
+        })
+    }
+</script>
 
 <script>
     const sequenceCamp = [
