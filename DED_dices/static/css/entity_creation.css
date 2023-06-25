@@ -306,7 +306,7 @@ input[type=number] {
 .col-4{
     width: 37rem;
     border: solid;
-    verical-align: bottom;
+    vertical-align: bottom;
     border-radius: 10px;
 }
 

@@ -9,6 +9,17 @@ header {
     align-items: center;
 }
 
+/* Para navegadores baseados em WebKit */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Para outros navegadores */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 header a {
     color: white;
     text-decoration: none;
@@ -102,7 +113,18 @@ header a {
     border: solid;
     padding: 1rem;
     border-radius: 10px;
+}
+
+.entity h4 {
     cursor: pointer;
+}
+
+.entity nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    border-top: solid;
+    padding-top: 1rem;
 }
 
 .your_entitys-display {
@@ -125,7 +147,137 @@ header a {
 }
 
 .entity_token-display {
-    display: none;
+    padding: 1rem;
+    overflow-y: scroll;
+    height: 31rem;
+}
+
+.first-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-1, .col-3 {
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.col-2 {
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.body_statistics {
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.body_statistics-defined {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    margin: 1rem;
+}
+
+.language_and_other_skills-field {
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.language_and_other_skills-field textarea {
+    height: 10rem;
+    width: 97%;
+    resize: none;
+    border: solid;
+    border-radius: 10px;
+}
+
+.equipment-field {
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.equipment-field p {
+    text-align: center;
+}
+
+.equipment-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    border: solid;
+    border-radius: 10px;
+}
+
+.body_statistic {
+    width: 80px;
+    margin: 0.3rem;
+}
+
+.equipment-content textarea {
+    resize: none;
+    border: solid;
+    border-radius: 10px;
+}
+
+.money {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.money_category {
+    display: flex;
+    flex-direction: column;
+}
+
+.money input {
+    width: 20px;
+}
+
+.modifier, .inspiration, .proeficiency {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.inspiration input, .proeficiency input, .body_statistic input {
+    width: 40px;
+    cursor: pointer;
+}
+
+.modifier input {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.saveguard {
+    margin-bottom: 1rem;
+}
+
+.saveguard p, .skills p {
+    text-align: center;
 }
 
 .new_entity-button {
@@ -149,4 +301,308 @@ header a {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+}
+
+
+
+.magics_attacks,
+.physical_attacks {
+    height: 40vh;
+    margin-top: 1rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col-7 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.attack-header {
+    padding-bottom: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.attack-header h2 {
+    font-size: xx-large;
+}
+
+.attack-header button {
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s
+}
+
+.attack-header button:hover {
+    background-color: #bbbbbb
+}
+
+.physical_attacks-field,
+.magic_attacks-field {
+    width: 90%;
+    height: 90%;
+    border: solid;
+    border-radius: 10px;
+    overflow-y: scroll;
+    margin-top: 0.5rem;
+}
+
+.submit_form {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button {
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #2b2d42;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.submit-button:hover {
+    background-color: #1d1f2f;
+}
+
+/*popup*/
+
+/* Estilos para o container do pop-up */
+#popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Estilos para o conteúdo do pop-up */
+#popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    max-width: 90%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+/* Estilos para o cabeçalho do pop-up */
+#popup h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* Estilos para as etiquetas do pop-up */
+#popup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Estilos para os campos de entrada do pop-up */
+#popup input,
+#popup select {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o botão de envio do pop-up */
+#popup button[type="button"] {
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Estilos para o botão de fechar o pop-up */
+#popup button:last-of-type {
+    background-color: #081560;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.popup-form {
+    display: flex;
+    justify-content: space-around;
+}
+
+#attack_description {
+    height: 100%;
+    width: 25vw;
+    resize: none;
+}
+
+.popup_primary-form,
+.magic-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.attack {
+    margin: 0.5rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.magic_lvl {
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-top: solid;
+    border-bottom: solid;
+    margin-bottom: 1rem;
+}
+
+.lvl_0,
+.lvl_1,
+.lvl_2,
+.lvl_3,
+.lvl_4,
+.lvl_5,
+.lvl_6,
+.lvl_7,
+.lvl_8,
+.lvl_9,
+.lvl_10 {
+    display: none;
+}
+
+#edit_attack-section {
+    display: none;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.history textarea {
+    width: 95%;
+    height: 40rem;
+    margin: 1rem;
+}
+
+.history p {
+    margin-bottom: 1rem;
+}
+
+.characteristics_and_skills p {
+    margin-top: 1rem
+}
+
+.second-page {
+    margin-top: 2rem;
+    border: solid;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appaerance,
+.ideals,
+.ligations,
+.defects,
+.characteristics_and_skills, 
+.other_characteristics,
+.allies_and_organizations,
+.inventory
+ {
+    width: 85%;
+    height: 34rem;
+    margin: 1.5rem;
+    padding: 1rem;
+    resize: none;
+    display: none;
+}
+
+.general_informations {
+    display: flex;
+    justify-content: center;
+}
+
+.general_informations textarea {
+    border: solid;
+    border-radius: 10px;
+}
+
+.history {
+    width: 85%;
+    height: 34rem;
+    margin: 1.5rem;
+    padding: 1rem;
+    resize: none;
+}
+
+.col-4{
+    margin-top: 1rem;
+    border: solid;
+    vertical-align: bottom;
+    border-radius: 10px;
+}
+
+.choose-camp{
+    border: solid;
+    margin: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.choose-camp h3 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.input-choose-camp{
+    height: 2rem;
+    border-radius: 7px;
+    width: 6rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.input-choose-camp:hover {
+    background-color: #bdbdbd;
+}
+
+.general_information{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
