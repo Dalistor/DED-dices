@@ -546,9 +546,9 @@
                             </div>
                         </div>
                         <div class="general_informations">
-                            <textarea name="characteristics_and_skills" id="_characteristics_and_skills"  class="characteristics_and_skills"></textarea>
+                            <textarea name="characteristics_and_skills" id="_characteristics_and_skills"  class="characteristics_and_skills" readonly></textarea>
                             <textarea name="inventory"                  id="_inventory"                   class="characteristics_and_skills"></textarea>
-                            <textarea name="description"                id="_history"                     class="characteristics_and_skills"></textarea>
+                            <textarea name="description"                id="_history"                     class="characteristics_and_skills" readonly></textarea>
                         </div>
                     </div>
                     <div class="removeFromGame">
@@ -937,43 +937,50 @@
 <script>
     //script para colocar entidade em jogo
     let currentId
-
+    let tempId = 0
 
     $('.entity-object').map((index, element)=> {
         $('#' + element.id).on('click', (event)=> {
             id = event.currentTarget.id
 
             createInstance(id)
-            addToToken(id)
         })
     })
 
     function createInstance(id) {
         name = $('#' + id).text()
 
-        temp = '<div class="entity-nav" id="entity-nav-' + id + '">\n' +
+        temp = '<div class="entity-nav" id="entity-nav-' + id + '_' + tempId + '">\n' +
             '<h4>' + name + '</h4>\n' +
-            '<input type="hidden" id="subCharacteristcs-' + id + '">'
+            '<input type="hidden" id="subCharacteristcs-' + id + '_' + tempId + '">\n' +
             '</div>'
 
         if($('#entity-nav-' + id).length == 0) {
             $('.entity-navbar').append(temp)
+            addToToken('entity-nav-' + id + '_' + tempId)
         }
+
+        tempId++
     }
 
     function addToToken(id) {
-        $('#entity-nav-' + id).on('click', (event)=> {
+        $('#' + id).on('click', (event)=> {
+            saveSC()
+
             currentId = event.currentTarget.id
 
             rePaint(currentId)
 
-            $('.entity_token-display').css('display', 'block')
-            $('#_history').css('display', 'block')
-
-            token = JSON.parse($('#token' + id.split('entity')[1]).val())
+            token = JSON.parse($('#token' + currentId.split('entity')[2].split('_')[0]).val())
+            let subCharacteristcs
+            try {
+                subCharacteristcs = JSON.parse($('#subCharacteristcs-entity' + currentId.split('entity')[2]).val())
+            } catch (exception) {
+                subCharacteristcs = false
+            }
 
             removePastAttacks()
-            addInToken(token)
+            addInToken(token, subCharacteristcs)
         })
 
         function rePaint(id) {
@@ -986,6 +993,14 @@
                     'background-color': 'gray'
                 })
             })
+
+            $('.entity_token-display').css('display', 'block')
+            $('#_history').show()
+            $('#_inventory').hide()
+            $('#_characteristics_and_skills').hide()
+            $('#camp-name').text('Descrição')
+
+            campIndex = 2
         }
 
         function removePastAttacks() {
@@ -995,7 +1010,7 @@
             })
         }
 
-        function addInToken(token) {
+        function addInToken(token, subCharacteristcs) {
             addAtributes(token.attributes)
             addCharacteristics(token.characteristics)
             addSkills(token.skills)
@@ -1021,7 +1036,26 @@
                     $('#' + index).val(element)
                 })
 
-                $('#hp').val(characteristics.hp_max)
+                if(!subCharacteristcs) {
+                    let obj = {
+                        'hp': characteristics.hp_max,
+                        'class_armor': characteristics.class_armor,
+                        'displacement': characteristics.displacement,
+                        'iniciative': characteristics.iniciative,
+                        'hp-temp': null,
+                        'displacement-temp': null,
+                        'ca-temp': null,
+                        '_inventory': characteristics.inventory
+                    }
+
+                    $('#subCharacteristcs-entity' + currentId.split('entity')[2]).val(JSON.stringify(obj))
+                }
+
+                let obj = JSON.parse($('#subCharacteristcs-entity' + currentId.split('entity')[2]).val())
+
+                $.each(obj, (index, element)=> {
+                    $('#' + index).val(element)
+                })
             }
 
             function addSkills(skills) {
@@ -1066,6 +1100,22 @@
                 }
             }
         }
+
+        function saveSC() {
+            try {
+                let obj = JSON.parse($('#subCharacteristcs-entity' + currentId.split('entity')[2]).val())
+                $.each(obj, (index, element)=> {
+                    value = $('#' + index).val()
+                    obj[index] = value
+                })
+
+                obj.inventory = $('#_inventory').val()
+
+                $('#subCharacteristcs-entity' + currentId.split('entity')[2]).val(JSON.stringify(obj))
+            } catch (exception) {
+                return
+            }
+        }
     }
 
     $('#removeToken').on('click', ()=> {
@@ -1098,7 +1148,7 @@
         'História'
     ]
 
-    let campIndex = 2
+    var campIndex = 2
     let notes = 0
 
     $('#after').on('click', ()=> {
