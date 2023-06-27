@@ -9,10 +9,16 @@
 
 {% block content %}
 <header>
-	<a class="back-button" href="{{ request.META.HTTP_REFERER }}"><</a>
-	<a class="home-page" href="/">
-		DED-dices
-	</a>
+	<div>
+		<a class="back-button" href="{{request.META.HTTP_REFERER}}"><</a>
+		<a class="home-page" href="/">DED-dices</a>
+	</div>
+
+	<div>
+		<a class="home-page" href="https://bibliotecaelfica.org/2023/01/15/old-dd-5e-manual-dos-monstros/" target="_blank" rel="noopener">
+			Bestiário
+		</a>
+	</div>
 </header>
 
 <main>

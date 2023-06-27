@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseNotFound, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core import serializers
+from django.views.decorators.cache import never_cache
 
 from .models import *
 from .forms import *
@@ -15,7 +16,7 @@ import json
 
 # redirecionar para uma view
 
-
+@never_cache
 def redirect_view(request):
     if request.user.is_authenticated:
         return redirect('/selection/')
@@ -24,7 +25,7 @@ def redirect_view(request):
 
 # login
 
-
+@never_cache
 def login_view(request):
     error_message = None
     if request.method == "POST":
@@ -46,6 +47,7 @@ def login_view(request):
 
 
 # registro
+@never_cache
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -70,8 +72,12 @@ def register_view(request):
         return render(request, 'register.html')
 
 # seleção de conta
+@never_cache
+def logout_view(request):
+    logout(request)
+    return redirect('/login/')
 
-
+@never_cache
 def selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -80,7 +86,7 @@ def selection_view(request):
 
 # seleção de personagens
 
-
+@never_cache
 def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -182,7 +188,7 @@ def character_autosave(request, hash, field):
 
 # ficha do personagem
 
-
+@never_cache
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -255,7 +261,7 @@ def player_token_creation_view(request):
         'invited_campaigns': invited_campaigns.union(user_campaigns)
     })
 
-
+@never_cache
 def character_play_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -388,7 +394,7 @@ def view_edit_token(request, hash):
             'invited_campaigns': invited_campaigns.union(user_campaigns)
         })
 
-
+@never_cache
 def campaign_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -411,7 +417,7 @@ def campaign_selection_view(request):
         'campaigns': campaigns
     })
 
-
+@never_cache
 def campaign_creation_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -464,7 +470,7 @@ def userSearch(request):
             'players': list(players.values()) if players else []
         })
 
-
+@never_cache
 def campaign_edit_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -514,6 +520,7 @@ def campaign_edit_view(request, hash):
         'users': usersInCampaign
     })
 
+@never_cache
 def campaign_delete_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -528,6 +535,7 @@ def campaign_delete_view(request, hash):
 
     return redirect('/campaign_selection/')
 
+@never_cache
 def campaig_manage_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -629,6 +637,7 @@ def get_message(request, campaign):
         'payload': list(messages.values())
     })
 
+@never_cache
 def new_entity_view(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -726,6 +735,7 @@ def entity_delete(request, entity, campaign):
 
     return redirect(f'/campaign_manage/{campaign}/')
 
+@never_cache
 def entity_edit_view(request, entity, campaign):
     if not request.user.is_authenticated:
         return redirect('/login/')

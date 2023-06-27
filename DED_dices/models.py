@@ -253,8 +253,10 @@ class Message(models.Model):
     def __str__(self):
         if self.owner:
             return self.owner.name
-        else:
+        elif self.entity_owner:
             return self.entity_owner.name
+        else:
+            return 'Mestre'
 
 
 #funções do banco de dados

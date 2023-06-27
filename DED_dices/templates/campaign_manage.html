@@ -9,10 +9,16 @@
 
 {% block content %}
 <header>
-	<a class="back-button" href="/campaign_selection/"><</a>
-	<a class="home-page" href="/">
-		DED-dices
-	</a>
+	<div>
+		<a class="back-button" href="/campaign_selection/"><</a>
+		<a class="home-page" href="/">DED-dices</a>
+	</div>
+
+	<div>
+		<a class="home-page" href="https://bibliotecaelfica.org/2023/01/15/dd-5e-guia-do-mestre/" target="_blank" rel="noopener">
+			Manual do mestre
+		</a>
+	</div>
 </header>
 
 <main>
@@ -1308,7 +1314,9 @@
 
     //rolar dados
     function rollChatDice(type) {
-        return Math.floor(Math.random() * type[0]) + 1
+        type = parseInt(type.match(/\d+/)[0])
+
+        return Math.floor(Math.random() * type) + 1
     }
 </script>
 
