@@ -84,14 +84,14 @@ def selection_view(request):
     else:
         return render(request, 'selection.html')
 
-# seleção de personagens
 
+# seleção de personagens
 @never_cache
 def player_selection_view(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
 
-    # pesquisa
+    #pesquisa
     if request.GET.get('search'):
         search_input = request.GET['search_input']
         all_characters = Character.objects.filter(
@@ -223,8 +223,6 @@ def player_token_creation_view(request):
             skills = skills_form.save(commit=False)
             skills.owner = Character.objects.get(id=character_id)
             skills.save()
-        else:
-            print(skills_form.errors)
 
         # caracteristicas
         characteristics_form = CharacteristicsForm(request.POST)
@@ -531,6 +529,13 @@ def campaign_delete_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
+
+    characters = Character.objects.filter(allocated_campaign=campaign)
+
+    for character in characters:
+        character.allocated_campaign = None
+        character.save()
+
     campaign.delete()
 
     return redirect('/campaign_selection/')
