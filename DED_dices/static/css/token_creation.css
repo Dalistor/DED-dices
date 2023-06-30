@@ -601,6 +601,8 @@ input[type=number] {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 2;
+    overflow-y: scroll;
+    height: 60vh;
 }
 
 /* Estilos para o cabeçalho do pop-up */

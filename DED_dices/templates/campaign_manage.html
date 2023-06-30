@@ -1085,8 +1085,10 @@
                     if(attacks[key].type == 'physical') {
                         temp = '<div class="attack" id="attack_physical_config-' + attack_num + '">\n' +
                             '<h2>' + attacks[key].name + '</h2>\n' +
-                            '<input type="hidden" id="attack_physical_data-' + attack_num + '" value=' + JSON.stringify(attacks[key]) + '>\n' +
+                            '<input type="hidden" id="attack_physical_data-' + attack_num + '" value=\'' + JSON.stringify(attacks[key]) + '\'>\n' +
                         '</div>'
+
+                        console.log(JSON.stringify(attacks[key]))
     
                         $('.physical_attacks-field').append(temp)
                     }
@@ -1094,7 +1096,7 @@
                     if(attacks[key].type == 'magic') {
                         temp = '<div class="attack" id="attack_magic_config-' + attack_num + '">\n' +
                             '<h2>' + attacks[key].name + '</h2>\n' +
-                            '<input type="hidden" id="attack_magic_data-' + attack_num + '" value=' + JSON.stringify(attacks[key]) + '>\n' +
+                            '<input type="hidden" id="attack_magic_data-' + attack_num + '" value=\'' + JSON.stringify(attacks[key]) + '\'>\n' +
                         '</div>'
                             
                         $('.' + attacks[key].magic_lvl).css('display', 'block')
