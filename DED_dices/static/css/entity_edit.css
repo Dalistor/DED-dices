@@ -462,6 +462,14 @@ input[type=number] {
     background-color: #1d1f2f;
 }
 
+.skills input, .saveguard input {
+    border: none;
+    border-bottom: solid;
+    border-width: 1px;
+    width: 20px;
+    text-align: center;
+}
+
 /*popup*/
 
 /* Estilos para o container do pop-up */

@@ -534,8 +534,6 @@ input[type=number] {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 2;
-    overflow-y: scroll;
-    height: 60vh;
 }
 
 /* Estilos para o cabeçalho do pop-up */
@@ -616,6 +614,14 @@ input[type=number] {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.skills input, .saveguard input {
+    border: none;
+    border-bottom: solid;
+    border-width: 1px;
+    width: 20px;
+    text-align: center;
 }
 
 .attack {
