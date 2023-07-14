@@ -123,7 +123,7 @@ def delete_character(request, hash):
 
     character = Character.objects.get(id=id)
 
-    if character.owner == request.user.id:
+    if character.owner == request.user:
         character.delete()
     else:
         return HttpResponse('Permissão não concedida')
@@ -311,7 +311,7 @@ def character_play_view(request, hash):
     return render(request, 'character_play.html', response)
 
 
-#sessão de editar personagem
+# sessão de editar personagem
 def view_edit_token(request, hash):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -323,7 +323,7 @@ def view_edit_token(request, hash):
 
     character = Character.objects.get(id=id)
 
-    if character.owner != request.user.id:
+    if character.owner != request.user:
         return  HttpResponse('Permissão não concedida')
 
     atributes = Atributes.objects.get(owner=character.id)
@@ -506,7 +506,7 @@ def campaign_edit_view(request, hash):
     
     campaign = Campaign.objects.get(id=id)
 
-    if campaign.owner != request.user.id:
+    if campaign.owner != request.user:
         return HttpResponse('Permissão não concedida')
 
     if request.method == 'POST':
@@ -560,18 +560,16 @@ def campaign_delete_view(request, hash):
     
     campaign = Campaign.objects.get(id=id)
 
-    if campaign.owner == request.user.id:
-        campaign.delete()
-    else:
-        return HttpResponse('Permissão não concedida')
-
     characters = Character.objects.filter(allocated_campaign=campaign)
 
     for character in characters:
         character.allocated_campaign = None
         character.save()
 
-    campaign.delete()
+    if campaign.owner == request.user:
+        campaign.delete()
+    else:
+        return HttpResponse('Permissão não concedida')
 
     return redirect('/campaign_selection/')
 
@@ -588,7 +586,7 @@ def campaig_manage_view(request, hash):
     
     campaign = Campaign.objects.get(id=id)
 
-    if campaign.owner != request.user.id:
+    if campaign.owner != request.user:
         return HttpResponse('Permissão não concedida')
 
     charactersInCampaign = Character.objects.filter(allocated_campaign=campaign)
@@ -786,7 +784,9 @@ def entity_delete(request, entity, campaign):
     if not check_hash(entity):
         return HttpResponseNotFound('Personagem não encontrado.')
     
-    if campaign.id != request.user.id:
+    this_campaign = Campaign.objects.get(id=int(campaign.split('-')[0]))
+
+    if this_campaign.owner != request.user:
         return HttpResponse('Permissão não concedida')
     
     entityCommit = Entity.objects.get(id=entity_id)
@@ -806,7 +806,9 @@ def entity_edit_view(request, entity, campaign):
     if not check_hash(entity):
         return HttpResponseNotFound('Personagem não encontrado.')
     
-    if campaign.owner != request.user.id:
+    entity_campaign = Campaign.objects.get(id=int(campaign.split('-')[0]))
+
+    if entity_campaign.owner != request.user:
         return HttpResponse('Permissão não concedida')
     
     entity = Entity.objects.get(id=entity_id)
