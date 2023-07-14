@@ -15,7 +15,6 @@ from .hash import *
 import json
 
 # redirecionar para uma view
-
 @never_cache
 def redirect_view(request):
     if request.user.is_authenticated:
@@ -23,8 +22,8 @@ def redirect_view(request):
     else:
         return redirect('/login/')
 
-# login
 
+# login
 @never_cache
 def login_view(request):
     error_message = None
@@ -71,12 +70,15 @@ def register_view(request):
     else:
         return render(request, 'register.html')
 
-# seleção de conta
+
+# logout
 @never_cache
 def logout_view(request):
     logout(request)
     return redirect('/login/')
 
+
+# seleção de conta
 @never_cache
 def selection_view(request):
     if not request.user.is_authenticated:
@@ -111,20 +113,25 @@ def player_selection_view(request):
     })
 
 
+# deleção de personagem
 def delete_character(request, hash):
     id = hash.split('-')[0]
 
-    if not check_hash(hash) and request.user.id == id:
+    if not check_hash(hash):
         return HttpResponseNotFound('Personagem não encontrado.')
+    
 
     character = Character.objects.get(id=id)
-    character.delete()
+
+    if character.owner == request.user.id:
+        character.delete()
+    else:
+        return HttpResponse('Permissão não concedida')
 
     return redirect('/player_selection/')
 
+
 # autosave do personagem
-
-
 @csrf_exempt
 def character_autosave(request, hash, field):
     if not request.user.is_authenticated:
@@ -136,6 +143,10 @@ def character_autosave(request, hash, field):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
+
+    if character.owner != request.user.id:
+        return HttpResponse('Permissão não concedida')
+    
     table = Characteristics.objects.get(owner=character.id)
     skill = Skills.objects.get(owner=character.id)
 
@@ -186,8 +197,8 @@ def character_autosave(request, hash, field):
 
     return HttpResponse('fail')
 
-# ficha do personagem
 
+# ficha do personagem
 @never_cache
 def player_token_creation_view(request):
     if not request.user.is_authenticated:
@@ -259,6 +270,7 @@ def player_token_creation_view(request):
         'invited_campaigns': invited_campaigns.union(user_campaigns)
     })
 
+# jogar com personagem
 @never_cache
 def character_play_view(request, hash):
     if not request.user.is_authenticated:
@@ -270,6 +282,9 @@ def character_play_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
+
+    if character.owner != request.user.id:
+        return  HttpResponse('Permissão não concedida')
 
     atributes = Atributes.objects.get(owner=character.id)
     skills = Skills.objects.get(owner=character.id)
@@ -295,6 +310,7 @@ def character_play_view(request, hash):
 
     return render(request, 'character_play.html', response)
 
+
 #sessão de editar personagem
 def view_edit_token(request, hash):
     if not request.user.is_authenticated:
@@ -306,6 +322,10 @@ def view_edit_token(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
+
+    if character.owner != request.user.id:
+        return  HttpResponse('Permissão não concedida')
+
     atributes = Atributes.objects.get(owner=character.id)
     skills = Skills.objects.get(owner=character.id)
     characteristics = Characteristics.objects.get(owner=character.id)
@@ -392,6 +412,7 @@ def view_edit_token(request, hash):
             'invited_campaigns': invited_campaigns.union(user_campaigns)
         })
 
+# seleção de campanha
 @never_cache
 def campaign_selection_view(request):
     if not request.user.is_authenticated:
@@ -415,6 +436,8 @@ def campaign_selection_view(request):
         'campaigns': campaigns
     })
 
+
+# criação de campanha
 @never_cache
 def campaign_creation_view(request):
     if not request.user.is_authenticated:
@@ -454,6 +477,7 @@ def campaign_creation_view(request):
         return render(request, 'campaign_creation.html')
 
 
+# pesquisar usuários
 def userSearch(request):
     if request.method == 'GET':
         search = request.GET['search']
@@ -468,6 +492,8 @@ def userSearch(request):
             'players': list(players.values()) if players else []
         })
 
+
+# edição de campanha
 @never_cache
 def campaign_edit_view(request, hash):
     if not request.user.is_authenticated:
@@ -479,6 +505,9 @@ def campaign_edit_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
+
+    if campaign.owner != request.user.id:
+        return HttpResponse('Permissão não concedida')
 
     if request.method == 'POST':
         campaignForm = CampaignForm(request.POST, instance=campaign)
@@ -518,6 +547,7 @@ def campaign_edit_view(request, hash):
         'users': usersInCampaign
     })
 
+# deleção de campanha
 @never_cache
 def campaign_delete_view(request, hash):
     if not request.user.is_authenticated:
@@ -530,6 +560,11 @@ def campaign_delete_view(request, hash):
     
     campaign = Campaign.objects.get(id=id)
 
+    if campaign.owner == request.user.id:
+        campaign.delete()
+    else:
+        return HttpResponse('Permissão não concedida')
+
     characters = Character.objects.filter(allocated_campaign=campaign)
 
     for character in characters:
@@ -540,6 +575,7 @@ def campaign_delete_view(request, hash):
 
     return redirect('/campaign_selection/')
 
+# manejamento de campanha
 @never_cache
 def campaig_manage_view(request, hash):
     if not request.user.is_authenticated:
@@ -551,6 +587,10 @@ def campaig_manage_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
     
     campaign = Campaign.objects.get(id=id)
+
+    if campaign.owner != request.user.id:
+        return HttpResponse('Permissão não concedida')
+
     charactersInCampaign = Character.objects.filter(allocated_campaign=campaign)
     entitysInCampaign = Entity.objects.filter(owner=campaign)
 
@@ -594,6 +634,8 @@ def campaig_manage_view(request, hash):
         'entitys': entitysInCampaign
     })
 
+
+# enviar mensagem
 @csrf_exempt
 def send_message(request, campaign, character):
     campaign_id = campaign.split('-')[0]
@@ -622,6 +664,7 @@ def send_message(request, campaign, character):
 
     return HttpResponse('success')
 
+# adquirir mensagem
 def get_message(request, campaign):
     if not check_hash(campaign):
         return HttpResponseNotFound('Personagem não encontrado.')
@@ -642,6 +685,7 @@ def get_message(request, campaign):
         'payload': list(messages.values())
     })
 
+# criar nova entidade
 @never_cache
 def new_entity_view(request, hash):
     if not request.user.is_authenticated:
@@ -702,6 +746,8 @@ def new_entity_view(request, hash):
     
     return render(request, 'new_entity.html')
 
+
+# salvamento automático da campanha
 @csrf_exempt
 def campaign_autosave(request, hash, field):
     if not request.user.is_authenticated:
@@ -715,6 +761,9 @@ def campaign_autosave(request, hash, field):
     if request.method == 'POST':
         table = Campaign.objects.get(id=id)
 
+        if table.owner != request.user.id:
+            return HttpResponse('Permissão não concedida')
+
         if field == 'notes':
             table.notes = request.POST['value']
         elif field == 'history':
@@ -726,6 +775,8 @@ def campaign_autosave(request, hash, field):
     
     return HttpResponse('303')
 
+
+# deleção de personagem
 def entity_delete(request, entity, campaign):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -735,11 +786,16 @@ def entity_delete(request, entity, campaign):
     if not check_hash(entity):
         return HttpResponseNotFound('Personagem não encontrado.')
     
+    if campaign.id != request.user.id:
+        return HttpResponse('Permissão não concedida')
+    
     entityCommit = Entity.objects.get(id=entity_id)
     entityCommit.delete()
 
     return redirect(f'/campaign_manage/{campaign}/')
 
+
+#  edição de entidade
 @never_cache
 def entity_edit_view(request, entity, campaign):
     if not request.user.is_authenticated:
@@ -749,6 +805,9 @@ def entity_edit_view(request, entity, campaign):
 
     if not check_hash(entity):
         return HttpResponseNotFound('Personagem não encontrado.')
+    
+    if campaign.owner != request.user.id:
+        return HttpResponse('Permissão não concedida')
     
     entity = Entity.objects.get(id=entity_id)
     atributes = Atributes.objects.get(entity_owner=entity)
