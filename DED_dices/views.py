@@ -282,9 +282,15 @@ def character_play_view(request, hash):
         return HttpResponseNotFound('Personagem não encontrado.')
 
     character = Character.objects.get(id=id)
+    if character.allocated_campaign is not None:
+        campaign  = Campaign.objects.get(id=character.allocated_campaign.id)
 
-    if character.owner != request.user.id:
-        return  HttpResponse('Permissão não concedida')
+        if character.owner != request.user and campaign.owner != request.user:
+            return  HttpResponse('Permissão não concedida')
+        
+    else:
+        if character.owner != request.user:
+            return  HttpResponse('Permissão não concedida')
 
     atributes = Atributes.objects.get(owner=character.id)
     skills = Skills.objects.get(owner=character.id)
