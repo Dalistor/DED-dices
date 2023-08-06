@@ -37,6 +37,19 @@ header a {
 
 .header {
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: xx-large;
+}
+
+.header label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 1rem;
 }
 
 .character-name {
@@ -68,6 +81,7 @@ header a {
 
 .upperFeatures {
     margin: 0.1rem 0.2rem;
+    text-align: center;
 }
 
 .first-page {
@@ -404,6 +418,30 @@ input[type=number] {
     border: solid;
     padding: 1rem;
     margin-bottom: 1rem;
+}
+
+.dices_manager-withougthChat {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    border: solid;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.dices_manager button, .dices_manager-withougthChat button {
+    width: 70px;
+    background-color: aliceblue;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.dices_manager button:hover, .dices_manager-withougthChat button:hover {
+    background-color: rgb(156, 156, 156);
+    transform: scale(0.95);
 }
 
 .master_message {

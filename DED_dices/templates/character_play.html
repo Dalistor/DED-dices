@@ -18,14 +18,14 @@
 <main>
     <div class="container">
         <div class="header">
-            <input type="text" name="name" maxlength="30" value="{{character.name}}" class="character-name" readonly>
+            <h1>{{character.name}}</h1>
     
             <div class="character-upperFeatures">
-                <input type="text" name="job" maxlength="50" value="{{character.job}}" class="upperFeatures" readonly>
-                <input type="number" name="lvl" min="1" max="100" value="{{character.lvl}}" class="upperFeatures" readonly>
-                <input type="text" name="background" maxlength="20" value="{{character.background}}" class="upperFeatures" readonly>
-                <input type="text" name="race" maxlength="20" value="{{character.race}}" class="upperFeatures" readonly>
-                <input type="number" name="experience" max="1000000000" value="{{character.experience}}" class="upperFeatures" readonly>
+                <label>Classe<input type="text" name="job" maxlength="50" value="{{character.job}}" class="upperFeatures" readonly></label>
+                <label>LVL<input type="number" name="lvl" min="1" max="100" value="{{character.lvl}}" class="upperFeatures" readonly></label>
+                <label>Antecedente<input type="text" name="background" maxlength="20" value="{{character.background}}" class="upperFeatures" readonly></label>
+                <label>Raça<input type="text" name="race" maxlength="20" value="{{character.race}}" class="upperFeatures" readonly></label>
+                <label>Experiência<input type="number" name="experience" max="1000000000" value="{{character.experience}}" class="upperFeatures" readonly></label>
             </div>
         </div>
     
@@ -329,6 +329,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+        {% else %}
+        <div class="dices_manager-withougthChat">
+            <button type="button" class="dice" id="D4">D4</button>
+            <button type="button" class="dice" id="D6">D6</button>
+            <button type="button" class="dice" id="D8">D8</button>
+            <button type="button" class="dice" id="D10">D10</button>
+            <button type="button" class="dice" id="D12">D12</button>
+            <button type="button" class="dice" id="D20">D20</button>
+            <button type="button" class="dice" id="D100">D100</button>
         </div>
         {% endif %}
         {% endif %}
@@ -1006,7 +1016,15 @@
             diceType = event.currentTarget.id
             diceValue = rollSingleDice(diceType)
 
+            console.log(diceValue)
+
             sendMessage(diceType + ': ' + diceValue)
+            openPopup({
+                title: 'Resultado',
+                query: {
+                    p: diceValue
+                }
+            })
         })
     })
 
